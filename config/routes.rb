@@ -1,9 +1,20 @@
 Rails.application.routes.draw do
-  get 'cart_items/index'
-  #devise
-    devise_for :users
 
-  # end_users
+
+    #devise
+    devise_for :administrators, controllers: {
+      sessions: 'administrators/sessions',
+      passwords: 'administrators/password',
+      registrations: 'administrators/registrations'
+    }
+
+    devise_for :end_users, controllers: {
+      sessions:  'end_users/sessions',
+      passwords:  'end_users/password',
+      registrations: 'end_users/registrations'
+    }
+
+    # end_users
     resources :users, only: [:show, :edit, :update], controller: 'end_users'
     get '/users/:id/reviews', to: 'end_users#review'
     get '/users/:id/liikes', to: 'end_users#likes'
