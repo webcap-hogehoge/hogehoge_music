@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>HogehogeMusic</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <%= link_to "ユーザログアウト", destroy_end_user_session_path, method: :delete %>
+    <%= link_to "管理者", destroy_administrator_session_path, method: :delete %>
+    <%= yield %>
+  </body>
+</html>
