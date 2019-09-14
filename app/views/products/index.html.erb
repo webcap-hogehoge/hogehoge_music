@@ -4,9 +4,17 @@
 	<tdbody>
 		<% @products.each do |product| %>
 		<tr>
-			<td><%= image_tag product.image_id.to_s %></td> <!-- carierwaveの画像を表示  -->
-			<td><%= product.price %></td>
-			<td><%= product.product_status %></td>
+			<% if product.product_status == "on_sale" %>
+			    <td><%= image_tag product.image_id.to_s %></td> <!-- carierwaveの画像を表示  -->
+			<% else %>
+			    <td><%= image_tag "sold_out.jpg", size: "200x200" %></td>
+			<% end %>
+			<td><%= number_to_currency(product.price) %></td>
+			<% if product.product_status == "on_sale" %>
+			    <td><span>発売中</span></td>
+			<% else %>
+			    <td><span>販売停止中</span></td>
+			<% end %>
 			<td><%= product.cd_name %></td>
 			<td><%= product.artist.artist_name %></td>
 			<td><%= product.label.label_name %></td>

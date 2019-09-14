@@ -5,4 +5,7 @@ class ProductsController < ApplicationController
 
   def show
   end
+
+  def admin_index
+  end
 end
