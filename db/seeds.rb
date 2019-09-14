@@ -8,12 +8,8 @@
 
 Artist.create!(artist_name: "RADWIMPS")
 Artist.create!(artist_name: "AAA")
-Artist.create!(artist_name: "RADWIMPS")
+Artist.create!(artist_name: "日向坂４６")
 
-10.times do |n|
-	artist_name = Faker::Music.band
-	Artist.create!(artist_name: artist_name,)
-end
 
 Label.create!(label_name: "sony")
 Label.create!(label_name: "avex")
@@ -33,9 +29,9 @@ Product.create!(image_id: open("#{Rails.root}/db/fixture/img3.jpg"), price: 3000
 	cd_name = Faker::Music.album
 	price = Random.rand(1000..3000)
 	product_status = Random.rand(0..1)
-	is_deleted = Random.rand(0..1)
+	is_deleted = 0
 	label_id = Random.rand(1..7)
-	artist_id = Random.rand(1..10)
+	artist_id = Random.rand(1..3)
 	Product.create!(image_id: image_id,
 		            price: price,
 		            product_status: product_status,
