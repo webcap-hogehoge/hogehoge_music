@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-
     #devise
     devise_for :administrators, controllers: {
       sessions: 'administrators/sessions',
@@ -36,4 +35,11 @@ Rails.application.routes.draw do
 
   #cart_item
     resources :cart_items, only: [:create, :index, :update, :destroy]
+
+  #order_history
+    resources :order_histories, only: [:new, :index, :show, :create, :edit, :update]
+    post 'order_histories/confirm', to: 'order_histories#confirm'
+    get 'order_histories/thanks', to: 'order_histories#thanks'
+
+
 end
