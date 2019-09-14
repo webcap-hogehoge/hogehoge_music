@@ -1,0 +1,64 @@
+
+<h1>ご注文内容の確認</h1>
+
+<% @cart_items.each do |cart_item| %>
+<%= image_tag cart_item.product.image_id.to_s %>
+
+<%= cart_item.product.cd_name%>
+
+<p>数量　<%= cart_item.product_number %></p>
+
+<p>価格　¥<%= @item_unit_price %>(税込)</p>
+
+<% end %>
+
+<h1>配送先</h1>
+<% @end_user.addresses.each do |address| %>
+<%= address.last_name %>
+<%= address.first_name %>
+<p>電話番号</p>
+<%= address.telephone_number %>
+<%= address.postal_code_1 %> - <%= address.postal_code_2 %>
+<%= address.address %>
+
+<% end %>
+
+<% form_for (@order_history) do |order_history| %>
+<div class="form-group">
+  <label>姓</label>
+  <%= order_history.text_field :last_name_kanji, class:"form-control" %>
+  <label>名</label>
+  <%= order_history.text_field :first_name_kanji, class:"form-control" %>
+</div>
+
+<div class="form-group">
+  <label>電話番号</label>
+  <%= order_history.text_field :telephone_number, class:"form-control" %>
+</div>
+
+<div class="form-group">
+  <label>郵便番号</label>
+  <%= order_history.text_field :postal_code_1, class:"form-control" %>
+  <%= order_history.text_field :postal_code_2, class:"form-control" %>
+</div>
+
+<div class="form-group">
+  <label>住所</label>
+  <%= order_history.text_area :address, class:"form-control", row:"5" %>
+</div>
+
+<div class="form-group">
+  <label>
+  <%= order_history.radio_button :pay_method, "銀行振込" %>
+  </label>
+  <label>
+  <%= order_history.radio_button :pay_method, "クレジットカード" %>
+  </label>
+  <label>
+  <%= order_history.radio_button :pay_method, "代金引換" %>
+  </label>
+</div>
+
+<% end %>
+
+<p>商品の小計</p>
