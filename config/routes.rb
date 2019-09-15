@@ -57,6 +57,10 @@ Rails.application.routes.draw do
     resources :admin_products, only: [:show]
     get '/admin', to: 'products#admin_index', as: 'admin_root'
 
+  #admin_order_histories
+  resources :admin_order_histories, only: [:edit, :update]
+  get '/admin_order_histories', to: 'admin_order_histories#admin_index'
+
   #end_user
   scope :admin do
     resources :users, only: [:show, :index, :edit, :update]

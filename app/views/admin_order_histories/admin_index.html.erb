@@ -1,0 +1,154 @@
+<!-- ヘッダー -->
+<%= render 'shared/header_user_after_login' %>
+
+<!-- ナビゲーション -->
+<div class="container">
+  <ul class="nav nav-tabs nav-justified">
+    <li class="nav-item">
+		<a class="nav-link active" id="all-tab" data-toggle="tab" href="#all" role="tab" aria-controls="all" aria-selected="true">全体</a>
+	</li>
+    <li class="nav-item">
+    	<a class="nav-link" id="accepting-tab" data-toggle="tab" href="#accepting" role="tab" aria-controls="accepting" aria-selected="true">受付中</a>
+    </li>
+    <li class="nav-item">
+    	<a class="nav-link" id="preparing-tab" data-toggle="tab" href="#preparing" role="tab" aria-controls="preparing" aria-selected="true">出荷準備中</a>
+    </li>
+    <li class="nav-item">
+    	<a class="nav-link" id="finished-tab" data-toggle="tab" href="#finished" role="tab" aria-controls="finished" aria-selected="true">出荷済</a>
+    </li>
+  </ul>
+</div>  
+<!-- タブの中身 -->
+<div class="tab-content" id="myTabContent">
+	<div class="tab-pane fade show active" id="all">
+	  <div class="container">
+        <div class="w-50 float-left">
+           <table class="table">
+              <tbody>
+                <tr>
+                   <th scope="row">購入者名</th>
+                   <td>サンプル太郎</td>
+                </tr>
+                <tr>
+                   <th scope="row">購入日時</th>
+                   <td>2019年9月15日17時30分</td>
+                </tr>
+                <tr>
+                   <th scope="row">購入内容</th>
+                   <td>サンプルミュージック</td>
+                </tr>
+                <tr>
+                   <th scope="row">送付先</th>
+                   <td>サンプル太郎 152-00002 xxx区xxx市xxxx</td>
+                </tr>
+                <tr>
+                   <th rowspan="2">ステータス</th>
+                   <td rowspan="2">受付中</td>
+                </tr>
+               </tbody>
+           </table>
+        </div>
+      </div>
+　　 </div>
+    <div class="tab-pane fade show active" id="accepting">
+      <div class="container">
+        <div class="w-50 float-left">
+           <table class="table">
+              <tbody>
+                <tr>
+                   <th scope="row">購入者名</th>
+                   <td>サンプル太郎</td>
+                </tr>
+                <tr>
+                   <th scope="row">購入日時</th>
+                   <td>2019年9月15日17時30分</td>
+                </tr>
+                <tr>
+                   <th scope="row">購入内容</th>
+                   <td>サンプルミュージック</td>
+                </tr>
+                <tr>
+                   <th scope="row">送付先</th>
+                   <td>サンプル太郎 152-00002 xxx区xxx市xxxx</td>
+                </tr>
+                <tr>
+                   <th rowspan="2">ステータス</th>
+                   <td rowspan="2">受付中</td>
+                </tr>
+               </tbody>
+           </table>
+        </div>
+     </div>
+　　</div>
+    </div>
+    <div class="tab-pane fade show active" id="preparing">
+      <div class="container">
+        <div class="w-50 float-left">
+           <table class="table">
+              <tbody>
+                <tr>
+                   <th scope="row">購入者名</th>
+                   <td>サンプル太郎</td>
+                </tr>
+                <tr>
+                   <th scope="row">購入日時</th>
+                   <td>2019年9月15日17時30分</td>
+                </tr>
+                <tr>
+                   <th scope="row">購入内容</th>
+                   <td>サンプルミュージック</td>
+                </tr>
+                <tr>
+                   <th scope="row">送付先</th>
+                   <td>サンプル太郎 152-00002 xxx区xxx市xxxx</td>
+                </tr>
+                <tr>
+                   <th rowspan="2">ステータス</th>
+                   <td rowspan="2">受付中</td>
+                </tr>
+               </tbody>
+           </table>
+        </div>
+     </div>
+　　</div>
+    </div>
+    <div class="tab-pane fade" id="finished">
+      <div class="container">
+        <div class="w-50 float-left">
+           <table class="table">
+              <tbody>
+                <tr>
+                   <th scope="row">購入者名</th>
+                   <td>サンプル太郎</td>
+                </tr>
+                <tr>
+                   <th scope="row">購入日時</th>
+                   <td>2019年9月15日17時30分</td>
+                </tr>
+                <tr>
+                   <th scope="row">購入内容</th>
+                   <td>サンプルミュージック</td>
+                </tr>
+                <tr>
+                   <th scope="row">送付先</th>
+                   <td>サンプル太郎 152-00002 xxx区xxx市xxxx</td>
+                </tr>
+                <tr>
+                   <th rowspan="2">ステータス</th>
+                   <td rowspan="2">受付中</td>
+                </tr>
+               </tbody>
+           </table>
+        </div>
+     </div>
+　　</div>
+</div>
+
+
+
+
+<!-- フッター -->
+<%= render 'shared/footer_admin' %>
+
+
+

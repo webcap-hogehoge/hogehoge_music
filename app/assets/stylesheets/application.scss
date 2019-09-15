@@ -13,8 +13,8 @@
  *= require_tree .
  *= require_self
  */
-@import "bootstrap-sprockets";
-@import "bootstrap";
+	@import "bootstrap-sprockets";
+	@import "bootstrap";
 
 /* エンドユーザ側 */
 .login_contents {
@@ -29,7 +29,7 @@
   margin-bottom: 20px;
 }
 
-/* 管理者側　*/
+/* 管理者側 */
 .administrator_login_contents {
   margin-bottom: 20px;
 }
