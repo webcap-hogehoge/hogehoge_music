@@ -1,2 +1,38 @@
-<h1>CartItems#index</h1>
-<p>Find me in app/views/cart_items/index.html.erb</p>
+<h1>ショッピングカート</h1>
+
+<div class="col-9 clearfix">
+	<div class="float-left"></div>
+     	<table class="table">
+	        <thead>
+	          	<tbody>
+	          		<% @products.each do |product| %>
+			            <tr>
+				            <td>
+				              	<%= image_tag product.image_id.to_s %>
+				                <% end %>
+				            </td>
+				            <td>
+				              	<% @products.each do |product| %>
+									<h2><%= product.cd_name %></h2>
+						  		<% end %>
+						  	</td>
+				            <td>数量
+					   			<select name="quantity">
+								<option value="1" selected="true">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+							    </select>
+							</td>
+							<td><%= link_to '削除', cart_items_path(@user.id), %></td>
+							<td>
+								<% @products.each do |product| %>
+								<P>価格</P>
+							    <%= product.price %>(税込）
+						    </td>
+			          	</tr>
+			         <% end %>
+	          	</tbody>
+	        </thead>
+    	</table>

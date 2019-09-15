@@ -1,2 +1,56 @@
-<h1>Products#show</h1>
-<p>Find me in app/views/products/show.html.erb</p>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-5">
+				<%= image_tag @product.image_id.url %>
+			</div>
+			<div class="col-xs-7">
+				<tbody>
+					<tr>
+					<% @products.each do |product| %>
+						<td><%= product.cd_name %></td>
+
+						<td><%= product.product_status %></td>
+						<td><%= product.price %></td>
+					</tr>
+					<% end %>
+				</tbody>
+
+			    <span class="quick-drop">
+		          <option value="1">1</option>
+		          <option value="2">2</option>
+		          <option value="3">3</option>
+		          <option value="4">4</option>
+		          <option value="5">5</option>
+		          <option value="6">6</option>
+		          <option value="7">7</option>
+		          <option value="8">8</option>
+		          <option value="9">9</option>
+		          <option value="10">10</option>
+	        	</span>
+
+	        	<div class="btn-area">
+		        	<%= link_to 'カートへ入れる', cart_items_path, class:"btn btn-warning" %>
+				</div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<% @product.discs.each do |disc| %>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th><%= "ディスク" + disc.id.to_s %></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<% disc.songs.each do |song| %>
+									<td><%= song.song_name %></td>
+								<% end %>
+							</tr>
+						</tbody>
+					</table>
+				<% end %>
+			</div>
+		</div>
+
