@@ -10,8 +10,6 @@
   </head>
 
   <body>
-    <%= link_to "ユーザログアウト", destroy_end_user_session_path, method: :delete %>
-    <%= link_to "管理者", destroy_administrator_session_path, method: :delete %>
     <%= yield %>
   </body>
 </html>

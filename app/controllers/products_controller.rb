@@ -7,4 +7,7 @@ class ProductsController < ApplicationController
   	@products = Product.all
   	@product = Product.find(params[:id])
   end
+
+  def admin_index
+  end
 end

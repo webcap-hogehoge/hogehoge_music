@@ -4,6 +4,21 @@ class EndUsers::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
+  before_action :create, only: [:complete]
+
+  def confirm
+    @end_user = EndUser.new(sign_up_params)
+    if @end_user.valid?
+      render :action => 'confirm'
+    else
+     render :action => 'new'
+    end
+  end
+
+  def complete
+    render :template => "products/index"
+  end
+
   # GET /resource/sign_up
   # def new
   #   super
