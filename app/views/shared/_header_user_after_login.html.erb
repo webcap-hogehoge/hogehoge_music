@@ -1,12 +1,11 @@
 <meta charset=utf-8>
 <header>
-	<div class="container border-bottom">
-			<div class="row col-xs-2 d-inline-block">
-				<h2>hoge</h2>      <!-- アイコン表示調べる -->
-				<h2>hoge</h2>
+	<div class="container-fluid border-bottom">
+			<div class="row col-xs-3">
+				<%= link_to image_tag('logo.png', :size => '200x100'), root_path %> <!-- ロゴ表示 -->
 			</div>
-			<div class="row col-xs-5 d-inline-block"></div>
-			<div class="row col-xs-5 d-inline-block">
+			<div class="row col-xs-4">検索窓</div>
+			<div class="row col-xs-5">
 				<div class="row">
 					<p>サンプル太郎</p>    <!-- 変数に直す -->
 				</div>
@@ -18,6 +17,7 @@
 						<%= link_to "マイページ", "#" %>  <!-- リンク先直す -->
 					</div>
 					<div class="col-xs-3">
+						<span class="glyphicon glyphicon-shopping-cart"></span>
 						<%= link_to "カート", "#" %>   <!-- リンク先直す　　カート表示追加する -->
 					</div>
 					<div class="col-xs-3">

@@ -1,16 +1,15 @@
 <meta charset="utf-8">
 <footer>
-	<div class=" container">
+	<div class=" container-fluid">
 		<div class="row">
 			<div class="col-xs-4"></div>
 			<div class="col-xs-4">
-				<h3>hoge</h3>
-				<h3>hoge</h3>
+				<%= link_to image_tag('logo.png', :size => '200x100'), root_path %>
 			</div>
 			<div class="col-xs-4">
-				<div class="dropdown">
+				<div class="dropdown pull-right">
 					<!-- 切替ボタンの設定 -->
-					<button type="button" class="btn btn-default dropdown-taggle" id="dropdownMenuButton" data-taggle="dropdown" aria-haspopup="true" aria-expanded="false">問い合わせ<span class="caret"></span>
+					<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">問い合わせ<span class="caret"></span>
 					</button>
 					<!-- ドロップメニューの設定 -->
 					<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
