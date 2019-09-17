@@ -1,6 +1,6 @@
 class EndUsersController < ApplicationController
   def show
-    @user = EndUser.find(id: paramas[:id])
+    @user = EndUser.find(id: params[:id])
   end
 
   def mypage
