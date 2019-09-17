@@ -4,12 +4,23 @@
 		<div class="col-xs-3">
 			<%= link_to image_tag('logo.png', :size => '150x100'), root_path %>
 		</div>
-		<div class="row col-xs-4">
-			<div class="row col-xs-4">aaaa</div>
-			<div class="row col-xs-4">zzzzz</div>
+		<div class=" col-xs-4">
+            <div class="col-xs-4">検索窓</div>
 		</div>
 		<div class="col-xs-5">
-			
+			<div class="row">
+			   <div class="col-xs-3"><%= link_to "注文依頼", "#" %></div>
+			   <div class="col-xs-3"><%= link_to "入荷履歴", "#" %></div>
+		       <div class="col-xs-3"><%= link_to "新規商品追加", "#" %></div>
+		       <div class="col-xs-3"><%= link_to "問い合わせ", "#" %></div>
+		    </div>
+		</div>
+		<div class="row">
+            <div class="col-xs-4"><%= link_to "商品一覧", "#" %></div>
+			<div class="col-xs-4"><%= link_to "ユーザー一覧", "#" %></div>
+		    <div class="col-xs-4"><%= link_to "ログアウト", destroy_end_user_session_path, method: :delete %></div>
 		</div>
     </div>
 </header>
+
+
