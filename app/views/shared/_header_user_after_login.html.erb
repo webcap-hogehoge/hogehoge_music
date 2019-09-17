@@ -4,10 +4,11 @@
 			<div class="row col-xs-3">
 				<%= link_to image_tag('logo.png', :size => '200x100'), root_path %> <!-- ロゴ表示 -->
 			</div>
-			<div class="row col-xs-4">検索窓</div>
+			<div class="row col-xs-4">
+            </div>
 			<div class="row col-xs-5">
 				<div class="row">
-					<p>サンプル太郎</p>    <!-- 変数に直す -->
+					<p>サンプル太郎<span>さん</span></p>    <!-- 変数に直す -->
 				</div>
 				<div class="row">
 					<div class="col-xs-3">
@@ -18,10 +19,10 @@
 					</div>
 					<div class="col-xs-3">
 						<span class="glyphicon glyphicon-shopping-cart"></span>
-						<%= link_to "カート", "#" %>   <!-- リンク先直す　　カート表示追加する -->
+						<%= link_to "カート", "#" %>   <!-- リンク先直す　-->
 					</div>
 					<div class="col-xs-3">
-						<%= link_to "ログアウト", destroy_end_user_session_path, method: :delete %>  <!-- リンク先直す -->
+						<%= link_to "ログアウト", destroy_end_user_session_path, method: :delete %> 
 					</div>
 				</div>
 			</div>
