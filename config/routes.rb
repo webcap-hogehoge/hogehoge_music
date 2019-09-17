@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-
 #devise
   devise_for :end_users, controllers: {
     sessions:  'end_users/sessions',
@@ -21,7 +20,11 @@ Rails.application.routes.draw do
 
 # エンドユーザー側
   #end_users
-  
+
+  #addresses
+    resources :addresses, only: [:new, :create, :edit, :update, :destroy]
+    get '/addresses/:id/edit', to: 'end_users#show'
+
     resources :users, only: [:show, :edit, :update], controller: 'end_users'
     get '/users/:id/reviews', to: 'end_users#review'
     get '/users/:id/liikes', to: 'end_users#likes'
