@@ -52,7 +52,8 @@ Rails.application.routes.draw do
     resources :order_histories, only: [:new, :index, :show, :create, :edit, :update]
     post 'order_histories/confirm', to: 'order_histories#confirm'
     get 'order_histories/thanks', to: 'order_histories#thanks'
-
+    patch 'order_histories', to: 'order_histories#update_product_number'
+    post 'order_histories/new', to: 'order_histories#back'
 
 
 # 管理者側
