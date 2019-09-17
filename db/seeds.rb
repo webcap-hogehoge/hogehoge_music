@@ -42,7 +42,9 @@ Product.create!(image_id: open("#{Rails.root}/db/fixture/img3.jpg"), price: 3000
 		            label_id: label_id,
 		            artist_id: artist_id,
 		            )
+end
 
+EndUser.create!(last_name_kanji: "山田", first_name_kanji: "太郎", last_name_katakana: "ヤマダ", first_name_katakana: "タロウ", email: "sample@email.com", password: "password")
 
 CartItem.create!(product_id: 1, end_user_id: 1, product_number: 2)
 CartItem.create!(product_id: 2, end_user_id: 1, product_number: 3)
@@ -51,6 +53,3 @@ Address.create!(end_user_id: 1, postal_code_1: 111, postal_code_2: 1111, address
 Address.create!(end_user_id: 1, postal_code_1: 222, postal_code_2: 2222, address: "東京都渋谷区渋谷２−２−２", telephone_number: "222-2222-2222", last_name: "山田", first_name: "二郎", is_main:0)
 Address.create!(end_user_id: 1, postal_code_1: 333, postal_code_2: 3333, address: "東京都渋谷区渋谷３−３−３", telephone_number: "333-3333-3333", last_name: "山田", first_name: "三郎", is_main:0)
 
-
-
-end
