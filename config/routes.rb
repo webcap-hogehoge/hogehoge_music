@@ -1,20 +1,32 @@
 Rails.application.routes.draw do
 
 
-    #devise
-    devise_for :administrators, controllers: {
-      sessions: 'administrators/sessions',
-      passwords: 'administrators/password',
-      registrations: 'administrators/registrations'
-    }
 
-    devise_for :end_users, controllers: {
-      sessions:  'end_users/sessions',
-      passwords:  'end_users/password',
-      registrations: 'end_users/registrations'
-    }
+#devise
+  devise_for :end_users, controllers: {
+    sessions:  'end_users/sessions',
+    passwords:  'end_users/password',
+    registrations: 'end_users/registrations'
+  }
 
-    # end_users
+  devise_scope :end_user do
+    post 'end_users/sign_up/confirm' => 'end_users/registrations#confirm'
+    post 'end_users/sign_up/complete' => 'end_users/registrations#complete'
+  end
+
+  devise_for :administrators, controllers: {
+    sessions: 'administrators/sessions',
+    passwords: 'administrators/password',
+    registrations: 'administrators/registrations'
+  }
+
+# エンドユーザー側
+  #end_users
+
+  #addresses
+    resources :addresses, only: [:new, :create, :edit, :update, :destroy]
+    get '/addresses/:id/edit', to: 'end_users#show'
+
     resources :users, only: [:show, :edit, :update], controller: 'end_users'
     get '/users/:id/reviews', to: 'end_users#review'
     get '/users/:id/liikes', to: 'end_users#likes'
