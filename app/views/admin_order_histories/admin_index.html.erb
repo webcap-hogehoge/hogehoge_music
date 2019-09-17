@@ -20,7 +20,7 @@
 </div>
 <!-- タブの中身 -->
 <!-- 全体 -->
-<% @order_histories.each  do |order| %>
+
 
 <div class="tab-content">
 	<div class="tab-pane fade in active" id="all">
@@ -29,11 +29,11 @@
               <tbody>
                 <tr>
                    <th scope="row">購入者名</th>
-                   <td><%= order.name %></td>
+                   <td>サンプル太郎</td>
                 </tr>
                 <tr>
                    <th scope="row">購入日時</th>
-                   <td><%= order.created_at %></td>
+                   <td></td>
                 </tr>
                 <tr>
                    <th scope="row">購入内容</th>
@@ -45,17 +45,13 @@
                 </tr>
                 <tr>
                    <th rowspan="2">ステータス</th>
-                   <td rowspan="2"><%= order.order_status %></td>
+                   <td rowspan="2"></td>
                 </tr>
                </tbody>
            </table>
       </div>
 　  </div>
-<% end %>
 <!-- 受付 -->
-<% @order_histories.each  do |order| %>
-<% if order_histories.order_status == 受付中 %>
-
   <div class="tab-pane fade" id="accepting">
     <div class="container">
           <table class="table">
@@ -84,11 +80,7 @@
           </table>
     </div>
 　</div>
-<% end %>
 <!-- 出荷準備中 -->
-<% @order_histories.each  do |order| %>
-<% if order_histories.order_status == 出荷準備中 %>
-
   <div class="tab-pane fade" id="preparing">
       <div class="container">
            <table class="table">
@@ -117,10 +109,7 @@
            </table>
     </div>
 　</div>
-<% end %>
 <!-- 出荷済 -->
-<% @order_histories.each  do |order| %>
-<% if order_histories.order_status == 出荷済み %>
   <div class="tab-pane fade" id="finished">
     <div class="container">
            <table class="table">
@@ -149,7 +138,6 @@
            </table>
     </div>
 　</div>
-<% end %>
 </div>
 
 <!-- フッター -->
