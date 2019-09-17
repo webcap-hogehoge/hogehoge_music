@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
-
+  get 'arrival_histories/new'
+  get 'disks/new'
 
 #devise
   devise_for :end_users, controllers: {
@@ -22,7 +23,6 @@ Rails.application.routes.draw do
 
 # エンドユーザー側
   #end_users
-
   #addresses
     resources :addresses, only: [:new, :create, :edit, :update, :destroy]
     get '/addresses/:id/edit', to: 'end_users#show'
@@ -37,7 +37,7 @@ Rails.application.routes.draw do
     resources :contacts, only: [:new, :create, :index]
 
   # products
-    resources :products, only: [:show]
+    resources :products, only: [:show, :create, :edit, :update]
     root 'products#index'
 
   #reviews
@@ -51,4 +51,28 @@ Rails.application.routes.draw do
 
   #cart_item
     resources :cart_items, only: [:create, :index, :update, :destroy]
+
+  #order_history
+    resources :order_histories, only: [:new, :index, :show, :create, :edit, :update]
+    post 'order_histories/confirm', to: 'order_histories#confirm'
+    get 'order_histories/thanks', to: 'order_histories#thanks'
+    patch 'order_histories', to: 'order_histories#update_product_number'
+    post 'order_histories/new', to: 'order_histories#back'
+
+
+# 管理者側
+  #administrator_products
+    resources :admin_products, only: [:show, :index]
+    get '/admin', to: 'products#admin_index', as: 'admin_root'
+
+  #end_user
+  scope :admin do
+    resources :end_users, only: [:index, :edit, :update]
+  end
+  get '/admin/end_users/:id', to: 'end_users#admin_show', as: 'admin_end_users'
+
+  #arrival_histrory
+  resources :arrival_histories, only: [:index, :create]
+  get 'arrival_histrories/new/:id', to: 'arrival_histories#new', as: 'new_arrival_history'
+
 end

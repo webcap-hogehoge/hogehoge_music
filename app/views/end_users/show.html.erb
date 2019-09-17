@@ -1,3 +1,90 @@
 <div>
+  <h4 style="text-align: center; margin-top: 20px">会員登録情報</h4>
+  <div style="margin: 30px auto; width: 800px; padding-left: 100px">
 
+    <div class="mypage_content">
+      <div class="form_inlineblock">
+        <h6>お名前</h6>
+      </div>
+      <div class="form_inlineblock">
+        <h6 class="form_text">姓</h6>
+        <div class="form_border"><%= @user.last_name_kanji %></div>
+      </div>
+      <div class="form_inlineblock">
+        <h6 class="form_text">名</h6>
+        <div class="form_border"><%= @user.first_name_kanji %></div>
+      </div>
+    </div>
+
+    <div class="mypage_content">
+      <div class="form_inlineblock">
+        <h6>お名前</h6>
+        <h6>(カナ)</h6>
+      </div>
+      <div class="form_inlineblock">
+        <h6 class="form_text">セイ</h6>
+        <div class="form_border"><%= @user.last_name_katakana %></div>
+      </div>
+      <div class="form_inlineblock">
+        <h6 class="form_text">メイ</h6>
+        <div class="form_border"><%= @user.first_name_katakana %></div>
+      </div>
+    </div>
+
+    <div class="mypage_content">
+      <div class="form_inlineblock">
+        <h6>郵便番号</h6>
+      </div>
+      <div class="form_inlineblock">
+        <span>〒</span>
+        <span class="form_border"><%= @addresses_is_main.postal_code_1 %></span>
+        <span>-</span>
+        <span class="form_border"><%= @addresses_is_main.postal_code_2 %></span>
+      </div>
+    </div>
+
+    <div class="mypage_content">
+      <div class="form_inlineblock">
+        <h6>ご住所</h6>
+      </div>
+      <div class="form_inlineblock">
+        <div class="form_border"><%= @addresses_is_main.address %></div>
+      </div>
+    </div>
+
+    <div class="mypage_content">
+      <div class="form_inlineblock">
+        <h6>電話番号</h6>
+      </div>
+      <div class="form_inlineblock">
+        <div class="form_border"><%= @addresses_is_main.telephone_number %></div>
+      </div>
+    </div>
+
+    <div class="mypage_content">
+      <div class="form_inlineblock">
+        <h6>メールアドレス</h6>
+      </div>
+      <div class="form_inlineblock">
+        <div class="form_border"><%= @user.email %></div>
+      </div>
+    </div>
+
+    <% @addresses.each do |address| %>
+      <% if address.is_main == 0 %>
+      <div>
+        <div>
+          <p><%= address.last_name %> <%= address.first_name %></p>
+        </div>
+        <div>
+          <p><%= address.postal_code_1 %>-<%= address.postal_code_2 %></p>
+          <%= address.address %>
+          <%= address.telephone_number %>
+        </div>
+      </div>
+      <% end %>
+    <% end %>
+
+
+  </div>
 </div>

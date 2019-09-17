@@ -4,6 +4,8 @@ class EndUser < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
          has_many :addresses, dependent: :destroy
+         accepts_nested_attributes_for :addresses
+
          has_many :cart_items, dependent: :destroy
          has_many :contacts, dependent: :destroy
          has_many :likes, dependent: :destroy

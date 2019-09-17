@@ -1,0 +1,2 @@
+module ArrivalHistoriesHelper
+end
