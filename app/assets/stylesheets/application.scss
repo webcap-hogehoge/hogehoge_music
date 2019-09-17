@@ -13,7 +13,8 @@
  *= require_tree .
  *= require_self
  */
-@import "bootstrap-sprockets";
+
+
 @import "bootstrap";
 
 /* エンドユーザ側 */
@@ -29,7 +30,26 @@
   margin-bottom: 20px;
 }
 
-/* 管理者側　*/
+/* 管理者側 */
 .administrator_login_contents {
   margin-bottom: 20px;
+}
+
+/* 共通 */
+.form_border {
+  border: 2px solid black;
+  padding: 6px 50px;
+}
+
+.form_inlineblock {
+  display: inline-block;
+  margin-right: 50px;
+}
+
+.mypage_content {
+  margin-bottom: 25px;
+}
+
+.form_text {
+  text-align: center;
 }

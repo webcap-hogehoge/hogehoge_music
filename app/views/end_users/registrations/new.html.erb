@@ -7,7 +7,7 @@
       <%= render "devise/shared/error_messages", resource: resource %>
 
       <div class="field signup_contents_name">
-        <p style="display: inline-block; margin-right: 50px">名前</p>
+        <p style="display: inline-block; margin-right: 25px">名前</p>
         <div style="display: inline-block">
           <%= f.label :last_name_kanji, "(姓)" %><br />
           <%= f.text_field :last_name_kanji, autofocus: true %>
@@ -19,7 +19,7 @@
       </div>
 
       <div class="field signup_contents_name">
-        <p style="display: inline-block; margin-right: 50px">名前(カナ)</p>
+        <p style="display: inline-block; margin-right: 25px">名前(カナ)</p>
         <div style="display: inline-block">
           <%= f.label :last_name_katakana, "(セイ)" %><br />
           <%= f.text_field :last_name_katakana, autofocus: true %>
@@ -47,6 +47,29 @@
         <%= f.label :password_confirmation, "パスワード(確認)" %>
         <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
       </div>
+
+<!-- 以下住所情報登録フォーム -->
+      <%= f.fields_for :addresses, @end_user.addresses.build do |address| %>
+        <div>
+          <p style="display: inline-block; margin-right: 25px">郵便番号</p>
+          <div style="display: inline-block">
+            <%= address.label :postal_code_1 %>
+            <%= address.text_field :postal_code_1 %>
+          </div>
+          <div style="display: inline-block">
+            <%= address.label :postal_code_2 %>
+            <%= address.text_field :postal_code_2 %>
+          </div>
+        </div>
+        <div class="field signup_contents">
+          <%= address.label :address, "住所" %>
+          <%= address.text_field :address %>
+        </div>
+        <div class="field signup_contents">
+          <%= address.label :telephone_number, "電話番号" %>
+          <%= address.text_field :telephone_number %>
+        </div>
+      <% end %>
 
       <div class="actions signup_contents">
         <%= f.submit "登録最終確認へ" %>
