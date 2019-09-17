@@ -1,0 +1,62 @@
+<div style="margin: 30px auto; width: 800px; padding-left: 100px">
+
+    <div class="mypage_content">
+      <div class="form_inlineblock">
+        <div style="font-size: 28px"><%= @user.last_name_kanji%></div>
+      </div>
+      <div class="form_inlineblock">
+        <div style="font-size: 28px"><%= @user.first_name_kanji %></div>
+      </div>
+    </div>
+
+    <div class="mypage_content">
+      <div class="form_inlineblock">
+        <h6>お名前(カナ)</h6>
+      </div>
+      <div class="form_inlineblock">
+        <div><%= @user.last_name_katakana %></div>
+      </div>
+      <div class="form_inlineblock">
+        <div><%= @user.first_name_katakana %></div>
+      </div>
+    </div>
+
+    <div class="mypage_content">
+      <div class="form_inlineblock">
+        <h6>メールアドレス</h6>
+      </div>
+      <div class="form_inlineblock">
+        <div><%= @user.email %></div>
+      </div>
+    </div>
+
+    <div class="mypage_content">
+      <div class="form_inlineblock">
+        <h6>郵便番号</h6>
+      </div>
+      <div class="form_inlineblock">
+        <span>〒</span>
+        <span><%= @addresses_is_main.postal_code_1 %></span>
+        <span>-</span>
+        <span><%= @addresses_is_main.postal_code_2 %></span>
+      </div>
+    </div>
+
+    <div class="mypage_content">
+      <div class="form_inlineblock">
+        <h6>ご住所</h6>
+      </div>
+      <div class="form_inlineblock">
+        <div><%= @addresses_is_main.address %></div>
+      </div>
+    </div>
+
+    <div class="mypage_content">
+      <div class="form_inlineblock">
+        <h6>電話番号</h6>
+      </div>
+      <div class="form_inlineblock">
+        <div><%= @addresses_is_main.telephone_number %></div>
+      </div>
+    </div>
+

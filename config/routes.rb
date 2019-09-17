@@ -20,7 +20,6 @@ Rails.application.routes.draw do
 
 # エンドユーザー側
   #end_users
-
   #addresses
     resources :addresses, only: [:new, :create, :edit, :update, :destroy]
     get '/addresses/:id/edit', to: 'end_users#show'
@@ -63,7 +62,8 @@ Rails.application.routes.draw do
 
   #end_user
   scope :admin do
-    resources :users, only: [:show, :index, :edit, :update]
+    resources :end_users, only: [:index, :edit, :update]
   end
+  get '/admin/end_users/:id', to: 'end_users#admin_show', as: 'admin_end_users'
 
 end
