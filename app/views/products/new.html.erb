@@ -1,0 +1,57 @@
+<div class="container">
+    <%= form_for(@product) do |f| %>
+
+      <div class="field">
+      	  <%= f.label :image_id, '画像' %>
+          <%= f.fire_field :image_id, %>
+      </div>
+
+      <div class="field">
+          <%= f.label :cd_name, '商品名' %>
+          <%= f.text_field :cd_name, %>
+      </div>
+
+      <%= f.fields_for :artists do |a| %>
+        <div class="field">
+            <%= a.label :artist_name, 'アーティスト名' %>
+            <%= a.text_field :artist_name, %>
+        </div>
+        <% end %>
+
+      <div class="field">
+          <%= f.label :price, '価格' %>
+          <%= f.number_field :price, %>
+      </div>
+
+      <%= f.fields_for :labels do |l| %>
+        <div class="field">
+            <%= l.label :label_name, 'レーベル名' %>
+            <%= l.text_field :label_name, %>
+        </div>
+        <% end %>
+
+      <%= f.fields_for :genres do |g| %>
+        <div class="field">
+            <%= g.label :genre_name, 'ジャンル' %>
+            <%= g.text_field :genre_name, %>
+        </div>
+        <% end %>
+
+      <%= f.fields_for :disks do |d| %>
+        <div class="field">
+            <%= d.label :disk_number, 'ディスク' %>
+            <%= d.text_field :disk_number, %>
+            <%= f.fields_for :songs do |s| %>
+              <%= s.label :song_name, '曲名' %>
+              <%= s.text_field :song_name, %>
+              <% end %>
+      </div>
+      <% end %>
+
+      <div class="field">
+          <%= f.label :product_status, 'ステータス' %>
+          <%= f.collection_select :product_status, %>
+      </div>
+    <%= f.submit '完了', class: 'btn btn-primary btn-block' %>
+    <% end %>
+</div>
