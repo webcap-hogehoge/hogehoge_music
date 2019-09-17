@@ -1,28 +1,26 @@
-<div class="container">
-  <h2 class="display-5">管理者ログイン</h2>
+<div style="width: 500px; margin: 50px auto; padding-left: 70px">
+  <h2 class="administrator_login_contents" style="font-size: 50px">管理者ログイン</h2>
 
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-    <div class="field">
-      <%= f.label :email %><br />
-      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <div class="field administrator_login_contents">
+      <%= f.label :email, "メールアドレス", :style=>"font-size: 18px" %><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", :style=>"width: 300px; height: 30px" %>
     </div>
 
-    <div class="field">
-      <%= f.label :password %><br />
-      <%= f.password_field :password, autocomplete: "current-password" %>
+    <div class="field administrator_login_contents">
+      <%= f.label :password, "パスワード", :style=>"font-size: 18px" %><br />
+      <%= f.password_field :password, autocomplete: "current-password", :style=>"width: 300px; height: 30px" %>
     </div>
 
     <% if devise_mapping.rememberable? %>
-      <div class="field">
-        <%= f.check_box :remember_me %>
-        <%= f.label :remember_me %>
+      <div class="field administrator_login_contents">
+        <%= f.check_box :remember_me, :style=>"width: 14px; height: 14px" %>
+        <%= f.label :remember_me, "ログイン状態を保存する", :style=>"font-size: 14px" %>
       </div>
     <% end %>
 
-    <div class="actions">
-      <%= f.submit "Log in" %>
+    <div class="actions administrator_login_contents">
+      <%= f.submit "ログイン", :class=>"btn btn-primary", :style=>"width: 300px; height: 40px" %>
     </div>
   <% end %>
-
-  <%= render "administrators/shared/links" %>
 </div>
