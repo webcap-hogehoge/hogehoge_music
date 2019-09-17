@@ -1,9 +1,0 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  disk_id: 1
-  song_name: MyString
-
-two:
-  disk_id: 1
-  song_name: MyString
