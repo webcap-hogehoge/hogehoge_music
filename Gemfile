@@ -68,3 +68,6 @@ gem 'enum_help'
 gem 'carrierwave'
 gem 'faker'
 gem 'rails-i18n'
+gem 'ransack'
+gem 'nested_form_fields'
+
