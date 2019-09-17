@@ -1,0 +1,14 @@
+<p>商品名</p>
+<p><%= @product.cd_name %></p>
+
+<P>商品ID</P>
+<p><%= @product.id %></p>
+
+<%= form_for(@arrival_history) do |f| %>
+<div>
+  <%= f.label :arrival_number, '追加個数' %>
+  <%= f.number_field :arrival_number %>個
+</div>
+
+<%= f.submit '完了', class: 'btn btn-primary btn-block' %>
+<% end %>

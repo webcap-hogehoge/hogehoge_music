@@ -1,0 +1,24 @@
+<table>
+	<tdbody>
+		<% @products.each do |product| %>
+		<tr>
+			<% if product.product_status == "on_sale" %>
+			    <td><%= image_tag product.image_id.url %></td> <!-- carierwaveの画像を表示  -->
+			<% else %>
+			    <td><%= image_tag "sold_out.jpg", size: "200x200" %></td>
+			<% end %>
+			<td><%= number_to_currency(product.price) %></td>
+			<% if product.product_status == "on_sale" %>
+			    <td><span>発売中</span></td>
+			<% else %>
+			    <td><span>販売停止中</span></td>
+			<% end %>
+			<td><%= product.cd_name %></td>
+			
+			<td><%= product.is_deleted %></td>
+			<tb><%=link_to "在庫追加", new_arrival_history_path(product.id) %></tb>
+		</tr>
+		<% end %>
+
+	</tdbody>
+</table>

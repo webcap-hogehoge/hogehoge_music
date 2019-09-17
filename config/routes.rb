@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  get 'arrival_histories/new'
+  get 'disks/new'
+
 #devise
   devise_for :end_users, controllers: {
     sessions:  'end_users/sessions',
@@ -34,7 +37,7 @@ Rails.application.routes.draw do
     resources :contacts, only: [:new, :create, :index]
 
   # products
-    resources :products, only: [:show]
+    resources :products, only: [:show, :create, :edit, :update]
     root 'products#index'
 
   #reviews
@@ -57,7 +60,7 @@ Rails.application.routes.draw do
 
 # 管理者側
   #administrator_products
-    resources :admin_products, only: [:show]
+    resources :admin_products, only: [:show, :index]
     get '/admin', to: 'products#admin_index', as: 'admin_root'
 
   #end_user
@@ -65,5 +68,9 @@ Rails.application.routes.draw do
     resources :end_users, only: [:index, :edit, :update]
   end
   get '/admin/end_users/:id', to: 'end_users#admin_show', as: 'admin_end_users'
+
+  #arrival_histrory
+  resources :arrival_histories, only: [:index, :create]
+  get 'arrival_histrories/new/:id', to: 'arrival_histories#new', as: 'new_arrival_history'
 
 end
