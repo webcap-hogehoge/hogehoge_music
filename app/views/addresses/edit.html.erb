@@ -1,0 +1,38 @@
+<div style="margin: 50px 100px">
+    <h2>新しく住所を追加</h2>
+        <div style="padding-left: 50px">
+            <%= form_for(@address) do |f| %>
+
+                <div class="field kanji_name">
+                <p style="display: inline-block; margin-right: 50px">名前</p>
+                <div style="display: inline-block">
+                  <%= f.label :last_name, "(姓)" %><br />
+                  <%= f.text_field :last_name, autofocus:true %>
+                </div>
+                <div style="display: inline-block">
+                  <%= f.label :first_name, "(名)" %><br />
+                  <%= f.text_field :first_name %>
+                </div>
+                </div>
+
+                <div class="field telephone_number">
+                <%= f.label :telephone_number, "電話番号" %>
+                <%= f.text_field :telephone_number %>
+                </div>
+
+                <div class="field postal_code_1">
+                <%= f.label :postal_code_1, "郵便番号" %>
+                <%= f.text_field :postal_code_1 %><%= f.text_field :postal_code_1 %>
+                </div>
+
+                <div class="field address">
+                <%= f.label :address, "住所" %>
+                <%= f.text_field :address %>
+                </div>
+
+                <div class="actions">
+                <%= link_to '完了', "/users/1", method: :post, class: 'btn btn-primary col-xs-3' %>
+                </div>
+            <% end %>
+        </div>
+</div>
