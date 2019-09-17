@@ -33,22 +33,22 @@
 		        	<%= link_to 'カートへ入れる', cart_items_path, class:"btn btn-warning" %>
 				</div>
 
-		<div class="row">
-			<div class="col-xs-12">
-				<% @product.disks.each do |disk| %>
-					<table class="table table-striped">
-						<thead>
-							<tr>
-								<th><%= "ディスク" + disk.id.to_s %></th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<% disk.songs.each do |song| %>
-									<td><%= song.song_name %></td>
-								<% end %>
-							</tr>
-						</tbody>
-					</table>
-				<% end %>
-			</div>
+				<div class="row">
+					<div class="col-xs-12">
+						<% @product.disks.each do |disk| %>
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th><%= "ディスク" + disk.id.to_s %></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<% disk.songs.each do |song| %>
+											<td><%= song.song_name %></td>
+										<% end %>
+									</tr>
+								</tbody>
+							</table>
+						<% end %>
+					</div>
