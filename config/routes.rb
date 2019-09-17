@@ -45,10 +45,12 @@ Rails.application.routes.draw do
     # post '/reviews/confirm', to: 'reviews#confirm'
 
   #likes
+  #admin_order_histories
+  # resources :admin_order_histories, only: [:index]
+  get 'admin_order_histories' => 'admin_order_histories#admin_index'
 
   #cart_item
     resources :cart_items, only: [:create, :index, :update, :destroy]
-
 
   #order_history
     resources :order_histories, only: [:new, :index, :show, :create, :edit, :update]

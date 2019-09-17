@@ -1,0 +1,159 @@
+<!-- ヘッダー -->
+<%= render 'shared/header_admin_after_login' %>
+
+<!-- ナビゲーション -->
+<div class="container">
+  <ul class="nav nav-tabs nav-justified">
+    <li class="nav-item active">
+		<a class="nav-link active" data-toggle="tab" href="#all">全体</a>
+	</li>
+    <li class="nav-item">
+    	<a class="nav-link" data-toggle="tab" href="#accepting">受付中</a>
+    </li>
+    <li class="nav-item">
+    	<a class="nav-link" data-toggle="tab" href="#preparing">出荷準備中</a>
+    </li>
+    <li class="nav-item">
+    	<a class="nav-link" data-toggle="tab" href="#finished">出荷済</a>
+    </li>
+  </ul>
+</div>
+<!-- タブの中身 -->
+<!-- 全体 -->
+<% @order_histories.each  do |order| %>
+
+<div class="tab-content">
+	<div class="tab-pane fade in active" id="all">
+	  <div class="container">
+           <table class="table">
+              <tbody>
+                <tr>
+                   <th scope="row">購入者名</th>
+                   <td><%= order.name %></td>
+                </tr>
+                <tr>
+                   <th scope="row">購入日時</th>
+                   <td><%= order.created_at %></td>
+                </tr>
+                <tr>
+                   <th scope="row">購入内容</th>
+                   <td>aaa</td>
+                </tr>
+                <tr>
+                   <th scope="row">送付先</th>
+                   <td>サンプル太郎 152-00002 xxx区xxx市xxxx</td>
+                </tr>
+                <tr>
+                   <th rowspan="2">ステータス</th>
+                   <td rowspan="2"><%= order.order_status %></td>
+                </tr>
+               </tbody>
+           </table>
+      </div>
+　  </div>
+<% end %>
+<!-- 受付 -->
+<% @order_histories.each  do |order| %>
+<% if order_histories.order_status == 受付中 %>
+
+  <div class="tab-pane fade" id="accepting">
+    <div class="container">
+          <table class="table">
+            <tbody>
+                <tr>
+                   <th scope="row">購入者名</th>
+                   <td></td>
+                </tr>
+                <tr>
+                   <th scope="row">購入日時</th>
+                   <td></td>
+                </tr>
+                <tr>
+                   <th scope="row">購入内容</th>
+                   <td>サンプルミュージック</td>
+                </tr>
+                <tr>
+                   <th scope="row">送付先</th>
+                   <td>サンプル太郎 152-00002 xxx区xxx市xxxx</td>
+                </tr>
+                <tr>
+                   <th rowspan="2">ステータス</th>
+                   <td rowspan="2">受付中</td>
+                </tr>
+            </tbody>
+          </table>
+    </div>
+　</div>
+<% end %>
+<!-- 出荷準備中 -->
+<% @order_histories.each  do |order| %>
+<% if order_histories.order_status == 出荷準備中 %>
+
+  <div class="tab-pane fade" id="preparing">
+      <div class="container">
+           <table class="table">
+              <tbody>
+                <tr>
+                   <th scope="row">購入者名</th>
+                   <td>サンプル太郎preparing</td>
+                </tr>
+                <tr>
+                   <th scope="row">購入日時</th>
+                   <td>2019年9月15日17時30分</td>
+                </tr>
+                <tr>
+                   <th scope="row">購入内容</th>
+                   <td>サンプルミュージック</td>
+                </tr>
+                <tr>
+                   <th scope="row">送付先</th>
+                   <td>サンプル太郎 152-00002 xxx区xxx市xxxx</td>
+                </tr>
+                <tr>
+                   <th rowspan="2">ステータス</th>
+                   <td rowspan="2">受付中</td>
+                </tr>
+               </tbody>
+           </table>
+    </div>
+　</div>
+<% end %>
+<!-- 出荷済 -->
+<% @order_histories.each  do |order| %>
+<% if order_histories.order_status == 出荷済み %>
+  <div class="tab-pane fade" id="finished">
+    <div class="container">
+           <table class="table">
+              <tbody>
+                <tr>
+                   <th scope="row">購入者名</th>
+                   <td>サンプル太郎finished</td>
+                </tr>
+                <tr>
+                   <th scope="row">購入日時</th>
+                   <td>2019年9月15日17時30分</td>
+                </tr>
+                <tr>
+                   <th scope="row">購入内容</th>
+                   <td>サンプルミュージック</td>
+                </tr>
+                <tr>
+                   <th scope="row">送付先</th>
+                   <td>サンプル太郎 152-00002 xxx区xxx市xxxx</td>
+                </tr>
+                <tr>
+                   <th rowspan="2">ステータス</th>
+                   <td rowspan="2"></td>
+                </tr>
+               </tbody>
+           </table>
+    </div>
+　</div>
+<% end %>
+</div>
+
+<!-- フッター -->
+<%= render 'shared/footer_user' %>
+
+
+
