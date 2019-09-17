@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-
 #devise
   devise_for :end_users, controllers: {
     sessions:  'end_users/sessions',
@@ -21,6 +20,9 @@ Rails.application.routes.draw do
 
 # エンドユーザー側
   #end_users
+  #addresses
+    resources :addresses, only: [:new, :create, :edit, :update, :destroy]
+    get '/addresses/:id/edit', to: 'end_users#show'
 
     resources :users, only: [:show, :edit, :update], controller: 'end_users'
     get '/users/:id/reviews', to: 'end_users#review'
@@ -49,7 +51,8 @@ Rails.application.routes.draw do
     resources :order_histories, only: [:new, :index, :show, :create, :edit, :update]
     post 'order_histories/confirm', to: 'order_histories#confirm'
     get 'order_histories/thanks', to: 'order_histories#thanks'
-
+    patch 'order_histories', to: 'order_histories#update_product_number'
+    post 'order_histories/new', to: 'order_histories#back'
 
 
 # 管理者側
