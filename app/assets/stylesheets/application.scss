@@ -60,3 +60,9 @@
 .admin_order_history{
   width:200px;
 }
+
+.table-borderless{
+  th, td {
+    border-top: none !important;
+  }
+}

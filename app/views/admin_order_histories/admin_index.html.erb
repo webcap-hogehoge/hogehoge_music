@@ -23,7 +23,7 @@
 <div class="tab-content">
 	<div class="tab-pane fade in active" id="all">
 	  <div class="container">
-           <table class="table table-admin-index">
+           <table class="table table-admin-index table-borderless">
             <% @order_histories.each do |order| %>
               <tbody>
                 <tr>
@@ -64,11 +64,11 @@
            </table>
       </div>
 　  </div>
-<% @order_histories.each  do |order| %> 
+<% @order_histories.each  do |order| %>
 <% if order.order_status == "accepting" %>
   <div class="tab-pane fade" id="accepting">
     <div class="container">
-          <table class="table">
+          <table class="table table-borderless">
             <tbody>
                 <tr>
                    <th scope="row">購入者名</th>
@@ -113,7 +113,7 @@
 <% if order.order_status == "preparing" %>
   <div class="tab-pane fade" id="preparing">
       <div class="container">
-           <table class="table">
+           <table class="table table-borderless">
               <tbody>
                 <tr>
                    <th scope="row">購入者名</th>
@@ -157,7 +157,7 @@
 <% if order.order_status == "finished" %>
   <div class="tab-pane fade" id="finished">
     <div class="container">
-           <table class="table">
+           <table class="table table-borderless">
               <tbody>
                 <tr>
                    <th scope="row">購入者名</th>
