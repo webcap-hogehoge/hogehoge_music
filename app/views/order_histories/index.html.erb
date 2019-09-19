@@ -1,0 +1,24 @@
+<p>購入履歴一覧画面</p>
+
+<% @order_histories.each do |order_history| %>
+  <% @order_history.order_details.each do |order_detail| %>
+  <!-- 購入個数計算 -->
+  <% @order_number_total += order_detail.product_number %>
+  <!-- 購入金額計算 -->
+  <% @order_total += order_history.product.price * order_history.product_number * 1.08 %>
+  <% end %>
+
+  注文日<%= order_history.created_at %>
+  <!-- 購入個数表示 -->
+  個数 <%= @order_number_total %>
+  <!-- 購入金額表示 -->
+  合計 <%= @order_total + 500 %>
+  <%= order_history.order_status %>
+
+
+  送付先
+  <%= order_history.last_name_kanji %><%= order_history.first_name_kanji %>
+  <%= order_history.telephone_number %>
+  <%= order_history.address %>
+
+<% end %>
