@@ -14,8 +14,8 @@ ActiveRecord::Schema.define(version: 2019_09_16_100156) do
 
   create_table "addresses", force: :cascade do |t|
     t.integer "end_user_id", default: 0, null: false
-    t.string "postal_code_1"
-    t.string "postal_code_2"
+    t.string "postal_code_1", limit: 3, default: "000", null: false
+    t.string "postal_code_2", limit: 4, default: "0000", null: false
     t.string "address", default: "", null: false
     t.string "telephone_number", default: "", null: false
     t.string "last_name", default: "", null: false
