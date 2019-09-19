@@ -1,19 +1,16 @@
-<table class="table">
-  <tbody>
-    <tr>
-      <td>
-        <p> 商品名</p>
-      </td>
-        <td>
-          <%=link_to book_path(@book.id) do %>
-          <%= @book.title %>
-          <% end %>
-        </td>
-        <td><%= @book.body %></td>
-        <% if @book.user == current_user %>
-          <td><%= link_to 'Edit', edit_book_path(@book.id), class:"btn-sm btn-success" %></td>
-          <td><%= link_to 'Destroy', book_path(@book.id), class:"btn-sm btn-danger", method: :delete, "data-confirm" => "本当に消しますか？" %></td>
-        <% end %>
-    </tr>
-  </tbody>
-</table>
+<div class="col-12">
+    <table class="table">
+        <% @arrival_histories.each do |arrival_history| %>
+            <tr>
+                <td class="cd_name">
+                    商品名<%= cart_item.product.cd_name%>
+                </td>
+                <td>
+                    <p>入荷日時</p>
+                </td>
+                <td>
+                    <p>個数</p>個
+                </td>
+            </tr>
+    </table>
+</div>

@@ -1,36 +1,59 @@
-<h1>ショッピングカート</h1>
+<%= render 'shared/header_user_after_login' %>
 
-<div class="col-9 clearfix">
-	<div class="float-left"></div>
-     	<table class="table">
-	        <thead>
-	          	<tbody>
-	          		<% @products.each do |product| %>
-			            <tr>
-				            <td>
-				              	<%= image_tag product.image_id.to_s %>
-				                <% end %>
-				            </td>
-				            <td>
-								<h2><%= @product.cd_name %></h2>
-						  	</td>
-				            <td>数量
-					   			<select name="quantity">
-								<option value="1" selected="true">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-							    </select>
-							</td>
-							<td><%= link_to '削除', cart_items_path(@user.id) %></td>
-							<td>
-								<% @products.each do |product| %>
-								<P>価格</P>
-							    <%= product.price %>(税込）
-						    </td>
-			          	</tr>
-			         <% end %>
-	          	</tbody>
-	        </thead>
-    	</table>
+<h1>ショッピングカート</h1>
+    <div class="col-xs-9">
+        <table class="table">
+            <% @cart_items.each do |cart_item| %>
+            <tr>
+                <td>
+                    <%= image_tag cart_item.product.image_id.to_s %>
+                </td>
+                <td class="cd_name">
+                        <%= cart_item.product.cd_name%>
+                    <p class="quantity">数量
+                        <select name=“数量” required>
+                            <option value="cart_item.product_number" selected><%= cart_item.product_number %></option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value=“3”>3</option>
+                            <option value="4">4</option>
+                            <option value=“5”>5</option>
+                            <option value="6">6</option>
+                            <option value=“7”>7</option>
+                            <option value="8">8</option>
+                            <option value=“9”>9</option>
+                            <option value="10">10</option>
+                        </select>
+                    </p>
+                    <p class="destroy">
+                        <%= link_to '削除', "#" %>
+                    </p>
+                </td>
+                <td>
+                    <% sum = cart_item.product.price * cart_item.product_number * 1.08 %><br>
+                    価格　¥<%= sum.floor %>(税込)
+                    <% end %>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+    <%= form_with url: new_order_history_path, local: true do |order_history| %>
+
+        <div class="col-xs-2">
+            <div class="box1">
+                <% @subtotal = 0 %>
+                <% @cart_items.each do |cart_item| %>
+                <%  @subtotal += (cart_item.product.price * cart_item.product_number) %>
+                <% end %>
+                <p>小計　¥<%= @subtotal %></p>
+                <p><% sum = @subtotal * 0.08 %></p>
+                <p>税   ¥<%= sum.floor %></p>
+                <p><% sum = @subtotal * 1.08 + 500  %></p>
+                <p>合計　¥<%= sum.floor %></p>
+                <button type="button" class="btn btn-warning">注文画面へ進む</button>
+                <% end %>
+            </div>
+    </div>
+

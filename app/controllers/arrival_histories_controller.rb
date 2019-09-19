@@ -9,6 +9,10 @@ class ArrivalHistoriesController < ApplicationController
   	@arrival_history.save
   end
 
+  def index
+    @arrival_histories = ArrivalHistory.all
+  end
+
    private
     def arrival_history_params
         params.require(:arrival_history).permit(:arrival_number)
