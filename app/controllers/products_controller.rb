@@ -1,6 +1,12 @@
 class ProductsController < ApplicationController
   def index
-  	@products = Product.all
+  	# @products = Product.all    <!-- ransackによりallが表示されるためコメントアウトしてます -->
+    @q = Product.ransack(params[:q])
+    @products = @q.result(distinct: true)
+  end
+
+  def admin_index
+    @products = Product.all
   end
 
   def show
@@ -8,21 +14,19 @@ class ProductsController < ApplicationController
   	@product = Product.find(params[:id])
   end
 
-  def admin_index
-  end
-
   def new
   	@product = Product.new
-  	@product.labels.build
-  	@product.genres.build
-  	@product.artusts.build
   	@product.disks.build
+  end
+
+  def create
+    @product = Product.build(product_params)
+    @product.save
+    render("admin_index")
   end
 
   private
   def product_params
-  	params.require(:product).permit(:image_id, :price, :cd_name, :product_status, artists_attributes: [:artist_name],
-                                      genres_attributes: [:genre_name], labels_attributes: [:label_name],
-                                      disks_attributes: [:disk_number], arrival_histories: [:arrival_number])
+  	params.require(:product).permit(:image_id, :price, :cd_name, :product_status, :label_id, :artist_id, disks_attributes: [:disk_number])
   end
 end

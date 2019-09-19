@@ -16,8 +16,12 @@ has_many :likes, dependent: :destroy
 has_many :products, dependent: :destroy
 has_many :reviews, dependent: :destroy
 has_many :order_details, dependent: :destroy
-belongs_to :artist
-belongs_to :label
+
+accepts_nested_attributes_for :disks
+# belongs_to :artist
+# belongs_to :label
+belongs_to :genre
+
 
 
 enum product_status:{on_sale: 0, not_on_sale: 1}
