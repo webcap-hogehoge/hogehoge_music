@@ -8,7 +8,7 @@ class OrderHistory < ApplicationRecord
   validates :telephone_number, presence: true
   validates :pay_method, presence: true
   validates :order_status, presence: true
-  validates :subtotal, presence: true
+  # validates :subtotal, presence: true
   belongs_to :end_user
   has_many :order_details, dependent: :destroy
 end
