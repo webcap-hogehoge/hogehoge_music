@@ -7,23 +7,13 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
+Genre.create!(genre_name: "J-POP")
+Genre.create!(genre_name: "ROCK")
+Genre.create!(genre_name: "JAZZ")
 
-Artist.create!(artist_name: "RADWIMPS")
-Artist.create!(artist_name: "AAA")
-Artist.create!(artist_name: "日向坂４６")
-
-
-Label.create!(label_name: "sony")
-Label.create!(label_name: "avex")
-Label.create!(label_name: "victor")
-Label.create!(label_name: "ジェイ・ストーム")
-Label.create!(label_name: "渡辺音楽出版")
-Label.create!(label_name: "夢レコード")
-Label.create!(label_name: "hogehogeレコード")
-
-Product.create!(image_id: open("#{Rails.root}/db/fixture/img1.jpg"), price: 1000, product_status: 1, cd_name: "天気の子", is_deleted: 0, artist_id: 1, label_id: 1)
-Product.create!(image_id: open("#{Rails.root}/db/fixture/img2.jpg"), price: 2000, product_status: 0, cd_name: "new chalenger", is_deleted: 0, artist_id: 2, label_id: 2)
-Product.create!(image_id: open("#{Rails.root}/db/fixture/img3.jpg"), price: 3000, product_status: 1, cd_name: "こんなに", is_deleted: 0, artist_id: 3, label_id: 3)
+Product.create!(image_id: open("#{Rails.root}/db/fixture/img1.jpg"), price: 1000, product_status: 1, cd_name: "天気の子", is_deleted: 0, artist_name: "RADWIMPS", label_name: "sony", genre_id: 1)
+Product.create!(image_id: open("#{Rails.root}/db/fixture/img2.jpg"), price: 2000, product_status: 0, cd_name: "new chalenger", is_deleted: 0, artist_name: "AAA", label_name: "avex", genre_id: 1)
+Product.create!(image_id: open("#{Rails.root}/db/fixture/img3.jpg"), price: 3000, product_status: 1, cd_name: "こんなに", is_deleted: 0, artist_name: "日向坂４６", label_name: "victor", genre_id: 1)
 
 
 100.times do |n|
@@ -32,15 +22,17 @@ Product.create!(image_id: open("#{Rails.root}/db/fixture/img3.jpg"), price: 3000
 	price = Random.rand(1000..3000)
 	product_status = Random.rand(0..1)
 	is_deleted = 0
-	label_id = Random.rand(1..7)
-	artist_id = Random.rand(1..3)
+	label_name = ["sony", "avex", "victor", "ジェイ・ストーム", "渡辺音楽出版", "夢レコード", "hogehogeレコード"].sample
+	artist_name = Faker::Music.band
+	genre_id = Random.rand(1..3)
 	Product.create!(image_id: image_id,
 		            price: price,
 		            product_status: product_status,
 		            cd_name: cd_name,
 		            is_deleted: is_deleted,
-		            label_id: label_id,
-		            artist_id: artist_id,
+		            label_name: label_name,
+		            artist_name: artist_name,
+		            genre_id: genre_id,
 		            )
 end
 
