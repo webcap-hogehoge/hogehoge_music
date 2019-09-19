@@ -45,6 +45,7 @@ class EndUsersController < ApplicationController
   def admin_show
     @user = EndUser.find(params[:id])
     @addresses_is_main = @user.addresses.find_by(is_main: 1)
+    @order_histories = @user.order_histories.all.order(created_at: :desc)
   end
 
   private

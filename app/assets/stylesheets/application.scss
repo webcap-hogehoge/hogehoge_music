@@ -58,3 +58,9 @@
   width: 200px;
 }
 
+.table-borderless {
+  tbody, tr, td {
+    border-top: none !important;
+  }
+}
+

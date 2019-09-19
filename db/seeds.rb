@@ -41,6 +41,9 @@ EndUser.create!(last_name_kanji: "山田", first_name_kanji: "太郎", last_name
 CartItem.create!(product_id: 1, end_user_id: 1, product_number: 2)
 CartItem.create!(product_id: 2, end_user_id: 1, product_number: 3)
 
+
+
+
 Address.create!(end_user_id: 1, postal_code_1: 111, postal_code_2: 1111, address: "東京都渋谷区渋谷１−１−１", telephone_number: "111-1111-1111", last_name: "山田", first_name: "太郎", is_main:1)
 Address.create!(end_user_id: 1, postal_code_1: 222, postal_code_2: 2222, address: "東京都渋谷区渋谷２−２−２", telephone_number: "222-2222-2222", last_name: "山田", first_name: "二郎", is_main:0)
 Address.create!(end_user_id: 1, postal_code_1: 333, postal_code_2: 3333, address: "東京都渋谷区渋谷３−３−３", telephone_number: "333-3333-3333", last_name: "山田", first_name: "三郎", is_main:0)
