@@ -31,7 +31,7 @@ Rails.application.routes.draw do
     get '/users/:id/reviews', to: 'end_users#review'
     get '/users/:id/liikes', to: 'end_users#likes'
     patch '/users/:id/destroy', to: 'end_users#destroy'
-    get '/users/unsubscribe', to: 'end_users#unsubscribe'
+    get '/unsubscribe', to: 'end_users#unsubscribe'  #get 'users/unsubscribe' を　get '/unsubscribe'に変更
 
   #contacts
     resources :contacts, only: [:new, :create, :index]

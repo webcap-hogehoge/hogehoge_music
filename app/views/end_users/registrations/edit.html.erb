@@ -37,43 +37,43 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+    <%= f.label :password, "パスワード" %> <i>(leave blank if you don't want to change it)</i><br />
     <%= f.password_field :password, autocomplete: "new-password" %>
     <% if @minimum_password_length %>
       <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
+      <em><%= @minimum_password_length %>文字以上入力</em>
     <% end %>
   </div>
 
   <div class="field">
-    <%= f.label :password_confirmation %><br />
+    <%= f.label :password_confirmation, "パスワード（確認）" %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
 
   <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+    <%= f.label :current_password, "現在のパスワード" %> <i>(we need your current password to confirm your changes)</i><br />
     <%= f.password_field :current_password, autocomplete: "current-password" %>
   </div>
-
-    <%= f.fields_for :addresses, @address do |address| %>
+    <%#= binding.pry %>
+    <%= f.fields_for :addresses, @address do |af| %>
       <div>
         <p style="display: inline-block; margin-right: 25px">郵便番号</p>
         <div style="display: inline-block">
-          <%= address.label :postal_code_1 %>
-          <%= address.text_field :postal_code_1 %>
+          <%= af.label :postal_code_1, "〒" %>
+          <%= af.text_field :postal_code_1 %>
         </div>
         <div style="display: inline-block">
-          <%= address.label :postal_code_2 %>
-          <%= address.text_field :postal_code_2 %>
+          <%= af.label :postal_code_2, "-" %>
+          <%= af.text_field :postal_code_2 %>
         </div>
       </div>
       <div class="field signup_contents">
-        <%= address.label :address, "住所" %>
-        <%= address.text_field :address %>
+        <%= af.label :address, "住所" %>
+        <%= af.text_field :address %>
       </div>
       <div class="field signup_contents">
-        <%= address.label :telephone_number, "電話番号" %>
-        <%= address.text_field :telephone_number %>
+        <%= af.label :telephone_number, "電話番号" %>
+        <%= af.text_field :telephone_number %>
       </div>
     <% end %>
 

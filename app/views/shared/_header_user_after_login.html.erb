@@ -1,10 +1,16 @@
 <meta charset=utf-8>
-<header>
+<header class="page-header">
 	<div class="container-fluid border-bottom">
 			<div class="row col-xs-3">
-				<%= link_to image_tag('logo.png', :size => '200x100'), root_path %> <!-- ロゴ表示 -->
+				<%= link_to image_tag('logo.png', :size => '200x100'), root_path %>
 			</div>
 			<div class="row col-xs-4">
+			    <div class="searchbox">
+			    	<%= search_form_for @q, url: root_path do |f| %>
+			    	<%= f.text_field :cd_name_cont,placeholder: '検索する商品名を入力...' %>
+                    <%= f.submit %>
+			    </div>
+            <% end %>
             </div>
 			<div class="row col-xs-5">
 				<div class="row">
@@ -12,17 +18,17 @@
 				</div>
 				<div class="row">
 					<div class="col-xs-3">
-						<%= link_to "ホーム", "#" %>  <!-- リンク先直す -->
+						<%= link_to "ホーム", root_path %>
 					</div>
 					<div class="col-xs-3">
 						<%= link_to "マイページ", "#" %>  <!-- リンク先直す -->
 					</div>
 					<div class="col-xs-3">
 						<span class="glyphicon glyphicon-shopping-cart"></span>
-						<%= link_to "カート", "#" %>   <!-- リンク先直す　-->
+						<%= link_to "カート", cart_items_path %>   <!-- リンク先直す　-->
 					</div>
 					<div class="col-xs-3">
-						<%= link_to "ログアウト", destroy_end_user_session_path, method: :delete %> 
+						<%= link_to "ログアウト", destroy_end_user_session_path, method: :delete %>
 					</div>
 				</div>
 			</div>

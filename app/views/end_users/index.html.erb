@@ -1,6 +1,6 @@
 <div>
   <% @users.each do |user| %>
-    <%= link_to end_user_path(user.id), :style => "text-decoration: none; color: black;" do %>
+    <%= link_to end_user_path(user.id), :style => "color: black;" do %>
       <div style="border: 1px solid black; margin: 0 200px 5px;">
         <%= "ユーザID: #{user.id}" %><br>
         <%= "氏名: #{user.last_name_kanji} #{user.first_name_kanji}" %><br>

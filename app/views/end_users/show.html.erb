@@ -69,22 +69,32 @@
         <div class="form_border"><%= @user.email %></div>
       </div>
     </div>
+  </div>
+
+  <div style="width: 1200px; margin: 0 auto;">
+    <div style="width: 350px; height: 200px; display: inline-block">
+      <div class="bg-success">
+        <p style="margin-bottom: 0">新しい住所を追加</p>
+      </div>
+      <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <div><%= link_to "+", new_address_path, :style => "font-size: 150px; color: black;" %></div>
+      </div>
+    </div>
 
     <% @addresses.each do |address| %>
-      <% if address.is_main == 0 %>
-      <div>
-        <div>
-          <p><%= address.last_name %> <%= address.first_name %></p>
+      <% if address.is_main != 1 %>
+      <div style="width: 350px; height: 200px; display: inline-block">
+        <div class="bg-success">
+          <p style="margin-bottom: 0"><%= "#{address.last_name} #{address.first_name}" %></p>
         </div>
         <div>
-          <p><%= address.postal_code_1 %>-<%= address.postal_code_2 %></p>
-          <%= address.address %>
-          <%= address.telephone_number %>
+          <p><%= "〒#{address.postal_code_1}-#{address.postal_code_2}" %></p>
+          <p><%= address.address %></p>
+          <p><%= address.telephone_number %></p>
         </div>
       </div>
       <% end %>
     <% end %>
-
-
   </div>
+
 </div>

@@ -1,81 +1,93 @@
-
-
 <h1>ご注文内容の確認</h1>
 
 <% @cart_items.each do |cart_item| %>
-<%= image_tag cart_item.product.image_id.to_s %>
+  <%= image_tag cart_item.product.image_id.to_s %>
 
-<%= cart_item.product.cd_name%>
+  <%= cart_item.product.cd_name %>
 
-<p>数量　<%= cart_item.product_number %></p>
+  <p>数量　<%= cart_item.product_number %></p>
 
-<div>
-  <select name=“数量” required>
-    <option value="cart_item.product_number" selected><%= cart_item.product_number %></option>
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value=“3”>3</option>
-    <option value="4">4</option>
-    <option value=“5”>5</option>
-    <option value="6">6</option>
-    <option value=“7”>7</option>
-    <option value="8">8</option>
-    <option value=“9”>9</option>
-    <option value="10">10</option>
-  </select>
-</div>
+  <div>
+    <select name=“数量” required>
+      <option value="cart_item.product_number" selected><%= cart_item.product_number %></option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value=“3”>3</option>
+      <option value="4">4</option>
+      <option value=“5”>5</option>
+      <option value="6">6</option>
+      <option value=“7”>7</option>
+      <option value="8">8</option>
+      <option value=“9”>9</option>
+      <option value="10">10</option>
+    </select>
+  </div>
 
-
-
-<p>価格　¥<%= cart_item.product.price * cart_item.product_number * 1.08 %>(税込)</p>
-
-
+  <p>価格　¥<%= cart_item.product.price * cart_item.product_number * 1.08 %>(税込)</p>
 
 <% end %>
 
-<%= form_with url: order_histories_confirm_path, local: true do |order_history| %>
+
+<!-- form_for(Modelに依存)とform_tag（modelに依存しない）の合体バージョン -->
+<!-- rails5から新導入 -->
+<!-- form_withはデフォでAjax送信（つまりremote: true）なので、ページ遷移しない -->
+<!-- なので、それを普通のHTTP送信にするためにlocal: true -->
+<%= form_with model: @order_history, url: order_histories_confirm_path, local: true do |form| %>
+
+<% if @order_history.errors.any? %>
+  <div id="error_explanation" class="alert alert-danger">
+    <ul>
+      <% @order_history.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 
 <h1>配送先</h1>
-<div class="field" style="width: 800px;">
 
-  <% @end_user.addresses.each do |ad| %>
-  <div>
-    <%= order_history.radio_button :order_histories_address, ad.id %>
-    <%= ad.address %>
-    <%= ad.last_name %>
-    <%= ad.first_name %>
-    <%= ad.telephone_number %>
-    <%= ad. postal_code_1 %>
-    <%= ad. postal_code_2 %>
-  </div>
+<div class="field">
+  <% @end_user.addresses.each do |address| %>
+    <div class>
+      <!-- 既存の住所を使うゾーン -->
+      <!--  上か下のラジオボタンどちらを押したかによって、条件分岐 -->
+      <!--  どっちのボタンを押したかを、何らかの箱に入れなくちゃいけない -->
+      <!--  そこで、order_histories_addressという、（カラムにはない）暫定のカラムみたいなもの（プロパティという）を作り出して、そこの結果によってコントローラで条件分岐させてる -->
+      <!-- viewでは特に実は何もしてなくて、ただ:order_histories_addressにどのアドレスかの情報or 新規作成を表すnewという文字列を入れてるだけ -->
+      <label><%= form.radio_button :selected_order_histories_address_id, address.id %></label>
+      <p><%= address.address %></p>
+      <p><%= address.last_name %> <%= address.first_name %></p>
+      <p><%= address.telephone_number %></p>
+      <p><%= address.postal_code_1 %>-<%= address.postal_code_2 %></p>
+    </div>
   <% end %>
+  <!-- ここまで -->
 
-
-  <label><%= order_history.radio_button :order_histories_address, 'new' %></label>
-
-    <label>姓</label>
-    <%= order_history.text_field :last_name_kanji, class:"form-control" %>
-    <label>名</label>
-    <%= order_history.text_field :first_name_kanji, class:"form-control" %>
-    <label>電話番号</label>
-    <%= order_history.text_field :telephone_number, class:"form-control" %>
-    <label>郵便番号</label>
-    <%= order_history.text_field :postal_code_1, class:"form-control" %>-<%= order_history.text_field :postal_code_2, class:"form-control" %>
-
-    <label>住所</label><%= order_history.text_area :address, class:"form-control", row:"5" %>
-
+  <!--  新たな住所を登録するゾーン -->
+  <label><%= form.radio_button :selected_order_histories_address_id, 'address新規登録' %></label>
+  <label>姓</label>
+  <%= form.text_field :last_name_kanji, class:"form-control", :size => 80 %>
+  <label>名</label>
+  <%= form.text_field :first_name_kanji, class:"form-control" %>
+  <label>電話番号</label>
+  <%= form.text_field :telephone_number, class:"form-control" %>
+  <label>郵便番号</label>
+  <%= form.text_field :postal_code_1, class:"form-control" %>-<%= form.text_field :postal_code_2, class:"form-control" %>
+  <label>住所</label>
+  <%= form.text_area :address, class:"form-control", row:"5" %>
+  <!-- ここまで -->
 </div>
 
-
-  <label>
-  <%= order_history.radio_button :pay_method, "銀行振込" %>銀行振込
-  </label>
-  <label>
-  <%= order_history.radio_button :pay_method, "クレジットカード" %>クレジットカード
-  </label>
-  <label>
-  <%= order_history.radio_button :pay_method, "代金引換" %>代金引換
-  </label>
+  <p>お支払い方法を選択</p>
+  <p><label>
+  <%= form.radio_button :pay_method, "銀行振込" %>銀行振込
+  </label></p>
+  <p><label>
+  <%= form.radio_button :pay_method, "クレジットカード" %>クレジットカード
+  </label></p>
+  <p><label>
+  <%= form.radio_button :pay_method, "代金引換" %>代金引換
+  </label></p>
 
 
 <p>商品の小計</p>
@@ -88,5 +100,5 @@
 <p>配送料   ¥<%= 500 %></p>
 <p>合計 ¥<%= @subtotal * 1.08 + 500  %></p>
 
-<%= order_history.submit "注文最終画面へ" %>
+<%= form.submit "注文最終画面へ" %>
 <% end %>

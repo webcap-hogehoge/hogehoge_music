@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :set_search
 
   def after_sign_in_path_for(resource)
     case resource
@@ -18,6 +19,11 @@ class ApplicationController < ActionController::Base
     when :administrator
       new_administrator_session_path
     end
+  end
+
+  def set_search
+    @search = Product.ransack(params[:q])
+    @search_products = @search.result.page(params[:page])
   end
 
   protected

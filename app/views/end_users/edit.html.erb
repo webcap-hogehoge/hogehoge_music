@@ -1,2 +1,96 @@
-<h1>EndUsers#edit</h1>
-<p>Find me in app/views/end_users/edit.html.erb</p>
+<!-- 管理者側からのユーザー編集ページ -->
+<div>
+  <%= form_with model: @user, local: true do |f| %>
+
+    <div class="field signup_contents_name">
+        <p style="display: inline-block; margin-right: 25px">名前</p>
+      <div style="display: inline-block">
+        <%= f.label :last_name_kanji, "(姓)" %><br />
+        <%= f.text_field :last_name_kanji, autofocus: true %>
+      </div>
+      <div style="display: inline-block">
+        <%= f.label :first_name_kanji, "(名)" %><br />
+        <%= f.text_field :first_name_kanji %>
+      </div>
+    </div>
+
+    <div class="field signup_contents_name">
+      <p style="display: inline-block; margin-right: 25px">名前(カナ)</p>
+      <div style="display: inline-block">
+        <%= f.label :last_name_katakana, "(セイ)" %><br />
+        <%= f.text_field :last_name_katakana, autofocus: true %>
+      </div>
+      <div style="display: inline-block">
+        <%= f.label :first_name_katakana, "(メイ)" %><br />
+        <%= f.text_field :first_name_katakana %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= f.label :email, "メールアドレス" %><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    </div>
+
+    <%= f.fields_for :addresses, @addresses do |af| %>
+      <% if af.object.is_main == 1 %>
+        <div>
+          <p style="display: inline-block; margin-right: 25px">郵便番号</p>
+          <div style="display: inline-block">
+            <%= af.label :postal_code_1, "〒" %>
+            <%= af.text_field :postal_code_1 %>
+          </div>
+          <div style="display: inline-block">
+            <%= af.label :postal_code_2, "-" %>
+            <%= af.text_field :postal_code_2 %>
+          </div>
+        </div>
+        <div class="field signup_contents">
+          <%= af.label :address, "住所" %>
+          <%= af.text_field :address %>
+        </div>
+        <div class="field signup_contents">
+          <%= af.label :telephone_number, "電話番号" %>
+          <%= af.text_field :telephone_number %>
+        </div>
+      <% else %>
+        <div>
+          <p style="display: inline-block; margin-right: 25px">送付先氏名</p>
+          <div style="display: inline-block">
+            <%= af.label :last_name %>
+            <%= af.text_field :last_name %>
+          </div>
+          <div style="display: inline-block">
+            <%= af.label :first_name %>
+            <%= af.text_field :first_name %>
+          </div>
+        </div>
+        <div>
+          <p style="display: inline-block; margin-right: 25px">郵便番号</p>
+          <div style="display: inline-block">
+            <%= af.label :postal_code_1, "〒" %>
+            <%= af.text_field :postal_code_1 %>
+          </div>
+          <div style="display: inline-block">
+            <%= af.label :postal_code_2, "-" %>
+            <%= af.text_field :postal_code_2 %>
+          </div>
+        </div>
+        <div class="field signup_contents">
+          <%= af.label :address, "住所" %>
+          <%= af.text_field :address %>
+        </div>
+        <div class="field signup_contents">
+          <%= af.label :telephone_number, "電話番号" %>
+          <%= af.text_field :telephone_number %>
+        </div>
+      <% end %>
+    <% end %>
+
+
+  <div class="actions">
+    <%= f.submit "更新" %>
+  </div>
+<% end %>
+
+<%= link_to "Back", :back %>
+</div>

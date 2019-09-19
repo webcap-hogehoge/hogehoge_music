@@ -49,12 +49,6 @@ ActiveRecord::Schema.define(version: 2019_09_16_100156) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "artists", force: :cascade do |t|
-    t.string "artist_name", default: "", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "cart_items", force: :cascade do |t|
     t.integer "product_id", default: 0, null: false
     t.integer "end_user_id", default: 0, null: false
@@ -102,13 +96,6 @@ ActiveRecord::Schema.define(version: 2019_09_16_100156) do
 
   create_table "genres", force: :cascade do |t|
     t.string "genre_name"
-    t.integer "product_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "labels", force: :cascade do |t|
-    t.string "label_name", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -150,10 +137,11 @@ ActiveRecord::Schema.define(version: 2019_09_16_100156) do
     t.integer "product_status", default: 0, null: false
     t.string "cd_name", default: "", null: false
     t.integer "is_deleted", default: 0, null: false
+    t.string "label_name"
+    t.string "artist_name"
+    t.integer "genre_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "artist_id"
-    t.integer "label_id"
   end
 
   create_table "reviews", force: :cascade do |t|
