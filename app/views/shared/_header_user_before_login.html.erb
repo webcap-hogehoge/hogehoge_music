@@ -1,10 +1,17 @@
 <meta charset=utf-8>
-<header>
+<header class="page-header">
 	<div class="container-fluid border-bottom">
 		<div class="row col-xs-4">
 				<%= link_to image_tag('logo.png', :size => '200x100'), root_path %> <!-- ロゴ表示 -->
 			</div>
-			<div class="col-xs-4">検索窓</div>
+			<div class="col-xs-4">
+				<div class="searchbox">
+			    	<%= search_form_for @q, url: root_path do |f| %>
+			    	<%= f.text_field :cd_name_cont,placeholder: '検索する商品名を入力...' %>
+                    <%= f.submit %>
+			    </div>
+			    <% end %>
+			</div>
 			<div class="col-xs-4">
 				<div class="row">
 				  <div class="col-xs-6 center-block">
