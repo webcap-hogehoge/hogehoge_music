@@ -11,4 +11,6 @@ class OrderHistory < ApplicationRecord
   belongs_to :end_user
   has_many :order_details, dependent: :destroy
   enum order_status:{accepting: 0, preparing: 1, finished: 2}   # accepting = 受付中 preparing = 出荷準備中 finished = 出荷済
+  enum pay_method:{bank: 0, card: 1, cash:2}
 end
+

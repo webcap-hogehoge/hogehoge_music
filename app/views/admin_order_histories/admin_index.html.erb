@@ -1,4 +1,4 @@
-
+<%= render "shared/header_admin_after_login" %>
 
 
 <!-- ナビゲーション -->
@@ -23,125 +23,184 @@
 <div class="tab-content">
 	<div class="tab-pane fade in active" id="all">
 	  <div class="container">
-           <table class="table">
+           <table class="table table-admin-index">
             <% @order_histories.each do |order| %>
               <tbody>
                 <tr>
-                   <th scope="row">購入者名</th>
-                   <td><%= order.last_name_kanji %><%= order.first_name_kanji %></td>
+                   <th scope="row" class="admin_order_history">購入者名</th>
+                   <td><%= order.end_user.last_name_kanji %><%= order.end_user.first_name_kanji %></td>
                 </tr>
                 <tr>
                    <th scope="row">購入日時</th>
-                   <td><%= order.created_at %></td>
+                   <td><%= l order.created_at %></td>
                 </tr>
                 <tr>
                    <th scope="row">購入内容</th>
-                   <td></td>
+                   <td><% order.order_details.each do |d|%>
+                     <span>商品名 : </span><%= d.product.cd_name %>
+                     <br><span>総枚数 : </span><%= d.product_number %><span>  枚</span>
+                     <% end %>
+                   </td>
+                </tr>
+                <tr>
+                   <th scope="row">購入金額</th>
+                   <td><span>小計 ¥</span>
+                    <br><span>消費税 ¥</span>
+                    <br><span>配送料 ¥</span>
+                    <br><span>購入総計 ¥</span>
+                  </td>
                 </tr>
                 <tr>
                    <th scope="row">送付先</th>
-                   <td><span>〒</span><%= order.postal_code_1%><span>-</span><%= order.postal_code_2%><%= order.address %></td>
+                   <td><%= order.last_name_kanji %><%= order.first_name_kanji %>
+                    <br><span>〒</span><%= order.postal_code_1%><span>-</span><%= order.postal_code_2%><%= order.address %></td>
                 </tr>
                 <tr>
                    <th rowspan="2">ステータス</th>
-                   <td rowspan="2"><%= order.order_status%></td>
+                   <td rowspan="2"><%= order.order_status_i18n %></td>
                 </tr>
-               </tbody>
+              </tbody>
           <% end %>
            </table>
       </div>
 　  </div>
-<!-- 受付 -->
+<% @order_histories.each  do |order| %> 
+<% if order.order_status == "accepting" %>
   <div class="tab-pane fade" id="accepting">
     <div class="container">
           <table class="table">
             <tbody>
                 <tr>
                    <th scope="row">購入者名</th>
-                   <td></td>
+                   <td><%= order.end_user.last_name_kanji %><%= order.end_user.first_name_kanji %></td>
                 </tr>
                 <tr>
                    <th scope="row">購入日時</th>
-                   <td></td>
+                   <td><%= l order.created_at %></td>
                 </tr>
                 <tr>
                    <th scope="row">購入内容</th>
-                   <td>サンプルミュージック</td>
+                      <td><% order.order_details.each do |d|%>
+                       <span>商品名 : </span><%= d.product.cd_name %>
+                       <br><span>総枚数 : </span><%= d.product_number %><span>  枚</span>
+                     <% end %>
+                     </td>
+                </tr>
+                <tr>
+                  <th scope="row">購入金額</th>
+                  <td><span>小計 ¥</span>
+                    <br><span>消費税 ¥</span>
+                    <br><span>配送料 ¥</span>
+                    <br><span>購入総計 ¥</span>
+                  </td>
                 </tr>
                 <tr>
                    <th scope="row">送付先</th>
-                   <td>サンプル太郎 152-00002 xxx区xxx市xxxx</td>
+                   <td><%= order.last_name_kanji %><%= order.first_name_kanji %>  <span>〒</span><%= order.postal_code_1%><span>-</span><%= order.postal_code_2%><%= order.address %></td>
                 </tr>
                 <tr>
                    <th rowspan="2">ステータス</th>
-                   <td rowspan="2">受付中</td>
+                   <td rowspan="2"><%= order.order_status_i18n%></td>
                 </tr>
             </tbody>
           </table>
     </div>
 　</div>
-<!-- 出荷準備中 -->
+<% end %>
+<% end %>
+
+<% @order_histories.each  do |order| %>
+<% if order.order_status == "preparing" %>
   <div class="tab-pane fade" id="preparing">
       <div class="container">
            <table class="table">
               <tbody>
                 <tr>
                    <th scope="row">購入者名</th>
-                   <td>サンプル太郎preparing</td>
+                   <td><%= order.end_user.last_name_kanji %><%= order.end_user.first_name_kanji %></td>
                 </tr>
                 <tr>
                    <th scope="row">購入日時</th>
-                   <td></td>
+                   <td><%= l order.created_at %></td>
                 </tr>
                 <tr>
                    <th scope="row">購入内容</th>
-                   <td>サンプルミュージック</td>
+                      <td><% order.order_details.each do |d|%>
+                       <span>商品名 : </span><%= d.product.cd_name %>
+                       <br><span>総枚数 : </span><%= d.product_number %><span>  枚</span>
+                       <% end %>
+                      </td>
                 </tr>
                 <tr>
+                   <th scope="row">購入金額</th>
+                   <td><span>小計 ¥</span>
+                    <br><span>消費税 ¥</span>
+                    <br><span>配送料 ¥</span>
+                    <br><span>購入総計 ¥</span>
+                  </td>
+                <tr>
                    <th scope="row">送付先</th>
-                   <td>サンプル太郎 152-00002 xxx区xxx市xxxx</td>
+                   <td><%= order.last_name_kanji %><%= order.first_name_kanji %>  <span>〒</span><%= order.postal_code_1%><span>-</span><%= order.postal_code_2%><%= order.address %></td>
                 </tr>
                 <tr>
                    <th rowspan="2">ステータス</th>
-                   <td rowspan="2">受付中</td>
+                   <td rowspan="2"><%= order.order_status_i18n%></td>
                 </tr>
-               </tbody>
+              </tbody>
            </table>
     </div>
 　</div>
-<!-- 出荷済 -->
+<% end %>
+<% end %>
+
+<% @order_histories.each  do |order| %>
+<% if order.order_status == "finished" %>
   <div class="tab-pane fade" id="finished">
     <div class="container">
            <table class="table">
               <tbody>
                 <tr>
                    <th scope="row">購入者名</th>
-                   <td>サンプル太郎finished</td>
+                   <td><%= order.end_user.last_name_kanji %><%= order.end_user.first_name_kanji %></td>
                 </tr>
                 <tr>
                    <th scope="row">購入日時</th>
-                   <td>2019年9月15日17時30分</td>
+                   <td><%= l order.created_at %></td>
                 </tr>
                 <tr>
                    <th scope="row">購入内容</th>
-                   <td>サンプルミュージック</td>
+                      <td><% order.order_details.each do |d|%>
+                        <span>商品名 : </span><%= d.product.cd_name %>
+                        <br><span>総枚数 : </span><%= d.product_number %><span>  枚</span>
+                        <% end %>
+                      </td>
+                </tr>
+                <tr>
+                   <th scope="row">購入金額</th>
+                    <td><span>小計 ¥</span>
+                      <br><span>消費税 ¥</span>
+                      <br><span>配送料 ¥</span>
+                      <br><span>購入総計 ¥</span>
+                    </td>
                 </tr>
                 <tr>
                    <th scope="row">送付先</th>
-                   <td>サンプル太郎 152-00002 xxx区xxx市xxxx</td>
+                   <td><% order.last_name_kanji %><%= order.first_name_kanji %><span>〒</span><%= order.postal_code_1%><span>-</span><%= order.postal_code_2%><%= order.address %></td>
                 </tr>
                 <tr>
                    <th rowspan="2">ステータス</th>
-                   <td rowspan="2"></td>
+                   <td rowspan="2"><%= order.order_status_i18n %></td>
                 </tr>
                </tbody>
            </table>
     </div>
 　</div>
 </div>
+<% end %>
+ <% end %>
 
 <!-- フッター -->
-<%= render 'shared/footer_user' %>
+<%= render 'shared/footer_admin' %>
 
 
 

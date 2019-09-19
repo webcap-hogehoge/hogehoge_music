@@ -1,4 +1,5 @@
 class EndUsersController < ApplicationController
+before_action :authenticate_user!
   def show
     @user = EndUser.find(current_end_user.id)
     @addresses_is_main = @user.addresses.find_by(is_main: 1)
