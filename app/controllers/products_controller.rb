@@ -13,6 +13,10 @@ class ProductsController < ApplicationController
   def admin_index
   end
 
+  def admin_show
+    @product = Product.find(params[:id])
+  end
+
   def new
   	@product = Product.new
   	@product.labels.build

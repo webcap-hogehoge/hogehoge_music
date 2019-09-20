@@ -1,8 +1,8 @@
 <!-- ヘッダー  -->
-<% if admin_signed_in? %>
-<%= render "shared_header_admin_after_login" %>
+<% if administrator_signed_in? %>
+<%= render "shared/header_admin_after_login" %>
 <% else %>
-<%= render "shared_header_admin_before_login" %>
+<%= render "shared/header_admin_before_login" %>
 <% end %>
 <!-- ヘッダー ここまで -->
 

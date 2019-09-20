@@ -1,0 +1,36 @@
+<!-- ヘッダー  -->
+<% if administrator_signed_in? %>
+<%= render "shared/header_admin_after_login" %>
+<% else %>
+<%= render "shared/header_admin_before_login" %>
+<% end %>
+<!-- ヘッダー ここまで -->
+
+
+
+<div class="container">
+		<div class="row">
+			<div class="col-xs-5">
+			</div>
+			<div class="col-xs-7">
+				<div>
+					<%= @product.cd_name %>
+				</div>
+				<div>
+					<%= @product.artist_name %>
+				</div>
+				<div>
+					<%= @product.label_name %>
+				<div>
+					<span>¥</span><%= @product.price %><span>（税込価格）</span>
+				</div>
+				<div>
+					<%= link_to '在庫追加', "#" %>
+					<%= link_to '編集', edit_product_path %>
+					<%= link_to '削除', "#" %>
+				</div>
+		</div>
+</div>
+
+					<!-- フッター  -->
+<%= render "shared/footer_admin" %>
