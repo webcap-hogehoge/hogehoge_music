@@ -9,27 +9,28 @@
 
 
 <div class="container">
-		<div class="row">
-			<div class="col-xs-5">
-			</div>
-			<div class="col-xs-7">
-				<div>
-					<%= @product.cd_name %>
-				</div>
-				<div>
-					<%= @product.artist_name %>
-				</div>
-				<div>
-					<%= @product.label_name %>
-				<div>
-					<span>¥</span><%= @product.price %><span>（税込価格）</span>
-				</div>
-				<div>
-					<%= link_to '在庫追加', "#" %>
-					<%= link_to '編集', edit_product_path %>
-					<%= link_to '削除', "#" %>
-				</div>
+	<div class="row" >
+		<h2>ID :      <%= @product.id %></h2>
+	</div>
+	<div class="row">
+		<div class="col-xs-5">
+			<%= image_tag @product.image_id.url, size:'300x300' %>
 		</div>
+		<div class="col-xs-7 lead">
+			<div class="">
+				<br><%= @product.cd_name %>
+				<br><%= @product.artist_name %>
+				<br><%= @product.label_name %>
+				<br><%= @product.genre_id %>
+				<br><%= @product.product_status_i18n %>
+				<br><span>¥</span><%= @product.price %><span>（税抜き価格）</span>
+				<br>在庫数 : <%= %>
+			</div>
+			<div class="row lead">
+				<br><ins><%= link_to '在庫追加', "#" %></ins><span>  / </span><ins><%= link_to '編集', edit_product_path %></ins><span>  /  </span><ins><%= link_to '削除', "#" %></ins>
+			</div>
+		</div>
+	</div>
 </div>
 
 					<!-- フッター  -->
