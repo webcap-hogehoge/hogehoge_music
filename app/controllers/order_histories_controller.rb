@@ -1,5 +1,7 @@
 class OrderHistoriesController < ApplicationController
   def new
+    @q = Product.ransack(params[:q])
+    @products = @q.result(distinct: true)
     @address_info = params[:address_info] if params.presence
     @end_user = EndUser.find(1)
     @cart_items = @end_user.cart_items
@@ -49,6 +51,8 @@ class OrderHistoriesController < ApplicationController
   end
 
   def confirm
+    @q = Product.ransack(params[:q])
+    @products = @q.result(distinct: true)
     @end_user = EndUser.find(1)
     @cart_items = @end_user.cart_items
     # わざと一行増やして変数を説明的にすることで見やすくする
@@ -71,14 +75,20 @@ class OrderHistoriesController < ApplicationController
   end
 
   def thanks
+    @q = Product.ransack(params[:q])
+    @products = @q.result(distinct: true)
   end
 
   def index
+    @q = Product.ransack(params[:q])
+    @products = @q.result(distinct: true)
     @end_user = EndUser.find(1)
     @order_histories = @end_user.order_histories
   end
 
   def show
+    @q = Product.ransack(params[:q])
+    @products = @q.result(distinct: true)
     @order_history = OrderHistory.find(params[:id])
   end
 
