@@ -28,23 +28,22 @@
 
         <div class="field">
           <label>ジャンル</label>
-          <%= f.collection_select :genre_id [["POP", "1"], ["クラシック", "2"], ["ロック", "3"]], :prompt => "選択してください" %>
+          <%= f.select :genre_id, Genre.all.map{|g| [g.genre_name, g.id]}, :prompt => "選択してください" %>
         </div>
 
-      <%= f.fields_for :disks do |d| %>
         <div class="field">
             <label>ディスク番号</label>
-            <%= d.text_field :disk_number %>
-            <%= d.fields_for :songs do |s| %>
-              <label>曲名</label>
-              <%= s.text_field :song_name %>
-              <% end %>
-      </div>
-      <% end %>
+            <%= f.fields_for :disks do |d| %>
+              <%= render 'disk_fields', f: d %>
+            <% end %>
+            <div class="links">
+              <%= link_to_add_association '行を追加', f, :disks %>
+            </div>
+        </div>
 
       <div class="field">
           <label>ステータス</label>
-          <%= f.select :product_status [["販売中", "0"], ["販売停止中", "1"]], :prompt => "選択してください" %>
+          <%= f.select :product_status, [["販売中", 0], ["販売停止中", 1]], :prompt => "選択してください" %>
       </div>
     <%= f.submit '完了', class: 'btn btn-primary btn-block' %>
     <% end %>

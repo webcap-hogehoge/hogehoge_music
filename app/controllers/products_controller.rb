@@ -16,7 +16,8 @@ class ProductsController < ApplicationController
 
   def new
   	@product = Product.new
-  	@product.disks.build
+  	@disk = @product.disks.build
+    @song = @disk.songs.build
   end
 
   def create
@@ -27,6 +28,7 @@ class ProductsController < ApplicationController
 
   private
   def product_params
-  	params.require(:product).permit(:image_id, :price, :cd_name, :product_status, :label_id, :artist_id, disks_attributes: [:disk_number])
+  	params.require(:product).permit(:image_id, :price, :cd_name, :product_status, :label_id, :artist_id, 
+      disks_attributes: [:id, :disk_number, :_destroy, songs_attributes: [:id, :song_name, :_destroy]])
   end
 end
