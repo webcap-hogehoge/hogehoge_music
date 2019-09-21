@@ -13,6 +13,8 @@ class CartItemsController < ApplicationController
   end
 
   def edit
+    @products = Product.all
+    @product = Product.find(params[:id])
     @cart_item = CartItem.find(params[:id])
     @cart_item.product_id = 1
     @cart_item.end_user_id = current_end_user.id

@@ -1,26 +1,25 @@
-<%= render 'shared/header_admin_after_login' %>
+<%= render 'shared/header_user_after_login' %>
 
 <h2>カート編集ページ</h2>
 <div class="container">
 	<div class="row">
+		<div class="col-xs-5 image">
+            <%= image_tag @cart_item.product.image_id.to_s %>
+        </div>
 
-		<div class="col-md-6 col-md-offset-3">
+		<div class="col-xs-7">
 			<h4 class="name"><%= @cart_item.product.cd_name%></h4>
 			<div>
 				<%= form_for @cart_item, url: cart_item_path(@cart_item.id) do |f| %>
-				<%= f.number_field :product_number %>
-				<div>
-					<%= f.submit '編集完了',  class: " btn btn-primary col-xs-12" %>
+				* 変更する個数を選択して下さい！！➡︎
+				<%= f.number_field :product_number %> 個<div><br>
+
+				<% sum = @cart_item.product.price * @cart_item.product_number * 1.08 %>
+				<div class="price">価格<br>¥<%= sum.floor %>(税込)</div>
+					<%= f.submit '編集完了',  class: " btn btn-primary" %>
 				</div>
 				<% end %>
-
-			</div><br>
-			<li class="destroy">
-				<%= link_to '削除', cart_item_path(@cart_item.id), method: :delete %>
-			</li>
-			<% sum = @cart_item.product.price * @cart_item.product_number * 1.08 %>
-			<li class="price">価格<br>¥<%= sum.floor %>(税込)</li>
+			</div>
 		</div>
-
 	</div>
 </div>
