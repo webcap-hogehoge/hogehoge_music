@@ -1,3 +1,12 @@
+<!-- ヘッダー  -->
+<% if administrator_signed_in? %>
+<%= render "shared/header_admin_after_login" %>
+<% else %>
+<%= render "shared/header_admin_before_login" %>
+<% end %>
+<!-- ヘッダー ここまで -->
+
+
 <table>
 	<tdbody>
 		<% @products.each do |product| %>
@@ -17,10 +26,13 @@
 			<% else %>
 			    <td><span>販売停止中</span></td>
 			<% end %>
+
 			<td><%= product.is_deleted %></td>
 			<td><%=link_to "在庫追加", new_arrival_history_path(product.id) %></td>
 		</tr>
 		<% end %>
-
 	</tdbody>
 </table>
+
+<!-- フッター  -->
+<%= render "shared/footer_admin" %>

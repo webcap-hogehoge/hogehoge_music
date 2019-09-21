@@ -12,4 +12,5 @@ class EndUser < ApplicationRecord
          has_many :likes, dependent: :destroy
          has_many :order_histories, dependent: :destroy
          has_many :reviews, dependent: :destroy
+         scope :active, -> { where(is_deleted: 0) }  #削除フラグ
 end

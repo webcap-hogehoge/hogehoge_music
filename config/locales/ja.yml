@@ -4,4 +4,16 @@ ja:
       product_status:
         on_sale: "販売中"
         not_on_sale: "販売停止中"
-
+    order_history:
+      order_status:
+        accepting: "受付中"
+        preparing: "出荷準備中"
+        finished: "出荷済"
+  time:
+    formats:
+      default: "%Y/%m/%d %H:%M"
+    order_history:
+      pay_method:
+        bank: "銀行振込"
+        card: "クレジットカード"
+        cash: "代金引換"

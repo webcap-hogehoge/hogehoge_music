@@ -20,6 +20,10 @@ class ProductsController < ApplicationController
     @cart_item = CartItem.new
   end
 
+  def admin_show
+    @product = Product.find(params[:id])
+  end
+
   def new
   	@product = Product.new
   	@disk = @product.disks.build

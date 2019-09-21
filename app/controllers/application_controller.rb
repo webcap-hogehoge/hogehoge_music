@@ -22,8 +22,8 @@ class ApplicationController < ActionController::Base
   end
 
   def set_search
-    @search = Product.ransack(params[:q])
-    @search_products = @search.result.page(params[:page])
+    @q = Product.ransack(params[:q])
+    @q_products = @q.result.page(params[:page])
   end
 
   protected

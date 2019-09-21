@@ -1,6 +1,10 @@
-<%= render 'shared/header_admin_after_login' %>
-
-
+<!-- ヘッダー  -->
+<% if end_user_signed_in? %>
+<%= render "shared/header_user_after_login" %>
+<% else %>
+<%= render "shared/header_user_before_login" %>
+<% end %>
+<!-- ヘッダーここまで -->
 
 		<% @products.each do |product| %>
 		<div style="width: 250px; border: 1px solid black; margin: 5px; display: inline-block; text-align: center;">
@@ -20,6 +24,8 @@
     	</div>
 	<% end %>
 
+<!-- フッター -->
+<%= render "shared/footer_user" %>
 
 
 
