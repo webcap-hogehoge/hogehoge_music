@@ -21,11 +21,11 @@
 						<%= link_to "ホーム", root_path %>
 					</div>
 					<div class="col-xs-3">
-						<%= link_to "マイページ", "" %>  <!-- リンク先直す -->
+						<%= link_to "マイページ", user_path(current_end_user.id) %>  <!-- リンク先直す -->
 					</div>
 					<div class="col-xs-3">
 						<span class="glyphicon glyphicon-shopping-cart"></span>
-						<%= link_to "カート", cart_items_path %>   <!-- リンク先直す　-->
+						<%= link_to "カート", cart_items_path(current_end_user.id) %>   <!-- リンク先直す　-->
 					</div>
 					<div class="col-xs-3">
 						<%= link_to "ログアウト", destroy_end_user_session_path, method: :delete %>
