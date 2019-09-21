@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-5">
+      <%= "ID: #{@product.id}" %><br>
+      <%= image_tag @product.image_id.url, size:'300x300' %>
+    </div>
+    <div class="col-xs-7">
+      <div>
+        <%= @product.cd_name %>
+      </div><br>
+      <div>
+        <%= @product.artist_name %>
+      </div><br>
+      <div>
+        <%= "#{@product.genre.genre_name}/#{@product.label_name}" %>
+      </div><br>
+      <div>
+        <%= "#{number_to_currency(@product.price)} (税込価格)" %>
+      </div><br>
+      <div>
+        <%= "在庫数#{@product.stock(@product.id)}" %>
+      </div>
+        <%= @product.product_status %>
+      </div>
+      <div>
+        <%= link_to "在庫追加", new_arrival_history_path, :class => "btn btn-primary" %>
+        <%= link_to "編集", edit_product_path, :class => "btn btn-success" %>
+        <%= link_to "削除(リンク先がなく繋げていない）", "#", :class => "btn btn-danger" %>
+      </div>
+    </div>
+  </div>
+
+<% count = 0 %>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <h2>曲目リスト</h2>
+      <% @product.disks.each do |disk| %>
+        <table class="table table-striped">
+          <tbody>
+            <tr>
+              <td><%= "ディスク:" + disk.disk_number.to_s %></td>
+            </tr>
+            <% disk.songs.each do |song| %>
+            <tr>
+                <td><%= "#{count += 1}.#{song.song_name}" %></td>
+            </tr>
+            <% end %>
+          </tbody>
+
+        </table>
+      <% end %>
+    </div>
+  </div>
+
+</div>

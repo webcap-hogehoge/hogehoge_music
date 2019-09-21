@@ -32,3 +32,4 @@
 
 .DS_Store
 /public/uploads/product/image_id/*
+/public/uploads/tmp/*

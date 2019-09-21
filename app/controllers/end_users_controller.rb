@@ -1,4 +1,5 @@
 class EndUsersController < ApplicationController
+before_action :authenticate_user!
   def show
     @user = EndUser.find(current_end_user.id)
     @addresses_is_main = @user.addresses.find_by(is_main: 1)
@@ -20,8 +21,10 @@ class EndUsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find_by(id: params[:id])
-    @user.destroy
+    #@user = User.find_by(id: params[:id])
+    #@user.destroy
+    self.is_deleted = 1
+    save
     redirect_to("/")
   end
 
@@ -37,6 +40,7 @@ class EndUsersController < ApplicationController
   def unsubscribe
   end
 
+
   # 管理者側
   def index
     @users = EndUser.page(params[:page]).per(10)
@@ -45,6 +49,7 @@ class EndUsersController < ApplicationController
   def admin_show
     @user = EndUser.find(params[:id])
     @addresses_is_main = @user.addresses.find_by(is_main: 1)
+    @order_histories = @user.order_histories.all.order(created_at: :desc)
   end
 
   private

@@ -57,4 +57,12 @@
 .searchbox{
   width: 200px;
 }
+.admin_order_history{
+  width:200px;
+}
 
+.table-borderless {
+  tbody, tr, td, th {
+    border-top: none !important;
+  }
+}

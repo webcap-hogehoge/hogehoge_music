@@ -1,5 +1,7 @@
 class OrderHistoriesController < ApplicationController
   def new
+    @q = Product.ransack(params[:q])
+    @products = @q.result(distinct: true)
     @address_info = params[:address_info] if params.presence
     @end_user = EndUser.find(1)
     @cart_items = @end_user.cart_items
@@ -20,9 +22,19 @@ class OrderHistoriesController < ApplicationController
       render :new
     else
       @order_history = @end_user.order_histories.build(order_histories_params)
+      # @order_history.subtotalはorder_historyテーブルのsubtotalカラムを示すことになるので@order_history.subtotal=0と定義するのはよくないのでsubtotal=0とする
+      subtotal = 0
+      @cart_items.each do |cart_item|
+          unit_price = cart_item.product.price
+          subtotal += unit_price * cart_item.product_number
+      end
+      @order_history.tax = subtotal * 0.08
+      @order_history.delivery_fee = 500
+      @order_history.subtotal = subtotal
+      @order_history.total_price = @order_history.subtotal + @order_history.tax + @order_history.delivery_fee
+
 
       if @order_history.save
-
         @cart_items.each do |cart_item|
           @order_detail = OrderDetail.new
           @order_detail.order_history_id = @order_history.id
@@ -30,16 +42,17 @@ class OrderHistoriesController < ApplicationController
           @order_detail.product_number = cart_item.product_number
           @order_detail.unit_price = cart_item.product.price
           @order_detail.save
-          cart_item.destroy
+          # 実装前にコメントアウト外すこと！！！！！！！
+          #cart_item.destroy
         end
-        redirect_to order_histories_thanks_path
-      else
-        render :new
+         redirect_to order_histories_thanks_path
       end
     end
   end
 
   def confirm
+    @q = Product.ransack(params[:q])
+    @products = @q.result(distinct: true)
     @end_user = EndUser.find(1)
     @cart_items = @end_user.cart_items
     # わざと一行増やして変数を説明的にすることで見やすくする
@@ -62,14 +75,21 @@ class OrderHistoriesController < ApplicationController
   end
 
   def thanks
+    @q = Product.ransack(params[:q])
+    @products = @q.result(distinct: true)
   end
 
   def index
-  @order_history = OrderHistory.find(params[:id])
+    @q = Product.ransack(params[:q])
+    @products = @q.result(distinct: true)
+    @end_user = EndUser.find(1)
+    @order_histories = @end_user.order_histories
   end
 
   def show
-    @order_histories = OrderHistory.all
+    @q = Product.ransack(params[:q])
+    @products = @q.result(distinct: true)
+    @order_history = OrderHistory.find(params[:id])
   end
 
   private
