@@ -46,8 +46,8 @@
 # Address.create!(end_user_id: 1, postal_code_1: 222, postal_code_2: 2222, address: "東京都渋谷区渋谷２−２−２", telephone_number: "222-2222-2222", last_name: "山田", first_name: "二郎", is_main:0)
 # Address.create!(end_user_id: 1, postal_code_1: 333, postal_code_2: 3333, address: "東京都渋谷区渋谷３−３−３", telephone_number: "333-3333-3333", last_name: "山田", first_name: "三郎", is_main:0)
 
-OrderHistory.create!(end_user_id: 1, last_name_kanji: "山本", first_name_kanji: "太郎", postal_code_1: "111", postal_code_2: "1111", address: "東京都渋谷区渋谷１−１−１", telephone_number: "111-1111-1111", pay_method: 1, order_status: 0, subtotal: 2000, tax: 160, delivery_fee: 500, total_price: 2660)
-OrderHistory.create!(end_user_id: 1, last_name_kanji: "佐々木", first_name_kanji: "小次郎", postal_code_1: "999", postal_code_2: "9999", address: "埼玉県　さいたま市　大宮区 1-1-1", telephone_number: "999-9999-9999", pay_method: 0, order_status: 1, subtotal: 4000, tax: 320, delivery_fee: 500, total_price: 4820)
+OrderHistory.create!(id: 1, end_user_id: 1, last_name_kanji: "山本", first_name_kanji: "太郎", postal_code_1: "111", postal_code_2: "1111", address: "東京都渋谷区渋谷１−１−１", telephone_number: "111-1111-1111", pay_method: 1, order_status: 0, subtotal: 2000, tax: 160, delivery_fee: 500, total_price: 2660)
+OrderHistory.create!(id: 2, end_user_id: 1, last_name_kanji: "佐々木", first_name_kanji: "小次郎", postal_code_1: "999", postal_code_2: "9999", address: "埼玉県　さいたま市　大宮区 1-1-1", telephone_number: "999-9999-9999", pay_method: 0, order_status: 1, subtotal: 4000, tax: 320, delivery_fee: 500, total_price: 4820)
 OrderDetail.create!(order_history_id: 1, product_id: 1, product_number: 1, unit_price: 600)
 OrderDetail.create!(order_history_id: 1, product_id: 2, product_number: 2, unit_price: 700)
 OrderDetail.create!(order_history_id: 2, product_id: 3, product_number: 1, unit_price: 1000)

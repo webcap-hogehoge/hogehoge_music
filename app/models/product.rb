@@ -24,4 +24,21 @@ belongs_to :genre
 enum product_status:{on_sale: 0, not_on_sale: 1}
 # on_sale = 販売中  not_on_sale = 販売停止中
 
+def stock(product_id)
+
+  arrival_histories = ArrivalHistory.where(product_id: product_id)
+  arrival_count = 0
+  arrival_histories.each do |arrival_history|
+    arrival_count += arrival_history.arrival_number
+  end
+
+  order_details = OrderDetail.where(product_id: product_id)
+  order_count = 0
+  order_details.each do |order_detail|
+    order_count += order_detail.product_number
+  end
+
+  stock = arrival_count - order_count
+end
+
 end
