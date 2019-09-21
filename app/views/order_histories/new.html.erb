@@ -1,4 +1,4 @@
-<h1>ご注文内容の確認</h1>
+<h1 class="title">ご注文内容の確認</h1>
 
 <% @cart_items.each do |cart_item| %>
   <%= image_tag cart_item.product.image_id.to_s %>
@@ -44,11 +44,11 @@
   </div>
 <% end %>
 
-<h1>配送先</h1>
+<h1 class="title">配送先</h1>
 
 <div class="field">
   <% @end_user.addresses.each do |address| %>
-    <div class>
+    <div class="address_detail">
       <!-- 既存の住所を使うゾーン -->
       <!--  上か下のラジオボタンどちらを押したかによって、条件分岐 -->
       <!--  どっちのボタンを押したかを、何らかの箱に入れなくちゃいけない -->

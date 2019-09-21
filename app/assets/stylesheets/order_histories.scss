@@ -1,31 +1,28 @@
 // Place all the styles related to the order_histories controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+/* order_histories/new */
 .address_detail {
-  margin:2em 0;
-    position: relative;
-    padding: 0.5em 1.5em;
-    border-top: solid 2px black;
-    border-bottom: solid 2px black;
+    padding: 2em 2em;
+    margin: 2em 0;
+    font-weight: bold;
+    border: solid 1px #000000;
+    width: 300px;
     display: inline-block;
-    float: left;
 }
-.address_detail:before, .address_detail:after{
-    content: '';
-    position: absolute;
-    top: -10px;
-    width: 2px;
-    height: -webkit-calc(100% + 20px);
-    height: calc(100% + 20px);
-    background-color: black;
-}
-.address_detail:before {left: 10px;}
-.address_detail:after {right: 10px;}
 .address_detail p {
     margin: 0;
     padding: 0;
+    font-size: 15px;
 }
+
 
 .form-control {
   width: 50%;
+}
+
+/* order_histories/index */
+.title {
+  text-align: center;
 }
