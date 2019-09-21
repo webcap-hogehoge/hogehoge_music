@@ -7,6 +7,7 @@ class ArrivalHistoriesController < ApplicationController
   def create
   	@arrival_history = ArrivalHistory.new(arrival_history_params)
   	@arrival_history.save
+  	render("index")
   end
 
    private
