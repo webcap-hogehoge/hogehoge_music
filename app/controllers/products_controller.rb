@@ -2,7 +2,11 @@ class ProductsController < ApplicationController
   def index
   	# @products = Product.all    <!-- ransackによりallが表示されるためコメントアウトしてます -->
     @q = Product.ransack(params[:q])
-    @products = @q.result(distinct: true)
+    if params[:q] != nil
+      @products = @q.result(distinct: true)
+    else
+      @products = Product.all
+    end
   end
 
   def admin_index
@@ -21,14 +25,15 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.build(product_params)
+    @product = Product.new(product_params)
     @product.save
-    render("admin_index")
+    redirect_to admin_root_path
   end
 
   private
   def product_params
-  	params.require(:product).permit(:image_id, :price, :cd_name, :product_status, :label_id, :artist_id, 
+  	params.require(:product).permit(:image_id, :price, :cd_name,
+      :genre_id, :product_status, :label_name, :artist_name, 
       disks_attributes: [:id, :disk_number, :_destroy, songs_attributes: [:id, :song_name, :_destroy]])
   end
 end
