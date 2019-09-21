@@ -36,18 +36,17 @@
                 </tr>
                 <tr>
                    <th scope="row">購入内容</th>
-                   <td><% order.order_details.each do |d|%>
-                     <span>商品名 : </span><%= d.product.cd_name %>
-                     <br><span>総枚数 : </span><%= d.product_number %><span>  枚</span>
+                      <td><% order.order_details.each do |d|%>
+                       <span>商品名 : </span><%= d.product.cd_name %>
+                       <br><span>総枚数 : </span><%= d.product_number %><span>  枚</span>
                      <% end %>
-                   </td>
                 </tr>
                 <tr>
                    <th scope="row">購入金額</th>
-                   <td><span>小計 ¥</span>
-                    <br><span>消費税 ¥</span>
-                    <br><span>配送料 ¥</span>
-                    <br><span>購入総計 ¥</span>
+                   <td><span>小計 ¥</span><%= order.subtotal %>
+                    <br><span>消費税 ¥</span><%= order.tax %>
+                    <br><span>配送料 ¥</span><%= order.delivery_fee %>
+                    <br><span>購入総計 ¥</span><%= order.total_price %>
                   </td>
                 </tr>
                 <tr>
@@ -80,7 +79,8 @@
                 </tr>
                 <tr>
                    <th scope="row">購入内容</th>
-                      <td><% order.order_details.each do |d|%>
+                   <% order.order_details.each do |d|%>
+                      <td>
                        <span>商品名 : </span><%= d.product.cd_name %>
                        <br><span>総枚数 : </span><%= d.product_number %><span>  枚</span>
                      <% end %>
@@ -88,10 +88,10 @@
                 </tr>
                 <tr>
                   <th scope="row">購入金額</th>
-                  <td><span>小計 ¥</span>
-                    <br><span>消費税 ¥</span>
-                    <br><span>配送料 ¥</span>
-                    <br><span>購入総計 ¥</span>
+                  <td><span>小計 ¥</span>%= order.product.subtotal %>
+                    <br><span>消費税 ¥</span><%= order.tax %>
+                    <br><span>配送料 ¥</span><%= order.delivery_fee %>
+                    <br><span>購入総計 ¥</span><%= order.total_price %>
                   </td>
                 </tr>
                 <tr>
@@ -133,10 +133,10 @@
                 </tr>
                 <tr>
                    <th scope="row">購入金額</th>
-                   <td><span>小計 ¥</span>
-                    <br><span>消費税 ¥</span>
-                    <br><span>配送料 ¥</span>
-                    <br><span>購入総計 ¥</span>
+                   <td><span>小計 ¥</span>%= order.product.subtotal %>
+                    <br><span>消費税 ¥</span><%= order.tax %>
+                    <br><span>配送料 ¥</span><%= order.delivery_fee %>
+                    <br><span>購入総計 ¥</span><%= order.total_price %>
                   </td>
                 <tr>
                    <th scope="row">送付先</th>
@@ -177,10 +177,10 @@
                 </tr>
                 <tr>
                    <th scope="row">購入金額</th>
-                    <td><span>小計 ¥</span>
-                      <br><span>消費税 ¥</span>
-                      <br><span>配送料 ¥</span>
-                      <br><span>購入総計 ¥</span>
+                    <td><span>小計 ¥</span>%= order.product.subtotal %>
+                      <br><span>消費税 ¥</span><%= order.tax %>
+                      <br><span>配送料 ¥</span><%= order.delivery_fee %>
+                      <br><span>購入総計 ¥</span><%= order.total_price %>
                     </td>
                 </tr>
                 <tr>

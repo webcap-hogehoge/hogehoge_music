@@ -9,7 +9,7 @@
 
 <table>
 	<tdbody>
-		<% @products.each do |product| %>
+		<% @q_products.each do |product| %>
 		<tr>
 			<% if product.product_status == "on_sale" %>
 			    <td><%= image_tag product.image_id.url %></td> <!-- carierwaveの画像を表示  -->

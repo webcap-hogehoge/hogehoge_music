@@ -21,8 +21,10 @@ before_action :authenticate_user!
   end
 
   def destroy
-    @user = User.find_by(id: params[:id])
-    @user.destroy
+    #@user = User.find_by(id: params[:id])
+    #@user.destroy
+    self.is_deleted = 1
+    save
     redirect_to("/")
   end
 
@@ -37,6 +39,7 @@ before_action :authenticate_user!
 
   def unsubscribe
   end
+
 
   # 管理者側
   def index

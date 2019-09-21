@@ -1,4 +1,12 @@
-　	<div class="container">
+　<!-- ヘッダー  -->
+<% if end_user_signed_in? %>
+<%= render "shared/header_user_after_login" %>
+<% else %>
+<%= render "shared/header_user_before_login" %>
+<% end %>
+<!-- ヘッダーここまで -->
+
+<div class="container">
 		<div class="row">
 			<div class="col-xs-5">
 				<%= image_tag @product.image_id.url, size:'300x300' %>
@@ -52,3 +60,6 @@
 							</table>
 						<% end %>
 					</div>
+
+<!-- フッター -->
+<%= render "shared/footer_user" %>
