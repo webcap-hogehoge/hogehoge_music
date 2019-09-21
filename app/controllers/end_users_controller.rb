@@ -9,12 +9,20 @@ class EndUsersController < ApplicationController
   end
 
   def edit
+    @user = EndUser.find(params[:id])
+    @addresses = @user.addresses.all
   end
 
   def update
+    @user = EndUser.find(params[:id])
+    @user.update!(user_update_params)
+    redirect_to user_path
   end
 
   def destroy
+    @user = User.find_by(id: params[:id])
+    @user.destroy
+    redirect_to("/")
   end
 
   def review
@@ -45,4 +53,21 @@ class EndUsersController < ApplicationController
     params.require(:end_user).permit(:last_name_kanji, :first_name_kanji, :last_name_katakana, :first_name_katakana, :email)
   end
 
+  def user_update_params
+    params.require(:end_user).permit(
+            :last_name_kanji,
+             :first_name_kanji,
+              :last_name_katakana,
+               :first_name_katakana,
+                :email,
+                 addresses_attributes: [
+                  :id,
+            :first_name,
+            :last_name,
+            :postal_code_1,
+            :postal_code_2,
+            :address,
+            :telephone_number
+          ])
+  end
 end

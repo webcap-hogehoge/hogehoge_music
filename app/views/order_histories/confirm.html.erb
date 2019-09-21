@@ -1,70 +1,55 @@
 <h1>ご注文内容の確認</h1>
 <p>配送先</p>
 
-<%= form_for @order_history, url: {action: 'create'} do |order_history| %>
+<%= form_with model: @order_history, url: {action: 'create'}, local: true do |form| %>
 <div class="field">
   <%= @order_history.last_name_kanji %>
-  <%= order_history.hidden_field :last_name_kanji %>
+  <%= form.hidden_field :last_name_kanji %>
 </div>
 <div class="field">
   <%= @order_history.first_name_kanji %>
-  <%= order_history.hidden_field :first_name_kanji %>
+  <%= form.hidden_field :first_name_kanji %>
 </div>
 <div class="field">
   電話番号<%= @order_history.telephone_number %>
-  <%= order_history.hidden_field :telephone_number %>
+  <%= form.hidden_field :telephone_number %>
 </div>
 <div class="field">
   郵便番号<%= @order_history.postal_code_1 %>
-  <%= order_history.hidden_field :postal_code_1 %>
+  <%= form.hidden_field :postal_code_1 %>
 </div>
 <div class="field">
   <%= @order_history.postal_code_2 %>
-  <%= order_history.hidden_field :postal_code_2 %>
+  <%= form.hidden_field :postal_code_2 %>
 </div>
 <div class="field">
   住所<%= @order_history.address %>
-  <%= order_history.hidden_field :address %>
+  <%= form.hidden_field :address %>
 </div>
 
 <p>お支払い方法</p>
 <div class="field">
   <%= @order_history.pay_method %>
-  <%= order_history.hidden_field :pay_method %>
+  <%= form.hidden_field :pay_method %>
 </div>
 
 <div class="actions">
-  <%= order_history.submit '注文確定' %>
+  <%= form.submit '注文確定' %>
 </div>
 
 <% end %>
 
-<%= form_for @order_history, url: new_order_history_path do |order_history| %>
-<div class="field">
-  <%= order_history.hidden_field :last_name_kanji %>
-</div>
-<div class="field">
-  <%= order_history.hidden_field :first_name_kanji %>
-</div>
-<div class="field">
-  <%= order_history.hidden_field :telephone_number %>
-</div>
-<div class="field">
-  <%= order_history.hidden_field :postal_code_1 %>
-</div>
-<div class="field">
-  <%= order_history.hidden_field :postal_code_2 %>
-</div>
-<div class="field">
-  <%= order_history.hidden_field :address %>
-</div>
-
-<div class="field">
-  <%= order_history.hidden_field :pay_method %>
-</div>
-
+<%= form_with model: @order_history, url: new_order_history_path, local: true do |form| %>
+  <%= form.hidden_field :last_name_kanji %>
+  <%= form.hidden_field :first_name_kanji %>
+  <%= form.hidden_field :telephone_number %>
+  <%= form.hidden_field :postal_code_1 %>
+  <%= form.hidden_field :postal_code_2 %>
+  <%= form.hidden_field :address %>
+  <%= form.hidden_field :pay_method %>
+  <%= form.hidden_field :selected_order_histories_address_id, value: @address_info %>
 <div class="actions">
-  <%= order_history.submit '戻る', name: 'back' %>
+  <%= form.submit '戻る', name: 'back' %>
 </div>
 
 <% end %>

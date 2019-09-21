@@ -2,8 +2,8 @@
   <h2>会員登録</h2>
   <div style="padding-left: 50px">
     <%# 以下確認画面を作成するための実験中。成功したら決してよし%>
-    <%#= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-    <%= form_for @end_user, url: {action: "confirm"} do |f| %>
+    <%#= form_for(resource, as: resource_name, url: registra tion_path(resource_name)) do |f| %>
+    <%= form_for(resource, as: resource_name, url: {action: "confirm"}) do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
 
       <div class="field signup_contents_name">
@@ -38,7 +38,7 @@
       <div class="field signup_contents">
         <%= f.label :password, "パスワード" %>
         <% if @minimum_password_length %>
-        <em>(<%= @minimum_password_length %> characters minimum)</em>
+        <em>(<%= @minimum_password_length %>文字以上入力してください)</em>
         <% end %>
         <%= f.password_field :password, autocomplete: "new-password" %>
       </div>
@@ -53,11 +53,11 @@
         <div>
           <p style="display: inline-block; margin-right: 25px">郵便番号</p>
           <div style="display: inline-block">
-            <%= address.label :postal_code_1 %>
+            <%= address.label :postal_code_1, "〒" %>
             <%= address.text_field :postal_code_1 %>
           </div>
           <div style="display: inline-block">
-            <%= address.label :postal_code_2 %>
+            <%= address.label :postal_code_2, "-" %>
             <%= address.text_field :postal_code_2 %>
           </div>
         </div>

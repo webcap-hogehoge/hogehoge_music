@@ -1,11 +1,15 @@
 class ProductsController < ApplicationController
   def index
-  	@products = Product.all
+  	# @products = Product.all    <!-- ransackによりallが表示されるためコメントアウトしてます -->
+    @q = Product.ransack(params[:q])
+    @products = @q.result(distinct: true)
   end
 
   def show
+    @q = Product.ransack(params[:q])
   	@products = Product.all
   	@product = Product.find(params[:id])
+    @cart_item = CartItem.new
   end
 
   def admin_index

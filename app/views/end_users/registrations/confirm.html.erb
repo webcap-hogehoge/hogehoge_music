@@ -1,7 +1,7 @@
 <div style="margin: 30px 50px">
-  <h4>ご登録内容の確認</h4>
-  <%= form_for @end_user, url: {action: "complete"} do |f| %>
-    <%= devise_error_messages! %>
+  <h4>ご登録内容の確認</h4><%#= form_for(resource, as: resource_name, url: registra tion_path(resource_name)) do |f| %>
+  <%= form_for(@end_user, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%#= devise_error_messages! %>
 
     <div class="field signup_contents_name">
       <p style="display: inline-block; margin-right: 50px">名前</p>
@@ -43,36 +43,35 @@
       <%=  "●" * @end_user.password.length %>
     </div>
 
-    <%= f.fields_for :addresses, @address do |address| %>
-        <div>
-          <p style="display: inline-block; margin-right: 25px">郵便番号</p>
-          <div style="display: inline-block">
-            <%= address.label :postal_code_1 %>
-            <%= address.hidden_field :postal_code_1 %>
-            <%= @address.postal_code_1 %>
-          </div>
-          <div style="display: inline-block">
-            <%= address.label :postal_code_2 %>
-            <%= address.hidden_field :postal_code_2 %>
-            <%= @address.postal_code_2 %>
-          </div>
+    <%= f.fields_for :addresses do |af| %>
+      <div>
+        <p style="display: inline-block; margin-right: 25px">郵便番号</p>
+        <div style="display: inline-block">
+          <%= af.label :postal_code_1, "〒" %>
+          <%= af.hidden_field :postal_code_1 %>
+          <%= @address.postal_code_1 %>
         </div>
-        <div class="field signup_contents">
-          <%= address.label :address, "住所" %>
-          <%= address.hidden_field :address %>
-          <%= @address.address %>
+        <div style="display: inline-block">
+          <%= af.label :postal_code_2, "-" %>
+          <%= af.hidden_field :postal_code_2 %>
+          <%= @address.postal_code_2 %>
         </div>
-        <div class="field signup_contents">
-          <%= address.label :telephone_number, "電話番号" %>
-          <%= address.hidden_field :telephone_number %>
-          <%= @address.telephone_number %>
-        </div>
+      </div>
+      <div class="field signup_contents">
+        <%= af.label :address, "住所" %>
+        <%= af.hidden_field :address %>
+        <%= @address.address %>
+      </div>
+      <div class="field signup_contents">
+        <%= af.label :telephone_number, "電話番号" %>
+        <%= af.hidden_field :telephone_number %>
+        <%= @address.telephone_number %>
+      </div>
 
-            <%= address.hidden_field :last_name, :value => @address.end_user.last_name_kanji %>
-
-            <%= address.hidden_field :first_name, :value => @address.end_user.first_name_kanji %>
-            <%= address.hidden_field :is_main, :value => 1 %>
-      <% end %>
+      <%= af.hidden_field :last_name, :value => @end_user.last_name_kanji %>
+      <%= af.hidden_field :first_name, :value => @end_user.first_name_kanji %>
+      <%= af.hidden_field :is_main, :value => 1 %>
+    <% end %>
 
     <div class="actions">
       <%= f.submit "完了", :class => "btn btn-primary" %>
