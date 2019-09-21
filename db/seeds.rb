@@ -7,6 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
+
  Genre.create!(genre_name: "J-POP")
  Genre.create!(genre_name: "ROCK")
  Genre.create!(genre_name: "JAZZ")
@@ -56,3 +57,4 @@ CartItem.create!(product_id: 3, end_user_id: 1, product_number: 1)
 CartItem.create!(product_id: 4, end_user_id: 1, product_number: 4)
 CartItem.create!(product_id: 5, end_user_id: 1, product_number: 2)
 CartItem.create!(product_id: 6, end_user_id: 1, product_number: 3)
+

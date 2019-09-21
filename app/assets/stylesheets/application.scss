@@ -61,8 +61,8 @@
   width:200px;
 }
 
-.table-borderless{
-  th, td {
+.table-borderless {
+  tbody, tr, td, th {
     border-top: none !important;
   }
 }

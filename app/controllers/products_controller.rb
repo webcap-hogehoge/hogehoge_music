@@ -24,6 +24,9 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
   end
 
+  def admin_index
+  end
+
   def new
   	@product = Product.new
   	@disk = @product.disks.build
