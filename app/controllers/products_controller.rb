@@ -14,8 +14,10 @@ class ProductsController < ApplicationController
   end
 
   def show
+    @q = Product.ransack(params[:q])
   	@products = Product.all
   	@product = Product.find(params[:id])
+    @cart_item = CartItem.new
   end
 
   def new

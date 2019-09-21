@@ -1,0 +1,24 @@
+<h2>入荷履歴一覧</h2>
+    <div class="col-xs-12">
+        <% @arrival_histories.each do |arrival_history| %>
+            <div class="row aaa">
+                <div class="col-xs-3 info1">
+                    <h4 class="product_name">商品名</h4>
+                    <h4 class="created_at">入荷日時</h4>
+                </div>
+                <div class="col-xs-6 info2">
+                    <li class="cd_name">
+                        <%= arrival_history.product.cd_name %>
+                    </li>
+                    <li class="created_at">
+                        <%= arrival_history.created_at %>
+                    </li>
+                </div>
+                <div class="col-xs-3 info3">
+                    <li class="quantity">個数
+                        <%= arrival_history.arrival_number %> 個
+                    </li>
+                </div>
+            </div>
+        <% end %>
+    </div>

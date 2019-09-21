@@ -10,6 +10,10 @@ class ArrivalHistoriesController < ApplicationController
   	render("index")
   end
 
+  def index
+    @arrival_histories = ArrivalHistory.all
+  end
+
    private
     def arrival_history_params
         params.require(:arrival_history).permit(:arrival_number)

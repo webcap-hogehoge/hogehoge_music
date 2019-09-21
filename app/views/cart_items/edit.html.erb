@@ -1,0 +1,26 @@
+<%= render 'shared/header_admin_after_login' %>
+
+<h2>カート編集ページ</h2>
+<div class="container">
+	<div class="row">
+
+		<div class="col-md-6 col-md-offset-3">
+			<h4 class="name"><%= @cart_item.product.cd_name%></h4>
+			<div>
+				<%= form_for @cart_item, url: cart_item_path(@cart_item.id) do |f| %>
+				<%= f.number_field :product_number %>
+				<div>
+					<%= f.submit '編集完了',  class: " btn btn-primary col-xs-12" %>
+				</div>
+				<% end %>
+
+			</div><br>
+			<li class="destroy">
+				<%= link_to '削除', cart_item_path(@cart_item.id), method: :delete %>
+			</li>
+			<% sum = @cart_item.product.price * @cart_item.product_number * 1.08 %>
+			<li class="price">価格<br>¥<%= sum.floor %>(税込)</li>
+		</div>
+
+	</div>
+</div>

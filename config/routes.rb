@@ -50,7 +50,7 @@ Rails.application.routes.draw do
   get 'admin_order_histories' => 'admin_order_histories#admin_index'
 
   #cart_item
-    resources :cart_items, only: [:create, :index, :update, :destroy]
+    resources :cart_items, only: [:create, :index, :update, :edit, :destroy]
 
   #order_history
     get 'order_histories/thanks', to: 'order_histories#thanks'
