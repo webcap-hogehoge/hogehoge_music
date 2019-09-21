@@ -2,14 +2,25 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+
 /* order_histories/new */
+.new_title {
+  font-size: 20px;
+  font-weight: bold;
+  padding: 20px 40px;
+}
+
 .address_detail {
     padding: 2em 2em;
-    margin: 2em 0;
-    font-weight: bold;
+    margin: 2em 5em;
+    font-weight: normal;
     border: solid 1px #000000;
-    width: 300px;
-    display: inline-block;
 }
 .address_detail p {
     margin: 0;
@@ -22,7 +33,58 @@
   width: 50%;
 }
 
-/* order_histories/index */
-.title {
-  text-align: center;
+.cart-contents {
+  padding: 40px 0;
+  border-bottom: solid 4px gray;
 }
+
+.cart-item-headline {
+  font-size: 20px;
+  padding: 20px 0;
+}
+
+.cart-item-number-box {
+  display: inline-block;
+  padding: 10px 20px;
+}
+
+.cart-item-number {
+  font-size: 20px;
+  width: 100px;
+  padding: 5px;
+  text-align: center;
+  border: solid 1px #000000;
+  margin: 20px 0;
+}
+
+.cart-item-price-box {
+  display: inline-block;
+}
+
+.address_input {
+  padding: 10px 50px;
+  font-size: 20px;
+}
+
+.new-address {
+  border: solid 1px #000000;
+  margin: 10px 20px;
+}
+
+.pay_method {
+  padding: 20px 40px;
+}
+
+
+
+
+/* order_histories/thanks */
+.thanks-message {
+  text-align: center;
+  font-size:20px;
+}
+
+.thankyou {
+  padding: 80px;
+}
+

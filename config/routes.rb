@@ -37,7 +37,7 @@ Rails.application.routes.draw do
     resources :contacts, only: [:new, :create, :index]
 
   # products
-    resources :products, only: [:show, :create, :edit, :update]
+    resources :products, only: [:show, :create, :edit, :update, :new]
     root 'products#index'
 
   #reviews
@@ -50,7 +50,7 @@ Rails.application.routes.draw do
   get 'admin_order_histories' => 'admin_order_histories#admin_index'
 
   #cart_item
-    resources :cart_items, only: [:create, :index, :update, :destroy]
+    resources :cart_items, only: [:create, :index, :update, :edit, :destroy]
 
   #order_history
     get 'order_histories/thanks', to: 'order_histories#thanks'
@@ -62,7 +62,7 @@ Rails.application.routes.draw do
 
 # 管理者側
   #administrator_products
-    resources :admin_products, only: [:show, :index]
+    resources :admin_products, only: [:show, :index, :edit]
     get '/admin', to: 'products#admin_index', as: 'admin_root'
     get '/admin_product/:id', to: 'products#admin_show'
 
