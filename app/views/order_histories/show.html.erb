@@ -1,11 +1,11 @@
+<%= render 'shared/header_user_after_login' %>
 <p>購入履歴詳細画面</p>
 
-<% @order_histories.each do |order_history| %>
   <!-- 計算用のeach文 -->
   <!-- each文で出て来る変数を定義 -->
   <% order_number_total = 0 %>
   <% order_total = 0 %>
-  <% order_history.order_details.each do |order_detail| %>
+  <% @order_history.order_details.each do |order_detail| %>
     <!-- 購入個数計算 -->
     <% order_number_total += order_detail.product_number %>
     <%# order_number_total = order_number_total + order_detail.product_number %>
@@ -13,15 +13,15 @@
     <% order_total += order_detail.product.price * order_detail.product_number * 1.08 %>
   <% end %>
   <%# binding.pry %>
-  注文日<%= order_history.created_at %>
+  注文日<%= @order_history.created_at %>
   <!-- 購入個数表示 -->
   個数 <%= order_number_total %>
   <!-- 購入金額表示 -->
-  合計 <%= order_total + 500 %>
-  <%= order_history.order_status %>
+  合計 <%= order_total.to_i + 500 %>
+  <%= @order_history.order_status %>
 
   <!-- 詳細情報表示用のeach文 -->
-  <% order_history.order_details.each do |order_detail| %>
+  <% @order_history.order_details.each do |order_detail| %>
     タイトル名<%= order_detail.product.cd_name %>
     <%= order_detail.product.price %>
     <%= order_detail.product_number %>
@@ -29,8 +29,7 @@
 
 
   送付先
-  <%= order_history.last_name_kanji %><%= order_history.first_name_kanji %>
-  <%= order_history.telephone_number %>
-  <%= order_history.address %>
-
-<% end %>
+  <%= @order_history.last_name_kanji %><%= @order_history.first_name_kanji %>
+  <%= @order_history.telephone_number %>
+  <%= @order_history.address %>
+<%= render 'shared/footer_user' %>

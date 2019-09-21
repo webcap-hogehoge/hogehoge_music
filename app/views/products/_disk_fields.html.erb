@@ -1,0 +1,16 @@
+<div class="nested-fields">
+	<div class="field">
+	<%= f.number_field :disk_number %><br>
+	<%= link_to_remove_association "行削除", f, class: 'btn btn-danger', role: 'button' %>
+	</div>
+	<div class="field">
+		<label>曲名</label>
+
+	        <%= f.fields_for :songs do |s| %>
+	        <%= render 'song_fields', f: s %>
+	      <% end %>
+	      <div class="links">
+			<%= link_to_add_association '曲を追加', f, :songs %>
+		  </div>
+	</div>
+</div>

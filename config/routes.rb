@@ -37,7 +37,7 @@ Rails.application.routes.draw do
     resources :contacts, only: [:new, :create, :index]
 
   # products
-    resources :products, only: [:show, :create, :edit, :update]
+    resources :products, only: [:show, :create, :edit, :update, :new]
     root 'products#index'
 
   #reviews
@@ -53,16 +53,16 @@ Rails.application.routes.draw do
     resources :cart_items, only: [:create, :index, :update, :edit, :destroy]
 
   #order_history
-    resources :order_histories, only: [:new, :index, :show, :create, :edit, :update]
-    post 'order_histories/confirm', to: 'order_histories#confirm'
     get 'order_histories/thanks', to: 'order_histories#thanks'
+    post 'order_histories/confirm', to: 'order_histories#confirm'
     patch 'order_histories', to: 'order_histories#update_product_number'
     post 'order_histories/new', to: 'order_histories#back'
+    resources :order_histories, only: [:new, :index, :show, :create, :edit, :update]
 
 
 # 管理者側
   #administrator_products
-    resources :admin_products, only: [:show, :index]
+    resources :admin_products, only: [:show, :index, :edit]
     get '/admin', to: 'products#admin_index', as: 'admin_root'
 
   #end_user
