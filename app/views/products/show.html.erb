@@ -1,4 +1,13 @@
-　	<div class="container">
+
+　<!-- ヘッダー  -->
+<% if end_user_signed_in? %>
+<%= render "shared/header_user_after_login" %>
+<% else %>
+<%= render "shared/header_user_before_login" %>
+<% end %>
+<!-- ヘッダーここまで -->
+
+<div class="container">
 		<div class="row">
 			<div class="col-xs-5">
 				<%= image_tag @product.image_id.url, size:'300x300' %>
@@ -15,23 +24,26 @@
 				<br>
 
 				<div>
-				<select name="数量" required>
-		          	<option value="1" selected="true">1</option>
-			        <option value="2">2</option>
-			        <option value="3">3</option>
-			        <option value="4">4</option>
-			        <option value="5">5</option>
-			        <option value="6">6</option>
-			        <option value="7">7</option>
-			        <option value="8">8</option>
-			        <option value="9">9</option>
-			        <option value="10">10</option>
-				</select>
-				</div><br>
+				<%= form_for @cart_item, url: cart_items_path do |f| %>
+					<%= f.number_field :product_number %>
+	<!-- 				<select name="数量" required>
+			          	<option value="1" selected="true">1</option>
+				        <option value="2">2</option>
+				        <option value="3">3</option>
+				        <option value="4">4</option>
+				        <option value="5">5</option>
+				        <option value="6">6</option>
+				        <option value="7">7</option>
+				        <option value="8">8</option>
+				        <option value="9">9</option>
+				        <option value="10">10</option>
+					</select> -->
+					</div><br>
 
-	        	<div class="btn-area">
-		        	<%= link_to 'カートへ入れる', cart_items_path, class:"btn btn-warning" %>
-				</div>
+		        	<div class="btn-area">
+			        	<%= f.submit 'カートへ入れる', class:"btn btn-warning" %>
+					</div>
+				<% end %>
 
 				<div class="row">
 					<div class="col-xs-12">
@@ -52,3 +64,6 @@
 							</table>
 						<% end %>
 					</div>
+
+<!-- フッター -->
+<%= render "shared/footer_user" %>
