@@ -53,11 +53,11 @@ Rails.application.routes.draw do
     resources :cart_items, only: [:create, :index, :update, :destroy]
 
   #order_history
-    resources :order_histories, only: [:new, :index, :show, :create, :edit, :update]
-    post 'order_histories/confirm', to: 'order_histories#confirm'
     get 'order_histories/thanks', to: 'order_histories#thanks'
+    post 'order_histories/confirm', to: 'order_histories#confirm'
     patch 'order_histories', to: 'order_histories#update_product_number'
     post 'order_histories/new', to: 'order_histories#back'
+    resources :order_histories, only: [:new, :index, :show, :create, :edit, :update]
 
 
 # 管理者側
