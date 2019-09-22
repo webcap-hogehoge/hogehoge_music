@@ -2,7 +2,7 @@
 <header class="page-header">
 	<div class="container-fluid border-bottom">
 		<div class="row col-xs-4">
-				<%= link_to image_tag('logo.png', :size => '200x100'), root_path %> <!-- ロゴ表示 -->
+				<%= link_to image_tag('logo.png', :size => '250x100'), root_path %> <!-- ロゴ表示 -->
 			</div>
 			<div class="col-xs-4">
 				<div class="searchbox">
@@ -14,11 +14,15 @@
 			</div>
 			<div class="col-xs-4">
 				<div class="row">
-				  <div class="col-xs-6 center-block">
-					 <%= link_to "新規登録", new_end_user_registration_path %>
+				  <div class="col-xs-6">
+					 <%= link_to new_end_user_registration_path do %>
+					 <i class="fas fa-user-plus fa-2x"></i>新規登録
+					 <% end %>
 				  </div>
 				  <div class="col-xs-6">
-					 <%= link_to "ログイン", new_end_user_session_path %>
+					 <%= link_to new_end_user_session_path do %>
+					 <i class="fas fa-sign-in-alt fa-2x"></i>ログイン
+					 <% end %>
 				  </div>
 				</div>
 			</div>
