@@ -1,77 +1,84 @@
-
-<h4 style="text-align: center; margin-top: 20px">会員登録情報</h4>
+<%= render "shared/header_user_after_login" %>
 <div class="container">
-  <div class="justify-content-center">
-    <div class="col-6 col-offset-3">
-      <div class="mypage_content">
-        <div class="form_inlineblock">
-          <h6>お名前</h6>
-        </div>
-        <div class="form_inlineblock">
-          <h6 class="form_text">姓</h6>
-          <div class="form_border"><%= @user.last_name_kanji %></div>
-        </div>
-        <div class="form_inlineblock">
-          <h6 class="form_text">名</h6>
-          <div class="form_border"><%= @user.first_name_kanji %></div>
-        </div>
+  <div class="row justify-content-around mymage-nav">
+    <div class="col-lg-4 text-right"><%= link_to "マイページ", user_path(current_end_user.id) %></div>
+    <div class="col-lg-4"></div>
+    <div class="col-lg-4"><%= link_to "購入履歴", order_histories_path %></div>
+  </div>
+  <h4 style="text-align: center; margin-top: 20px">会員登録情報</h4>
+  <div class="justify-content-center" style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-bottom: 80px" >
+    <div class="mypage_content_name">
+      <div class="form_inlineblock" style="margin-right: 95px">
+        <h6>お名前</h6>
       </div>
-
-      <div class="mypage_content">
-        <div class="form_inlineblock">
-          <h6>お名前</h6>
-          <h6>(カナ)</h6>
-        </div>
-        <div class="form_inlineblock">
-          <h6 class="form_text">セイ</h6>
-          <div class="form_border"><%= @user.last_name_katakana %></div>
-        </div>
-        <div class="form_inlineblock">
-          <h6 class="form_text">メイ</h6>
-          <div class="form_border"><%= @user.first_name_katakana %></div>
-        </div>
+      <div class="form_inlineblock">
+        <h6 class="form_text">姓</h6>
+        <div class="form_border"><%= @user.last_name_kanji %></div>
       </div>
-
-      <div class="mypage_content">
-        <div class="form_inlineblock">
-          <h6>郵便番号</h6>
-        </div>
-        <div class="form_inlineblock">
-          <span>〒</span>
-          <span class="form_border"><%= @addresses_is_main.postal_code_1 %></span>
-          <span>-</span>
-          <span class="form_border"><%= @addresses_is_main.postal_code_2 %></span>
-        </div>
+      <div class="form_inlineblock">
+        <h6 class="form_text">名</h6>
+        <div class="form_border"><%= @user.first_name_kanji %></div>
       </div>
-
-      <div class="mypage_content">
-        <div class="form_inlineblock">
-          <h6>ご住所</h6>
-        </div>
-        <div class="form_inlineblock">
-          <div class="form_border"><%= @addresses_is_main.address %></div>
-        </div>
-      </div>
-
-      <div class="mypage_content">
-        <div class="form_inlineblock">
-          <h6>電話番号</h6>
-        </div>
-        <div class="form_inlineblock">
-          <div class="form_border"><%= @addresses_is_main.telephone_number %></div>
-        </div>
-      </div>
-
-      <div class="mypage_content">
-        <div class="form_inlineblock">
-          <h6>メールアドレス</h6>
-        </div>
-        <div class="form_inlineblock">
-          <div class="form_border"><%= @user.email %></div>
-        </div>
-      </div>
-      <%= link_to "会員情報編集", edit_end_user_registration_path, :class => "btn btn-primary" %>
     </div>
+
+    <div class="mypage_content">
+      <div class="form_inlineblock">
+        <h6>お名前</h6>
+        <h6>(カナ)</h6>
+      </div>
+      <div class="form_inlineblock">
+        <h6 class="form_text">セイ</h6>
+        <div class="form_border"><%= @user.last_name_katakana %></div>
+      </div>
+      <div class="form_inlineblock">
+        <h6 class="form_text">メイ</h6>
+        <div class="form_border"><%= @user.first_name_katakana %></div>
+      </div>
+    </div>
+
+    <div class="mypage_content">
+      <div class="form_inlineblock" style="margin-right: 40px">
+        <h6>郵便番号</h6>
+      </div>
+      <div class="form_inlineblock">
+        <span style="margin-right: 20px">〒</span>
+        <span class="form_border" style="margin-right: 20px"><%= @addresses_is_main.postal_code_1 %></span>
+        <span style="margin-right: 20px">-</span>
+        <span class="form_border" style="margin-right: 20px"><%= @addresses_is_main.postal_code_2 %></span>
+      </div>
+    </div>
+
+    <div class="mypage_content">
+      <div class="form_inlineblock" style="margin-right: 55px">
+        <h6>ご住所</h6>
+      </div>
+      <div class="form_inlineblock">
+        <div class="form_border_long"><%= @addresses_is_main.address %></div>
+      </div>
+    </div>
+
+    <div class="mypage_content">
+      <div class="form_inlineblock" style="margin-right: 120px">
+        <h6>電話番号</h6>
+      </div>
+      <div class="form_inlineblock">
+        <div class="form_border_long"><%= @addresses_is_main.telephone_number %></div>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 50px">
+      <div class="form_inlineblock" style="margin-right: 70px">
+        <h6>メールアドレス</h6>
+      </div>
+      <div class="form_inlineblock">
+        <div class="form_border_long"><%= @user.email %></div>
+      </div>
+    </div>
+
+    <div>
+    <%= link_to "会員情報編集", edit_end_user_registration_path, :class => "btn btn-success", :style => "width: 150px;" %>
+    </div>
+
   </div>
 
   <div class="row justify-content-around">
@@ -94,11 +101,12 @@
           <p><%= "〒#{address.postal_code_1}-#{address.postal_code_2}" %></p>
           <p><%= address.address %></p>
           <p><%= address.telephone_number %></p>
-          <%= link_to "編集", edit_address_path, :style => "float: left;" %>|
-          <%= link_to "削除", address_path(address.id), method: :delete, :style => "display: inline-block" %>
+          <p><%= link_to "編集", edit_address_path %>|<%= link_to "削除", address_path(address.id), method: :delete %>
+          </p>
         </div>
       </div>
       <% end %>
     <% end %>
   </div>
 </div>
+<%= render "shared/footer_user" %>

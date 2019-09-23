@@ -9,7 +9,6 @@ class AddressesController < ApplicationController
 
     @address.save
 
-    redirect_to @address
   end
 
   def edit

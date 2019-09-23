@@ -1,4 +1,9 @@
 <%= render 'shared/header_user_after_login' %>
+<div class="row justify-content-around mymage-nav">
+  <div class="col-lg-4 text-right"><%= link_to "マイページ", user_path(current_end_user.id) %></div>
+  <div class="col-lg-4"></div>
+  <div class="col-lg-4"><%= link_to "購入履歴", order_histories_path %></div>
+</div>
 <p class="title">購入履歴</p>
   <table class="table table-striped">
     <tbody>

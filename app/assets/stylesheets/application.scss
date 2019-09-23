@@ -17,7 +17,15 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 /* エンドユーザ側 */
+
 .login_contents {
   margin-bottom: 50px;
 }
@@ -30,6 +38,15 @@
   margin-bottom: 20px;
 }
 
+.mymage-nav {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 500px;
+  margin: 10px auto 30px;
+  height: 30px;
+  line-height: 30px;
+}
+
 /* 管理者側 */
 .administrator_login_contents {
   margin-bottom: 20px;
@@ -38,7 +55,12 @@
 /* 共通 */
 .form_border {
   border: 2px solid black;
-  padding: 6px 50px;
+  padding: 6px 60px;
+}
+
+.form_border_long {
+  border: 2px solid black;
+  padding: 6px 120px;
 }
 
 .form_inlineblock {
@@ -46,8 +68,12 @@
   margin-right: 50px;
 }
 
-.mypage_content {
+.mypage_content_name {
   margin-bottom: 25px;
+}
+
+.mypage_content {
+  margin-bottom: 40px;
 }
 
 .form_text {
