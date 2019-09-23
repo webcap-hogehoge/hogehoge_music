@@ -25,14 +25,14 @@ Rails.application.routes.draw do
   #end_users
   #addresses
     resources :addresses, only: [:new, :create, :edit, :update, :destroy]
-    get '/addresses/:id/edit', to: 'end_users#show'
+
+
 
     resources :users, only: [:show, :edit, :update], controller: 'end_users'
     get '/users/:id/reviews', to: 'end_users#review'
     get '/users/:id/liikes', to: 'end_users#likes'
     post '/users/:id/destroy', to: 'end_users#destroy'
     get '/unsubscribe', to: 'end_users#unsubscribe'  #get 'users/unsubscribe' を　get '/unsubscribe'に変更
-
   #contacts
     resources :contacts, only: [:new, :create, :index]
 

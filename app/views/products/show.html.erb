@@ -13,63 +13,55 @@
 				<%= image_tag @product.image_id.url, size:'300x300' %>
 			</div>
 			<div class="col-xs-7">
-					<div>
-						<%= @product.cd_name %>
-					</div><br>
-					<div>
-						<%= @product.label_name %>
-					<div><br>
-						￥<%= @product.price %>（税込価格）
-					</div>
-				<br>
-
 				<div>
+					<%= @product.cd_name %>
+				</div><br>
+				<div>
+					<%= @product.label_name %>
+				</div><br>
+				<div>
+					￥<%= @product.price %>（税込価格）
+				</div>
+			</div>
+
+			<div>
 				<%= form_for @cart_item, url: cart_items_path do |f| %>
-					<%= f.number_field :product_number %>
-	<!-- 				<select name="数量" required>
-			          	<option value="1" selected="true">1</option>
-				        <option value="2">2</option>
-				        <option value="3">3</option>
-				        <option value="4">4</option>
-				        <option value="5">5</option>
-				        <option value="6">6</option>
-				        <option value="7">7</option>
-				        <option value="8">8</option>
-				        <option value="9">9</option>
-				        <option value="10">10</option>
-					</select> -->
-					</div><br>
-
-		        	<div class="btn-area">
-			        	<%= f.submit 'カートへ入れる', class:"btn btn-warning" %>
-					</div>
+				<%= f.number_field :product_number %>
+				<%= f.hidden_field :product_id %>
+				<div class="btn-area">
+					<%= f.submit 'カートへ入れる', class:"btn btn-warning" %>
+				</div>
 				<% end %>
+			</div><br>
 
-				<div class="row">
-					<div class="col-xs-12">
-						<% @product.disks.each do |disk| %>
-							<table class="table table-striped">
-								<thead>
-									<tr>
-										<th><%= "ディスク" + disk.id.to_s %></th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<% disk.songs.each do |song| %>
-											<td><%= song.song_name %></td>
-										<% end %>
-									</tr>
-								</tbody>
-							</table>
-						<% end %>
-					</div>
+		<% count = 0 %>
+
+			<div class="row">
+				<div class="col-xs-12">
+					<h2>曲目リスト</h2>
+					<% @product.disks.each do |disk| %>
+						<table class="table table-striped">
+							<tbody>
+								<tr>
+									<td><%= "ディスク" + disk.disk_number.to_s %></td>
+								</tr>
+					            	<% disk.songs.each do |song| %>
+					            <tr>
+					                <td><%= "#{count += 1}.#{song.song_name}" %></td>
+					            </tr>
+					            <% end %>
+							</tbody>
+						</table>
+					<% end %>
+				</div>
+			</div>
+
 
 <!-- フッター -->
+
 <% if end_user_signed_in? %>
 <%= render "shared/footer_user_after_login" %>
 <% else %>
 <%= render "shared/footer_user_before_login" %>
 <% end %>
 <!-- フッダー -->
-
