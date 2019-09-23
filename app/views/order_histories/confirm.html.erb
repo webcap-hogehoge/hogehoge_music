@@ -1,59 +1,91 @@
 <%= render 'shared/header_user_after_login' %>
 
-<h1>ご注文内容の確認</h1>
-<p>配送先</p>
-
-<%= form_with model: @order_history, url: {action: 'create'}, local: true do |form| %>
-<div class="field">
-  <%= @order_history.last_name_kanji %>
-  <%= form.hidden_field :last_name_kanji %>
-</div>
-<div class="field">
-  <%= @order_history.first_name_kanji %>
-  <%= form.hidden_field :first_name_kanji %>
-</div>
-<div class="field">
-  電話番号<%= @order_history.telephone_number %>
-  <%= form.hidden_field :telephone_number %>
-</div>
-<div class="field">
-  郵便番号<%= @order_history.postal_code_1 %>
-  <%= form.hidden_field :postal_code_1 %>
-</div>
-<div class="field">
-  <%= @order_history.postal_code_2 %>
-  <%= form.hidden_field :postal_code_2 %>
-</div>
-<div class="field">
-  住所<%= @order_history.address %>
-  <%= form.hidden_field :address %>
+<div class="col-xs-1">
 </div>
 
-<p>お支払い方法</p>
-<div class="field">
-  <%= @order_history.pay_method %>
-  <%= form.hidden_field :pay_method %>
+<div class="col-xs-9">
+  <h1 class="title">ご注文内容の確認</h1>
+    <% @cart_items.each do |cart_item| %>
+      <div class="row cart-contents">
+        <div class="col-xs-5">
+          <%= image_tag cart_item.product.image_id.to_s, size: "200x200"  %>
+        </div>
+        <div class="col-xs-7">
+          <p class="cart-item-headline"><%= cart_item.product.cd_name %></p>
+          <div class="cart-item-number-box">
+            <p class="cart-item-number">数量　<%= cart_item.product_number %></p>
+          </div>
+          <div class="cart-item-price-box">
+            <p class="cart-item-headline">価格　¥<%= number_to_currency(cart_item.product.price * cart_item.product_number * 1.08.to_i) %>(税込)</p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+  <h1 class="new_title">配送先</h1>
+
+  <%= form_with model: @order_history, url: {action: 'create'}, local: true do |form| %>
+    <div class="field">
+      <%= @order_history.last_name_kanji %>
+      <%= form.hidden_field :last_name_kanji %>
+
+      <%= @order_history.first_name_kanji %>
+      <%= form.hidden_field :first_name_kanji %>
+    </div>
+
+    <div class="field">
+      電話番号<%= @order_history.telephone_number %>
+      <%= form.hidden_field :telephone_number %>
+    </div>
+
+    <div class="field">
+      郵便番号<%= @order_history.postal_code_1 %>
+      <%= form.hidden_field :postal_code_1 %>
+
+      -<%= @order_history.postal_code_2 %>
+      <%= form.hidden_field :postal_code_2 %>
+    </div>
+
+    <div class="field">
+      住所<%= @order_history.address %>
+      <%= form.hidden_field :address %>
+    </div>
+
+    <h1 class="new_title">お支払い方法</h1>
+    <div class="field">
+      <%= @order_history.pay_method_i18n %>
+      <!-- enumでデータを持って来る場合の表記。@order_history.pay_methodでnewページで入力したpay_methodを持って来る -->
+      <%= form.hidden_field :pay_method, {value: @order_history.pay_method} %>
+    </div>
+
 </div>
 
-<div class="actions">
+  <div class="col-xs-2">
+    <p>商品の小計</p>
+    <% @subtotal = 0 %>
+    <% @cart_items.each do |cart_item| %>
+      <%  @subtotal += (cart_item.product.price * cart_item.product_number) %>
+    <% end %>
+    <p>小計　¥<%= number_to_currency(@subtotal) %></p>
+    <p>税   ¥<%= number_to_currency((@subtotal * 0.08).to_i) %></p>
+    <p>配送料   ¥<%= 500 %></p>
+    <p>合計 ¥<%= number_to_currency((@subtotal * 1.08 + 500).to_i)  %></p>
+
   <%= form.submit '注文確定' %>
+  <% end %>
+
+  <%= form_with model: @order_history, url: new_order_history_path, local: true do |form| %>
+    <p><%= form.hidden_field :last_name_kanji %><%= form.hidden_field :first_name_kanji %></p>
+    <%= form.hidden_field :telephone_number %>
+    <%= form.hidden_field :postal_code_1 %><%= form.hidden_field :postal_code_2 %>
+    <%= form.hidden_field :address %>
+    <%= form.hidden_field :pay_method %>
+    <%= form.hidden_field :selected_order_histories_address_id, value: @address_info %>
+    <div class="actions">
+      <%= form.submit '戻る', name: 'back' %>
+    </div>
+  </div>
+  <% end %>
 </div>
-
-<% end %>
-
-<%= form_with model: @order_history, url: new_order_history_path, local: true do |form| %>
-  <%= form.hidden_field :last_name_kanji %>
-  <%= form.hidden_field :first_name_kanji %>
-  <%= form.hidden_field :telephone_number %>
-  <%= form.hidden_field :postal_code_1 %>
-  <%= form.hidden_field :postal_code_2 %>
-  <%= form.hidden_field :address %>
-  <%= form.hidden_field :pay_method %>
-  <%= form.hidden_field :selected_order_histories_address_id, value: @address_info %>
-<div class="actions">
-  <%= form.submit '戻る', name: 'back' %>
-</div>
-
-<% end %>
 
 <%= render 'shared/footer_user' %>
