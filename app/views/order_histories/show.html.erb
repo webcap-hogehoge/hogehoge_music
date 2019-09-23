@@ -1,35 +1,85 @@
-<%= render 'shared/header_user_after_login' %>
+<!-- ヘッダー  -->
+<% if end_user_signed_in? %>
+<%= render "shared/header_user_after_login" %>
+<% else %>
+<%= render "shared/header_user_before_login" %>
+<% end %>
+<!-- ヘッダーここまで -->
+
 <p>購入履歴詳細画面</p>
 
-  <!-- 計算用のeach文 -->
-  <!-- each文で出て来る変数を定義 -->
-  <% order_number_total = 0 %>
-  <% order_total = 0 %>
-  <% @order_history.order_details.each do |order_detail| %>
-    <!-- 購入個数計算 -->
-    <% order_number_total += order_detail.product_number %>
-    <%# order_number_total = order_number_total + order_detail.product_number %>
-    <!-- 購入金額計算 -->
-    <% order_total += order_detail.product.price * order_detail.product_number * 1.08 %>
-  <% end %>
-  <%# binding.pry %>
-  注文日<%= @order_history.created_at %>
-  <!-- 購入個数表示 -->
-  個数 <%= order_number_total %>
-  <!-- 購入金額表示 -->
-  合計 <%= order_total.to_i + 500 %>
-  <%= @order_history.order_status %>
 
-  <!-- 詳細情報表示用のeach文 -->
-  <% @order_history.order_details.each do |order_detail| %>
-    タイトル名<%= order_detail.product.cd_name %>
-    <%= order_detail.product.price %>
-    <%= order_detail.product_number %>
-  <% end %>
+<div class="container">
+  <div class="col-xs-1">
+  </div>
+  <div class="col-xs-10">
+    <div class="row order_history_head">
+      <p class="title">購入履歴詳細画面</p>
+      <!-- 計算用のeach文 -->
+      <!-- each文で出て来る変数を定義 -->
+        <% order_number_total = 0 %>
+        <% order_total = 0 %>
+        <% @order_history.order_details.each do |order_detail| %>
+          <!-- 購入個数計算 -->
+          <% order_number_total += order_detail.product_number %>
+          <%# order_number_total = order_number_total + order_detail.product_number %>
+          <!-- 購入金額計算 -->
+          <% order_total += order_detail.product.price * order_detail.product_number * 1.08 %>
+        <% end %>
+      <div class="col-xs-3">
+        <p>注文日</p>
+        <p><%= @order_history.created_at.strftime("%Y年%m月%d日") %></p>
+      </div>
+        <!-- 購入個数表示 -->
+      <div class="col-xs-3">
+        <p>個数</p>
+        <p><%= order_number_total %></p>
+      </div>
+        <!-- 購入金額表示 -->
+      <div class="col-xs-3">
+        <p>合計</p>
+         <p>¥<%= number_to_currency(order_total.to_i + 500) %></p>
+      </div>
+      <div class="col-xs-3">
+            <%= @order_history.order_status_i18n  %>
+      </div>
+    </div>
 
+    <!-- 詳細情報表示用のeach文 -->
+    <div class="row">
+      <div class="col-xs-6">
+        <% @order_history.order_details.each do |order_detail| %>
+          <div class="row order_detail_box">
+            <div class="col-xs-6">
+            <%= image_tag order_detail.product.image_id.to_s, size: "200x200"  %>
+            </div>
+            <div class="col-xs-6">
+              <p><%= order_detail.product.cd_name %></p>
+              <p>¥<%= number_to_currency(order_detail.product.price * 1.08) %></p>
+              <p><%= order_detail.product_number %>点</p>
+            </div>
+          </div>
+        <% end %>
+      </div>
 
-  送付先
-  <%= @order_history.last_name_kanji %><%= @order_history.first_name_kanji %>
-  <%= @order_history.telephone_number %>
-  <%= @order_history.address %>
-<%= render 'shared/footer_user' %>
+      <div class="col-xs-3">
+      </div>
+
+      <div class="col-xs-3  order_detail_box">
+        <p>送付先</p>
+        <p><%= @order_history.last_name_kanji %><%= @order_history.first_name_kanji %></p>
+        <p>電話番号<%= @order_history.telephone_number %></p>
+        <p>住所<%= @order_history.address %></p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- フッター -->
+<% if end_user_signed_in? %>
+<%= render "shared/footer_user_after_login" %>
+<% else %>
+<%= render "shared/footer_user_before_login" %>
+<% end %>
+<!-- フッダー -->
+<% end %>
+<!-- フッダー -->

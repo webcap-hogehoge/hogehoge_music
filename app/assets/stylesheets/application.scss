@@ -17,13 +17,6 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 /* エンドユーザ側 */
 
 .login_contents {
@@ -92,3 +85,31 @@
     border-top: none !important;
   }
 }
+
+/* フッター */
+html {
+  min-height: 100%;
+  position: relative;
+}
+body {
+  margin-bottom: 100px;
+}
+
+footer{
+  bottom: 0;
+  margin-bottom: 0;
+  width: 100%;
+  height: 100px;
+  background-color: #fff;
+  position: absolute;
+  }
+
+.test{
+  border-bottom: 1px solid #DCDCDC;
+}
+.test:last-child{
+  border-bottom: none;
+}
+
+
+

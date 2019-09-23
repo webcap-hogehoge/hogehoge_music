@@ -101,8 +101,9 @@
           <p><%= "〒#{address.postal_code_1}-#{address.postal_code_2}" %></p>
           <p><%= address.address %></p>
           <p><%= address.telephone_number %></p>
-          <p><%= link_to "編集", edit_address_path %>|<%= link_to "削除", address_path(address.id), method: :delete %>
+          <p><%= link_to "編集", edit_address_path(address.id) %>|<%= link_to "削除", address_path(address.id), method: :delete %>
           </p>
+
         </div>
       </div>
       <% end %>

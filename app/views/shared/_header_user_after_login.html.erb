@@ -1,8 +1,7 @@
-<meta charset=utf-8>
 <header class="page-header">
 	<div class="container-fluid border-bottom">
 			<div class="row col-xs-3">
-				<%= link_to image_tag('logo.png', :size => '200x100'), root_path %>
+				<%= link_to image_tag('logo.png', :size => '250x100'), root_path %>
 			</div>
 			<div class="row col-xs-4">
 			    <div class="searchbox">
@@ -14,21 +13,28 @@
             </div>
 			<div class="row col-xs-5">
 				<div class="row">
-					<p><%= current_end_user.last_name_kanji + current_end_user.first_name_kanji %><span>さん</span></p>
+					<p><span>ようこそ！</span><%= current_end_user.last_name_kanji + current_end_user.first_name_kanji %><span>さん</span></p>
 				</div>
 				<div class="row">
 					<div class="col-xs-3">
-						<%= link_to "ホーム", root_path %>
+						<%= link_to root_path do %>
+						 <i class="fas fa-home fa-2x"></i>ホーム
+						 <% end %>
 					</div>
 					<div class="col-xs-3">
-						<%= link_to "マイページ", "" %>  <!-- リンク先直す -->
+						<%= link_to user_path(current_end_user.id) do %>
+						<i class="fas fa-user fa-2x"></i>マイページ
+						<% end %>
 					</div>
 					<div class="col-xs-3">
-						<span class="glyphicon glyphicon-shopping-cart"></span>
-						<%= link_to "カート", cart_items_path %>   <!-- リンク先直す　-->
+						<%= link_to cart_items_path(current_end_user.id) do %>
+						<i class="fas fa-shopping-cart fa-2x"></i>カート
+						<% end %>
 					</div>
 					<div class="col-xs-3">
-						<%= link_to "ログアウト", destroy_end_user_session_path, method: :delete %>
+						<%= link_to destroy_end_user_session_path, method: :delete do %>
+						 <i class="fas fa-sign-out-alt fa-2x"></i>ログアウト
+						 <% end %>
 					</div>
 				</div>
 			</div>

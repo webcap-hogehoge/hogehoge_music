@@ -1,4 +1,5 @@
 class AdminOrderHistoriesController < ApplicationController
+before_action :authenticate_administrator!
 	def admin_index
 		@order_histories = OrderHistory.all
 		@q = Product.ransack(params[:q])
