@@ -27,6 +27,8 @@ belongs_to :genre
 enum product_status:{on_sale: 0, not_on_sale: 1}
 # on_sale = 販売中  not_on_sale = 販売停止中
 
+scope :active, -> {where(is_deleted: 0) }
+
 def stock(product_id)
 
   arrival_histories = ArrivalHistory.where(product_id: product_id)
@@ -43,5 +45,6 @@ def stock(product_id)
 
   stock = arrival_count - order_count
 end
+
 
 end

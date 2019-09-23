@@ -5,24 +5,36 @@
 <%= render "shared/header_user_before_login" %>
 <% end %>
 <!-- ヘッダーここまで -->
+	<% @products.each do |product| %>
+	<%= link_to product_path(product.id), :style => "color: black;" do %>
+	<div style="width: 250px; border: 1px solid black; margin: 5px; display: inline-block; text-align: center;">
 
-		<% @products.each do |product| %>
-		<div style="width: 250px; border: 1px solid black; margin: 5px; display: inline-block; text-align: center;">
-			<div style="height: 210px; line-height: 210px;">
-			<% if product.product_status == "on_sale" %>
-			    <%= image_tag product.image_id.url %> <!-- carierwaveの画像を表示  -->
-			<% else %>
-			    <%= image_tag "sold_out.jpg", size: "200x200" %>
-			<% end %>
-		    </div>
+		<div style="height: 200px; line-height: 200px;">
+		<% if product.product_status == "on_sale" %>
+			<%= image_tag "soldout.png", size: "190x190" %>
+		<% elsif product.stock(product.id) == 0%>
+            <%= image_tag "soldout.png", size: "190x190" %>
+        <% else %>
+             <%= image_tag product.image_id.url %>
+        <% end %>
+         </div>
 
-			<div style=" border: 1px solid black; padding: 10px;">
-              <%= product.cd_name %><br>
-			  <%= product.artist_name %><br>
-			  <%= number_to_currency(product.price) %><br>
-		    </div>
-    	</div>
+		<div style=" border: 1px solid black; padding: 20px 0px 10px 0px; height: 145px;">
+		<div style="height: 55px; font-size: 20px;">
+            <p><%= product.cd_name %></p>
+        </div>
+        <div style="height: 30px;">
+			<p><%= product.artist_name %></p>
+        </div>
+        <div style="height: 30px;">
+			<p><%= number_to_currency(product.price * 1.08) %>(税込み)</p>
+		</div>
+		</div>
+    </div>
+    	<% end %>
 	<% end %>
+
+	  <%= paginate(@products) %>
 
 <!-- フッター -->
 <% if end_user_signed_in? %>

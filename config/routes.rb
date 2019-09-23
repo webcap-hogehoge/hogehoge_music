@@ -38,6 +38,7 @@ Rails.application.routes.draw do
 
   # products
     resources :products, only: [:show, :create, :edit, :update, :new]
+    delete '/products/:id/delete', to: 'products#destroy'
     root 'products#index'
 
   #reviews
@@ -62,10 +63,9 @@ Rails.application.routes.draw do
 
 # 管理者側
   #administrator_products
-    resources :admin_products, only: [:show, :index, :edit]
     get '/admin', to: 'products#admin_index', as: 'admin_root'
 
-    get '/admin/products/:id', to: 'products#admin_show', as: 'admin_product_path'
+    get '/admin/products/:id', to: 'products#admin_show', as: 'admin_product'
 
 
   #end_user

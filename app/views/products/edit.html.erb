@@ -1,1 +1,56 @@
-edit.html.erb
+<% if administrator_signed_in? %>
+<%= render "shared/header_admin_after_login" %>
+<% else %>
+<%= render "shared/header_admin_before_login" %>
+<% end %>
+<div class="container">
+    <%= form_for(@product) do |f| %>
+
+      <div class="field">
+      	  <label>画像</label>
+          <%= f.file_field :image_id %>
+      </div>
+
+      <div class="field">
+          <label>商品名</label>
+          <%= f.text_field :cd_name %>
+      </div>
+
+      <div class="field">
+           <label>アーティスト名</label>
+           <%= f.text_field :artist_name %>
+        </div>
+
+      <div class="field">
+          <label>価格</label>
+          <%= f.number_field :price %>
+      </div>
+
+      <div class="field">
+          <label>レーベル名</label>
+          <%= f.text_field :label_name %>
+      </div>
+
+        <div class="field">
+          <label>ジャンル</label>
+          <%= f.select :genre_id, Genre.all.map{|g| [g.genre_name, g.id]}, :prompt => "選択してください" %>
+        </div>
+
+        <div class="field">
+            <label>ディスク番号</label>
+            <%= f.fields_for :disks do |d| %>
+              <%= render 'disk_fields', f: d %>
+            <% end %>
+            <div class="links">
+              <%= link_to_add_association '行を追加', f, :disks %>
+            </div>
+        </div>
+
+      <div class="field">
+          <label>ステータス</label>
+          <%= f.select :product_status, [["販売中", "on_sale"], ["販売停止中", "not_on_sale"]], :prompt => "選択してください" %>
+      </div>
+    <%= f.submit '完了', class: 'btn btn-primary btn-block' %>
+    <% end %>
+</div>
+<%= render "shared/footer_admin" %>

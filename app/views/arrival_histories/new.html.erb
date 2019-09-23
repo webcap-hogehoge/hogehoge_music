@@ -1,3 +1,9 @@
+<% if end_user_signed_in? %>
+<%= render "shared/header_user_after_login" %>
+<% else %>
+<%= render "shared/header_user_before_login" %>
+<% end %>
+
 <p>商品名</p>
 <p><%= @product.cd_name %></p>
 
@@ -6,9 +12,12 @@
 
 <%= form_for(@arrival_history) do |f| %>
 <div>
+  <%= f.hidden_field :product_id, :value => params[:id] %>
   <%= f.label :arrival_number, '追加個数' %>
   <%= f.number_field :arrival_number %>個
 </div>
 
 <%= f.submit '完了', class: 'btn btn-primary btn-block' %>
 <% end %>
+
+<%= render "shared/footer_user" %>
