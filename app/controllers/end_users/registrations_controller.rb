@@ -123,6 +123,10 @@ class EndUsers::RegistrationsController < Devise::RegistrationsController
         )
   end
 
+  def after_update_path_for(resource)
+      user_path(resource)
+  end
+
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_account_update_params

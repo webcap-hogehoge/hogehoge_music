@@ -1,10 +1,9 @@
-<!-- ヘッダー  -->                        
-<% if end_user_signed_in? %>
-<%= render "shared/header_user_after_login" %>
-<% else %>
-<%= render "shared/header_user_before_login" %>
-<% end %>
-<!-- ヘッダーここまで -->
+<%= render 'shared/header_user_after_login' %>
+<div class="row justify-content-around mymage-nav">
+  <div class="col-lg-4 text-right"><%= link_to "マイページ", user_path(current_end_user.id) %></div>
+  <div class="col-lg-4"></div>
+  <div class="col-lg-4"><%= link_to "購入履歴", order_histories_path %></div>
+</div>
 
 <div class="container">
   <div class="col-xs-2">

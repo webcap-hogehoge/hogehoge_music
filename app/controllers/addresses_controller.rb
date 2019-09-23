@@ -10,7 +10,6 @@ before_action :authenticate_administrator!
     @address = Address.new(address_params)
 
     @address.save!
-
     redirect_to user_path(current_end_user.id)
   end
 
