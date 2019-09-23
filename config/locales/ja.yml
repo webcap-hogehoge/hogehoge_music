@@ -9,11 +9,10 @@ ja:
         accepting: "受付中"
         preparing: "出荷準備中"
         finished: "出荷済"
-  time:
-    formats:
-      default: "%Y/%m/%d %H:%M"
-    order_history:
       pay_method:
         bank: "銀行振込"
         card: "クレジットカード"
         cash: "代金引換"
+  time:
+    formats:
+      default: "%Y/%m/%d %H:%M"

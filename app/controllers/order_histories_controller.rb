@@ -5,20 +5,30 @@ before_action :authenticate_administrator!
     @q = Product.ransack(params[:q])
     @products = @q.result(distinct: true)
     @address_info = params[:address_info] if params.presence
-    @end_user = EndUser.find(1)
+    @end_user = current_end_user
     @cart_items = @end_user.cart_items
     @order_history = OrderHistory.new
+    # URLにパラメーターがあるならば、パラーメーターの情報を住所入力欄に入れる
+     if params.presence
+        @order_history.last_name_kanji = params[:last_name_kanji]
+        @order_history.first_name_kanji = params[:first_name_kanji]
+        @order_history.postal_code_1 = params[:postal_code_1]
+        @order_history.postal_code_2 = params[:postal_code_2]
+        @order_history.address = params[:address]
+        @order_history.telephone_number = params[:telephone_number]
+     end
+    @end_user_fitst = @end_user.addresses.first
   end
 
   def back
-    @end_user = EndUser.find(1)
+    @end_user = current_end_user
     @cart_items = @end_user.cart_items
     @order_history = OrderHistory.new(order_histories_params)
     render :new
   end
 
   def create
-    @end_user = EndUser.find(1)
+    @end_user = current_end_user
     @cart_items = @end_user.cart_items
     if params[:back]
       render :new
@@ -35,9 +45,8 @@ before_action :authenticate_administrator!
       @order_history.subtotal = subtotal
       @order_history.total_price = @order_history.subtotal + @order_history.tax + @order_history.delivery_fee
 
-
-      if @order_history.save
-        @cart_items.each do |cart_item|
+      if  @order_history.save
+          @cart_items.each do |cart_item|
           @order_detail = OrderDetail.new
           @order_detail.order_history_id = @order_history.id
           @order_detail.product_id = cart_item.product_id
@@ -55,25 +64,36 @@ before_action :authenticate_administrator!
   def confirm
     @q = Product.ransack(params[:q])
     @products = @q.result(distinct: true)
-    @end_user = EndUser.find(1)
+    @end_user = current_end_user
     @cart_items = @end_user.cart_items
     # わざと一行増やして変数を説明的にすることで見やすくする
     @address_info = params[:order_history][:selected_order_histories_address_id]
+    # ストロングパラメーターでデータを受け取る
+    para = order_histories_params
     # viewから送られてきたparamsの中にある:order_histories_addressの値で条件分岐
     # newが入ってたら新規作成
     if @address_info == 'address新規登録'
+      #全ての値が入っている場合はorder_historyを作成するための箱を用意する
+      if para[:last_name_kanji].empty? or para[:first_name_kanji].empty? or para[:telephone_number].empty? or para[:postal_code_1].empty? or para[:postal_code_2].empty? or para[:address].empty?
+          redirect_to new_order_history_path(last_name_kanji: para[:last_name_kanji], first_name_kanji: para[:first_name_kanji], telephone_number: para[:telephone_number], postal_code_1: para[:postal_code_1], postal_code_2: para[:postal_code_2], address: para[:address], pay_method: para[:pay_method])
+      #上記でない場合はnew画面で入力した情報は入れてnew 画面に戻る
+      else
+        @order_history = @end_user.order_histories.build(para)
 
-      @order_history = @end_user.order_histories.build(order_histories_params)
-    # 数字だったら（address.id）Addressesテーブルからfind
+      end
+      # 数字だったら（address.id）Addressesテーブルからfind
     else
       selected_address = Address.find(@address_info)
-      @order_history = @end_user.order_histories.build(last_name_kanji: selected_address.last_name,
-        first_name_kanji: selected_address.first_name, postal_code_1: selected_address.postal_code_1,
-        postal_code_2: selected_address.postal_code_2, address: selected_address.address,
-        telephone_number: selected_address.telephone_number, pay_method: order_histories_params[:pay_method])
+      @order_history = @end_user.order_histories.build(
+        last_name_kanji: selected_address.last_name,
+        first_name_kanji: selected_address.first_name,
+        postal_code_1: selected_address.postal_code_1,
+        postal_code_2: selected_address.postal_code_2,
+        address: selected_address.address,
+        telephone_number: selected_address.telephone_number,
+        pay_method: para[:pay_method]
+        )
     end
-    # valid?はヴァリデーションを判定するメソッド。
-    return :new if @order_history.valid?
   end
 
   def thanks
@@ -84,7 +104,7 @@ before_action :authenticate_administrator!
   def index
     @q = Product.ransack(params[:q])
     @products = @q.result(distinct: true)
-    @end_user = EndUser.find(1)
+    @end_user = current_end_user
     @order_histories = @end_user.order_histories
   end
 

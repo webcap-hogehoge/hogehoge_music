@@ -1,4 +1,4 @@
-<!-- ヘッダー  -->
+<!-- ヘッダー  -->                        
 <% if end_user_signed_in? %>
 <%= render "shared/header_user_after_login" %>
 <% else %>
@@ -6,42 +6,49 @@
 <% end %>
 <!-- ヘッダーここまで -->
 
-<p class="title">購入履歴</p>
-  <table class="table table-striped">
-    <tbody>
-<% @order_histories.each do |order_history| %>
-  <% order_number_total = 0 %>
-  <% order_total = 0 %>
-  <% order_history.order_details.each do |order_detail| %>
-  <!-- 購入個数計算 -->
-  <% order_number_total += order_detail.product_number %>
-  <!-- 購入金額計算 -->
-  <% order_total += order_detail.product.price * order_detail.product_number * 1.08 %>
+<div class="container">
+  <div class="col-xs-2">
+  </div>
+  <div class="col-xs-8">
+    <p class="index_title">購入履歴</p>
+    <table class="table table-striped ">
+      <tbody>
+        <% @order_histories.each do |order_history| %>
+        <% order_number_total = 0 %>
+        <% order_total = 0 %>
+          <% order_history.order_details.each do |order_detail| %>
+          <!-- 購入個数計算 -->
+          <% order_number_total += order_detail.product_number %>
+          <!-- 購入金額計算 -->
+          <% order_total += order_detail.product.price * order_detail.product_number * 1.08 %>
 
-      <tr>
-      <td>
-        <p>注文日</p>
-        <p><%= link_to(order_history_path(order_history)) do %><%= order_history.created_at.strftime("%Y年%m月%d日") %></p>
-      </td>
-      <td>
-        <p>個数</p>
-        <p><%= order_number_total %></p>
-      </td>
-      <td>
-        <p>合計</p>
-        <p><%= order_total.to_i + 500 %></p>
-      </td>
-      <td>
-        <p></p>
-        <p><%= order_history.order_status %></p>
-      </td>
-    </tr>
-    <% end %>
-
-<% end %>
-<% end %>
-  </tbody>
-</table>
+            <tr>
+              <td>
+                <p>注文日</p>
+                <p><%= link_to(order_history_path(order_history)) do %><%= order_history.created_at.strftime("%Y年%m月%d日") %></p>
+              </td>
+              <td>
+                <p>個数</p>
+                <p><%= order_number_total %>点</p>
+              </td>
+              <td>
+                <p>合計</p>
+                <p>¥<%= order_total.to_i + 500 %></p>
+              </td>
+              <td>
+                <p></p>
+                <p><%= order_history.order_status_i18n %></p>
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-xs-2">
+  </div>
+</div>
 
 <!-- フッター -->
 <% if end_user_signed_in? %>
