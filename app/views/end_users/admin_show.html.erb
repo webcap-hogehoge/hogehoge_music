@@ -1,4 +1,5 @@
-<div style="margin: 30px auto; width: 800px; padding-left: 100px">
+<%= render "shared/header_admin_after_login" %>
+<div style="margin: 30px auto; width: 1100px; padding-left: 100px">
   <div style="border-bottom: 1px solid black">
     <div class="mypage_content">
         <div style="font-size: 35px"><%= "#{@user.last_name_kanji} #{@user.first_name_kanji}" %></div>
@@ -55,65 +56,69 @@
       </div>
     </div>
   </div>
+  <%= link_to "削除", "/admin/end_users/#{@user.id}/destroy", class: "btn btn-danger", method: :post, "data-confirm" => "本当に削除しますか？" %>
 
   <div>
     <h3 style="margin-bottom: 50px">購入履歴</h3>
     <% @order_histories.each do |order_history| %>
-      <table class="table table-borderless" style="margin-bottom: 50px; border-bottom: 1px dotted black">
-        <tbody>
-          <tr>
-            <td>購入日</td>
-            <td><%= order_history.created_at.strftime("%Y年%-m月%-d日") %></td>
-            <td colspan="2"></td>
-          </tr>
-          <% order_history.order_details.each do |order_detail| %>
+      <div style="padding-bottom: 20px; margin-bottom: 50px; border-bottom: 1px dotted black">
+        <table class="table table-borderless">
+          <tbody>
             <tr>
-              <td></td>
-              <td><%= "#{order_detail.product.cd_name}/#{order_detail.product.artist_name}" %></td>
-              <td><%= "#{order_detail.product_number}枚" %></td>
-              <td><%= number_to_currency(order_detail.unit_price) %></td>
+              <td>購入日</td>
+              <td><%= order_history.created_at.strftime("%Y年%-m月%-d日") %></td>
+              <td colspan="2"></td>
             </tr>
-          <% end %>
-          <tr>
-            <td colspan="2"></td>
-            <td>小計</td>
-            <td><%= number_to_currency(order_history.subtotal) %></td>
-          </tr>
-          <tr>
-            <td colspan="2"></td>
-            <td>税</td>
-            <td><%#= order_history.tax %></td>
-          </tr>
-          <tr>
-            <td colspan="2"></td>
-            <td>送料</td>
-            <td><%#= order_history.delivery_fee %></td>
-          </tr>
-          <tr>
-            <td colspan="2"></td>
-            <td>総計</td>
-            <td><%#= order_history.total_price %></td>
-          </tr>
-          <tr>
-            <td rowspan="3">送付先</td>
-            <td><%= "#{order_history.last_name_kanji} #{order_history.first_name_kanji}" %></td>
-            <td colspan="2"></td>
-          </tr>
-          <tr>
-            <td><%= "〒#{order_history.postal_code_1}-#{order_history.postal_code_2}" %></td>
-            <td colspan="2"></td>
-          </tr>
-          <tr>
-            <td><%= order_history.address %></td>
-            <td colspan="2"></td>
-          </tr>
-          <tr>
-            <td>ステータス</td>
-            <td><%= order_history.order_status %></td>
-            <td colspan="2"></td>
-          </tr>
-        </tbody>
-      </table>
+            <% order_history.order_details.each do |order_detail| %>
+              <tr>
+                <td></td>
+                <td><%= "#{order_detail.product.cd_name}/#{order_detail.product.artist_name}" %></td>
+                <td><%= "#{order_detail.product_number}枚" %></td>
+                <td><%= number_to_currency(order_detail.unit_price) %></td>
+              </tr>
+            <% end %>
+            <tr>
+              <td colspan="2"></td>
+              <td>小計</td>
+              <td><%= number_to_currency(order_history.subtotal) %></td>
+            </tr>
+            <tr>
+              <td colspan="2"></td>
+              <td>税</td>
+              <td><%= order_history.tax %></td>
+            </tr>
+            <tr>
+              <td colspan="2"></td>
+              <td>送料</td>
+              <td><%= order_history.delivery_fee %></td>
+            </tr>
+            <tr>
+              <td colspan="2"></td>
+              <td>総計</td>
+              <td><%= order_history.total_price %></td>
+            </tr>
+            <tr>
+              <td rowspan="3">送付先</td>
+              <td><%= "#{order_history.last_name_kanji} #{order_history.first_name_kanji}" %></td>
+              <td colspan="2"></td>
+            </tr>
+            <tr>
+              <td><%= "〒#{order_history.postal_code_1}-#{order_history.postal_code_2}" %></td>
+              <td colspan="2"></td>
+            </tr>
+            <tr>
+              <td><%= order_history.address %></td>
+              <td colspan="2"></td>
+            </tr>
+            <tr>
+              <td>ステータス</td>
+              <td><%= order_history.order_status %></td>
+              <td colspan="2"></td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
       <% end %>
     </div>
 </div>
+<%= render "shared/footer_admin" %>

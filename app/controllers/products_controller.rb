@@ -1,4 +1,7 @@
 class ProductsController < ApplicationController
+before_action :authenticate_end_user!, except: [:index]
+before_action :authenticate_administrator!
+
   def index
   	# @products = Product.all    <!-- ransackによりallが表示されるためコメントアウトしてます -->
     @q = Product.ransack(params[:q])
@@ -18,6 +21,7 @@ class ProductsController < ApplicationController
   	@products = Product.active.all
   	@product = Product.find(params[:id])
     @cart_item = CartItem.new
+    @cart_item.product_id = params[:id]
   end
 
   def admin_show

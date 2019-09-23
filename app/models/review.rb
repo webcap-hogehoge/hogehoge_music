@@ -4,3 +4,4 @@ class Review < ApplicationRecord
   validates :rating, presence: true
   belongs_to :end_user
   belongs_to :product
+end

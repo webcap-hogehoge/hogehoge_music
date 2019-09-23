@@ -1,62 +1,58 @@
-<h2>会員情報編集 <%= resource_name.to_s.humanize %></h2>
+<%= render "shared/header_user_after_login" %>
+<div class="container">
+  <h2>会員情報編集</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field signup_contents_name">
-    <p style="display: inline-block; margin-right: 25px">名前</p>
-    <div style="display: inline-block">
-      <%= f.label :last_name_kanji, "(姓)" %><br />
-      <%= f.text_field :last_name_kanji, autofocus: true %>
+    <div class="field signup_contents_name">
+      <p style="display: inline-block; margin-right: 25px">名前</p>
+      <div style="display: inline-block">
+        <%= f.label :last_name_kanji, "(姓)" %><br />
+        <%= f.text_field :last_name_kanji, autofocus: true %>
+      </div>
+      <div style="display: inline-block">
+        <%= f.label :first_name_kanji, "(名)" %><br />
+        <%= f.text_field :first_name_kanji %>
+      </div>
     </div>
-    <div style="display: inline-block">
-      <%= f.label :first_name_kanji, "(名)" %><br />
-      <%= f.text_field :first_name_kanji %>
+
+    <div class="field signup_contents_name">
+      <p style="display: inline-block; margin-right: 25px">名前(カナ)</p>
+      <div style="display: inline-block">
+        <%= f.label :last_name_katakana, "(セイ)" %><br />
+        <%= f.text_field :last_name_katakana, autofocus: true %>
+      </div>
+      <div style="display: inline-block">
+        <%= f.label :first_name_katakana, "(メイ)" %><br />
+        <%= f.text_field :first_name_katakana %>
+      </div>
     </div>
-  </div>
 
-  <div class="field signup_contents_name">
-    <p style="display: inline-block; margin-right: 25px">名前(カナ)</p>
-    <div style="display: inline-block">
-      <%= f.label :last_name_katakana, "(セイ)" %><br />
-      <%= f.text_field :last_name_katakana, autofocus: true %>
+    <div class="field signup_contents">
+      <%= f.label :email, "メールアドレス" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
     </div>
-    <div style="display: inline-block">
-      <%= f.label :first_name_katakana, "(メイ)" %><br />
-      <%= f.text_field :first_name_katakana %>
-    </div>
-  </div>
 
-  <div class="field">
-    <%= f.label :email, "メールアドレス" %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :password, "パスワード" %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %>文字以上入力</em>
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
     <% end %>
-  </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation, "パスワード（確認）" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+    <div class="field signup_contents">
+      <%= f.label :password, "パスワード" %>
+      <%= f.password_field :password, autocomplete: "new-password" %>
+      <% if @minimum_password_length %>
+        <em>※<%= @minimum_password_length %>文字以上入力</em>
+      <% end %>
+    </div>
 
-  <div class="field">
-    <%= f.label :current_password, "現在のパスワード" %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
-    <%#= binding.pry %>
+    <div class="field signup_contents">
+      <%= f.label :password_confirmation, "パスワード（確認）" %>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    </div>
+
     <%= f.fields_for :addresses, @address do |af| %>
-      <div>
+      <div class="field signup_contents">
         <p style="display: inline-block; margin-right: 25px">郵便番号</p>
         <div style="display: inline-block">
           <%= af.label :postal_code_1, "〒" %>
@@ -77,14 +73,19 @@
       </div>
     <% end %>
 
+    <div class="field signup_contents">
+      <%= f.label :current_password, "現在のパスワード" %>
+      <%= f.password_field :current_password, autocomplete: "current-password" %>
+      <i>※(本人確認のため現在のパスワードを入力してください)</i>
+    </div>
 
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
-<% end %>
 
-<h3>Cancel my account</h3>
+    <div class="actions signup_contents">
+      <%= f.submit "更新", :class => "btn btn-primary" %>
+    </div>
+  <% end %>
 
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+  <%= link_to "マイページへ戻る", :back, :class => "signup_contents" %>
+</div>
 
-<%= link_to "Back", :back %>
+<%= render "shared/footer_user" %>

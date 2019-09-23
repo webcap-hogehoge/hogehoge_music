@@ -1,4 +1,6 @@
 class ArrivalHistoriesController < ApplicationController
+before_action :authenticate_end_user!
+before_action :authenticate_administrator!
   def new
   	@product = Product.find(params[:id])
   	@arrival_history = @product.arrival_histories.build
