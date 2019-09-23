@@ -1,5 +1,10 @@
-<%= render 'shared/header_user_after_login' %>
-
+　<!-- ヘッダー  -->
+<% if end_user_signed_in? %>
+<%= render "shared/header_user_after_login" %>
+<% else %>
+<%= render "shared/header_user_before_login" %>
+<% end %>
+<!-- ヘッダーここまで -->
 <h2>カート編集ページ</h2>
 <div class="container">
 	<div class="row">
@@ -13,13 +18,13 @@
 				<%= form_for @cart_item, url: cart_item_path(@cart_item.id) do |f| %>
 				* 変更する個数を選択して下さい！！➡︎
 				<%= f.number_field :product_number %> 個<div><br>
-
-				<% sum = @cart_item.product.price * @cart_item.product_number * 1.08 %>
-				<div class="price">価格<br>¥<%= sum.floor %>(税込)</div>
-					<%= f.submit '編集完了',  class: " btn btn-primary" %>
+				<%= f.submit '編集完了',  class: " btn btn-primary" %>
 				</div>
 				<% end %>
 			</div>
 		</div>
 	</div>
 </div>
+
+<!-- フッター -->
+<%= render "shared/footer_user" %>

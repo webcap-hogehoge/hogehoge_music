@@ -18,13 +18,11 @@ class ProductsController < ApplicationController
   	@products = Product.all
   	@product = Product.find(params[:id])
     @cart_item = CartItem.new
+    @cart_item.product_id = params[:id]
   end
 
   def admin_show
     @product = Product.find(params[:id])
-  end
-
-  def admin_index
   end
 
   def new
