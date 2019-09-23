@@ -23,8 +23,13 @@
 	display: inline-block;
 	margin-left: 40px;
 	margin-top: 40px;
+	list-style: none;
 }
 
 .name {
 	text-align: center;
+}
+
+.price {
+	text-align: right;
 }
