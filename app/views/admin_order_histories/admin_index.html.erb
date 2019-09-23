@@ -1,12 +1,18 @@
+<!-- ヘッダー  -->
+<% if end_user_signed_in? %>
 <%= render "shared/header_admin_after_login" %>
+<% else %>
+<%= render "shared/header_admin_before_login" %>
+<% end %>
+<!-- ヘッダーここまで -->
 
 
 <!-- ナビゲーション -->
 <div class="container">
   <ul class="nav nav-tabs nav-justified">
     <li class="nav-item active">
-		<a class="nav-link active" data-toggle="tab" href="#all">全体</a>
-	</li>
+		  <a class="nav-link active" data-toggle="tab" href="#all">全体</a>
+	  </li>
     <li class="nav-item">
     	<a class="nav-link" data-toggle="tab" href="#accepting">受付中</a>
     </li>
@@ -23,51 +29,58 @@
 <div class="tab-content">
 	<div class="tab-pane fade in active" id="all">
 	  <div class="container">
-           <table class="table table-admin-index table-borderless">
-            <% @order_histories.each do |order| %>
-              <tbody>
-                <tr>
-                   <th scope="row" class="admin_order_history">購入者名</th>
-                   <td><%= order.end_user.last_name_kanji %><%= order.end_user.first_name_kanji %></td>
-                </tr>
-                <tr>
-                   <th scope="row">購入日時</th>
-                   <td><%= l order.created_at %></td>
-                </tr>
-                <tr>
-                   <th scope="row">購入内容</th>
-                      <td><% order.order_details.each do |d|%>
-                       <span>商品名 : </span><%= d.product.cd_name %>
-                       <br><span>総枚数 : </span><%= d.product_number %><span>  枚</span>
-                     <% end %>
-                </tr>
-                <tr>
-                   <th scope="row">購入金額</th>
-                   <td><span>小計 ¥</span><%= order.subtotal %>
-                    <br><span>消費税 ¥</span><%= order.tax %>
-                    <br><span>配送料 ¥</span><%= order.delivery_fee %>
-                    <br><span>購入総計 ¥</span><%= order.total_price %>
-                  </td>
-                </tr>
-                <tr>
-                   <th scope="row">送付先</th>
-                   <td><%= order.last_name_kanji %><%= order.first_name_kanji %>
-                    <br><span>〒</span><%= order.postal_code_1%><span>-</span><%= order.postal_code_2%><%= order.address %></td>
-                </tr>
-                <tr>
-                   <th rowspan="2">ステータス</th>
-                   <td rowspan="2"><%= order.order_status_i18n %></td>
-                </tr>
-              </tbody>
+           <table class="table table-borderless">
+            <% @order_histories.each_with_index do |order, i| %>
+              <% if i.to_i % 2 == 0 %>
+                  <tbody class="test">
+                    <tr>
+                       <th scope="row">購入者名</th>
+                       <td><%= order.end_user.last_name_kanji %><%= order.end_user.first_name_kanji %></td>
+                    </tr>
+                    <tr>
+                       <th scope="row">購入日時</th>
+                       <td><%= l order.created_at %></td>
+                    </tr>
+                    <tr>
+                       <th scope="row">購入内容</th>
+                          <td>
+                            <% order.order_details.each do |d|%>
+                              <p>商品名 : <%= d.product.cd_name %><span>  単価: ¥ <%= d.unit_price %></span></p>
+                              <p>枚数:<%= d.product_number %>  枚</p>
+                            <% end %>
+                          </td>
+                    </tr>
+                    <tr>
+                       <th scope="row">購入金額</th>
+                       <td>
+                        <p>合計 ¥<%= order.subtotal %></p>
+                        <p>消費税 ¥<%= order.tax %></p>
+                        <p>配送料 ¥<%= order.delivery_fee %></p>
+                        <p>購入総計 ¥<%= order.total_price %></p>
+                      </td>
+                    </tr>
+                    <tr>
+                       <th scope="row">送付先</th>
+                       <td>
+                         <p><%= order.last_name_kanji %><%= order.first_name_kanji %>  〒<%= order.postal_code_1%>-<%= order.postal_code_2%><%= order.address %></p>
+                        </td>
+                    </tr>
+                    <tr>
+                       <th rowspan="2">ステータス</th>
+                       <td rowspan="2"><%= order.order_status_i18n %></td>
+                    </tr>
+                  </tbody>
+              <% end %>
           <% end %>
            </table>
       </div>
 　  </div>
-<% @order_histories.each  do |order| %>
+<% @order_histories.each  do |order,i| %>
 <% if order.order_status == "accepting" %>
   <div class="tab-pane fade" id="accepting">
-    <div class="container">
+    <div class="container test">
           <table class="table table-borderless">
+            <% if i.to_i % 2 == 0 %>
             <tbody>
                 <tr>
                    <th scope="row">購入者名</th>
@@ -79,20 +92,21 @@
                 </tr>
                 <tr>
                    <th scope="row">購入内容</th>
-                   <% order.order_details.each do |d|%>
                       <td>
-                       <span>商品名 : </span><%= d.product.cd_name %>
-                       <br><span>総枚数 : </span><%= d.product_number %><span>  枚</span>
-                     <% end %>
-                     </td>
+                        <% order.order_details.each do |d|%>
+                          <p>商品名 : <%= d.product.cd_name %><span>  単価: ¥ <%= d.unit_price %></span></p>
+                          <p>枚数:<%= d.product_number %>  枚</p>
+                        <% end %>
+                      </td>
                 </tr>
                 <tr>
                   <th scope="row">購入金額</th>
-                  <td><span>小計 ¥</span>%= order.product.subtotal %>
-                    <br><span>消費税 ¥</span><%= order.tax %>
-                    <br><span>配送料 ¥</span><%= order.delivery_fee %>
-                    <br><span>購入総計 ¥</span><%= order.total_price %>
-                  </td>
+                    <td>
+                      <p>合計 ¥<%= order.subtotal %></p>
+                      <p>消費税 ¥<%= order.tax %></p>
+                      <p>配送料 ¥<%= order.delivery_fee %></p>
+                      <p>購入総計 ¥<%= order.total_price %></p>
+                    </td>
                 </tr>
                 <tr>
                    <th scope="row">送付先</th>
@@ -103,17 +117,19 @@
                    <td rowspan="2"><%= order.order_status_i18n%></td>
                 </tr>
             </tbody>
+            <% end %>
           </table>
     </div>
 　</div>
 <% end %>
 <% end %>
 
-<% @order_histories.each  do |order| %>
+<% @order_histories.each  do |order, i| %>
 <% if order.order_status == "preparing" %>
   <div class="tab-pane fade" id="preparing">
-      <div class="container">
+      <div class="container test">
            <table class="table table-borderless">
+            <% if i.to_i % 2 == 0 %>
               <tbody>
                 <tr>
                    <th scope="row">購入者名</th>
@@ -125,19 +141,21 @@
                 </tr>
                 <tr>
                    <th scope="row">購入内容</th>
-                      <td><% order.order_details.each do |d|%>
-                       <span>商品名 : </span><%= d.product.cd_name %>
-                       <br><span>総枚数 : </span><%= d.product_number %><span>  枚</span>
-                       <% end %>
+                     <td>
+                        <% order.order_details.each do |d|%>
+                          <p>商品名 : <%= d.product.cd_name %><span>  単価: ¥ <%= d.unit_price %></span></p>
+                          <p>枚数:<%= d.product_number %>  枚</p>
+                        <% end %>
                       </td>
                 </tr>
                 <tr>
                    <th scope="row">購入金額</th>
-                   <td><span>小計 ¥</span>%= order.product.subtotal %>
-                    <br><span>消費税 ¥</span><%= order.tax %>
-                    <br><span>配送料 ¥</span><%= order.delivery_fee %>
-                    <br><span>購入総計 ¥</span><%= order.total_price %>
-                  </td>
+                      <td>
+                        <p>合計 ¥<%= order.subtotal %></p>
+                        <p>消費税 ¥<%= order.tax %></p>
+                        <p>配送料 ¥<%= order.delivery_fee %></p>
+                        <p>購入総計 ¥<%= order.total_price %></p>
+                      </td>
                 <tr>
                    <th scope="row">送付先</th>
                    <td><%= order.last_name_kanji %><%= order.first_name_kanji %>  <span>〒</span><%= order.postal_code_1%><span>-</span><%= order.postal_code_2%><%= order.address %></td>
@@ -147,17 +165,19 @@
                    <td rowspan="2"><%= order.order_status_i18n%></td>
                 </tr>
               </tbody>
+              <% end %>
            </table>
     </div>
 　</div>
 <% end %>
 <% end %>
 
-<% @order_histories.each  do |order| %>
+<% @order_histories.each  do |order,i| %>
 <% if order.order_status == "finished" %>
   <div class="tab-pane fade" id="finished">
-    <div class="container">
+    <div class="container test">
            <table class="table table-borderless">
+            <% if i.to_i % 2 == 0 %>
               <tbody>
                 <tr>
                    <th scope="row">購入者名</th>
@@ -169,19 +189,21 @@
                 </tr>
                 <tr>
                    <th scope="row">購入内容</th>
-                      <td><% order.order_details.each do |d|%>
-                        <span>商品名 : </span><%= d.product.cd_name %>
-                        <br><span>総枚数 : </span><%= d.product_number %><span>  枚</span>
+                     <td>
+                        <% order.order_details.each do |d|%>
+                          <p>商品名 : <%= d.product.cd_name %><span>  単価: ¥ <%= d.unit_price %></span></p>
+                          <p>枚数:<%= d.product_number %>  枚</p>
                         <% end %>
                       </td>
                 </tr>
                 <tr>
                    <th scope="row">購入金額</th>
-                    <td><span>小計 ¥</span>%= order.product.subtotal %>
-                      <br><span>消費税 ¥</span><%= order.tax %>
-                      <br><span>配送料 ¥</span><%= order.delivery_fee %>
-                      <br><span>購入総計 ¥</span><%= order.total_price %>
-                    </td>
+                    <td>
+                      <p>合計 ¥<%= order.subtotal %></p>
+                      <p>消費税 ¥<%= order.tax %></p>
+                      <p>配送料 ¥<%= order.delivery_fee %></p>
+                      <p>購入総計 ¥<%= order.total_price %></p>
+                  </td>
                 </tr>
                 <tr>
                    <th scope="row">送付先</th>
@@ -192,6 +214,7 @@
                    <td rowspan="2"><%= order.order_status_i18n %></td>
                 </tr>
                </tbody>
+               <% end %>
            </table>
     </div>
 　</div>
