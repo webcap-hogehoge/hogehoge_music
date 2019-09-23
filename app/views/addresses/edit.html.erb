@@ -1,7 +1,7 @@
 <div style="margin: 50px 100px">
-    <h2>新しく住所を追加</h2>
+    <h2>送付先情報編集</h2>
         <div style="padding-left: 50px">
-            <%= form_for(@address) do |f| %>
+            <%= form_for @address, url: address_path(@address) do |f| %>
 
                 <div class="field kanji_name">
                 <p style="display: inline-block; margin-right: 50px">名前</p>
@@ -16,22 +16,24 @@
                 </div>
 
                 <div class="field telephone_number">
-                <%= f.label :telephone_number, "電話番号" %>
+                <p style="display: inline-block; margin-right: 22.5px">電話番号</p>
                 <%= f.text_field :telephone_number %>
                 </div>
 
                 <div class="field postal_code_1">
-                <%= f.label :postal_code_1, "郵便番号" %>
-                <%= f.text_field :postal_code_1 %><%= f.text_field :postal_code_1 %>
+                <p style="display: inline-block; margin-right: 22.5px">郵便番号</p>
+                <%= f.text_field :postal_code_1 %>
+                <div style="display: inline-block;">
+                <%= f.text_field :postal_code_2 %>
                 </div>
 
                 <div class="field address">
-                <%= f.label :address, "住所" %>
+                <p style="display: inline-block; margin-right: 50px">住所</p>
                 <%= f.text_field :address %>
-                </div>
+                </div><br>
 
                 <div class="actions">
-                <%= link_to '完了', "/users/1", method: :post, class: 'btn btn-primary col-xs-3' %>
+                <%= f.submit '完了', method: :post, class: 'btn btn-primary col-xs-3' %>
                 </div>
             <% end %>
         </div>

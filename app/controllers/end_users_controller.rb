@@ -1,5 +1,5 @@
 class EndUsersController < ApplicationController
-before_action :authenticate_user!
+before_action :authenticate_end_user!
   def show
     @user = EndUser.find(current_end_user.id)
     @addresses_is_main = @user.addresses.find_by(is_main: 1)
@@ -21,11 +21,10 @@ before_action :authenticate_user!
   end
 
   def destroy
-    #@user = User.find_by(id: params[:id])
-    #@user.destroy
-    self.is_deleted = 1
-    save
-    redirect_to("/")
+    @user =  current_end_user
+    @user.is_deleted = 1
+    @user.save
+    redirect_to root_path
   end
 
   def review
@@ -50,6 +49,13 @@ before_action :authenticate_user!
     @user = EndUser.find(params[:id])
     @addresses_is_main = @user.addresses.find_by(is_main: 1)
     @order_histories = @user.order_histories.all.order(created_at: :desc)
+  end
+
+  def admin_end_user_destroy
+    @user =  EndUser.find(params[:id])
+    @user.is_deleted = 1
+    @user.save
+    redirect_to end_users_path
   end
 
   private
