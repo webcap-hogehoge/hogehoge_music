@@ -1,4 +1,10 @@
-<%= render 'shared/header_user_after_login' %>
+<!-- ヘッダー  -->
+<% if end_user_signed_in? %>
+<%= render "shared/header_user_after_login" %>
+<% else %>
+<%= render "shared/header_user_before_login" %>
+<% end %>
+<!-- ヘッダーここまで -->
 
 <h1>ご注文内容の確認</h1>
 <p>配送先</p>
@@ -56,4 +62,10 @@
 
 <% end %>
 
-<%= render 'shared/footer_user' %>
+<!-- フッター -->
+<% if end_user_signed_in? %>
+<%= render "shared/footer_user_after_login" %>
+<% else %>
+<%= render "shared/footer_user_before_login" %>
+<% end %>
+<!-- フッダー -->

@@ -1,4 +1,11 @@
-<%= render 'shared/header_user_after_login' %>
+<!-- ヘッダー  -->
+<% if end_user_signed_in? %>
+<%= render "shared/header_user_after_login" %>
+<% else %>
+<%= render "shared/header_user_before_login" %>
+<% end %>
+<!-- ヘッダーここまで -->
+
 <p class="title">購入履歴</p>
   <table class="table table-striped">
     <tbody>
@@ -36,5 +43,11 @@
   </tbody>
 </table>
 
-<%= render 'shared/footer_user' %>
+<!-- フッター -->
+<% if end_user_signed_in? %>
+<%= render "shared/footer_user_after_login" %>
+<% else %>
+<%= render "shared/footer_user_before_login" %>
+<% end %>
+<!-- フッダー -->
 

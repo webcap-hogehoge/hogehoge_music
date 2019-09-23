@@ -5,6 +5,7 @@
 <%= render "shared/header_user_before_login" %>
 <% end %>
 <!-- ヘッダーここまで -->
+
 <h1>ショッピングカート</h1>
     <div class="col-xs-9">
         <% @cart_items.each do |cart_item| %>
@@ -47,5 +48,10 @@
         </div>
     </div>
 
+
 <!-- フッター -->
-<%= render "shared/footer_user" %>
+<% if end_user_signed_in? %>
+<%= render "shared/footer_user_after_login" %>
+<% else %>
+<%= render "shared/footer_user_before_login" %>
+<% end %>

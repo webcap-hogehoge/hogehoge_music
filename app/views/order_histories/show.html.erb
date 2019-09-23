@@ -1,4 +1,11 @@
-<%= render 'shared/header_user_after_login' %>
+<!-- ヘッダー  -->
+<% if end_user_signed_in? %>
+<%= render "shared/header_user_after_login" %>
+<% else %>
+<%= render "shared/header_user_before_login" %>
+<% end %>
+<!-- ヘッダーここまで -->
+
 <p>購入履歴詳細画面</p>
 
   <!-- 計算用のeach文 -->
@@ -32,4 +39,11 @@
   <%= @order_history.last_name_kanji %><%= @order_history.first_name_kanji %>
   <%= @order_history.telephone_number %>
   <%= @order_history.address %>
-<%= render 'shared/footer_user' %>
+
+<!-- フッター -->
+<% if end_user_signed_in? %>
+<%= render "shared/footer_user_after_login" %>
+<% else %>
+<%= render "shared/footer_user_before_login" %>
+<% end %>
+<!-- フッダー -->

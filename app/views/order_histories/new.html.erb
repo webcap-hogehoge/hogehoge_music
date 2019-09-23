@@ -1,4 +1,10 @@
-<%= render 'shared/header_user_after_login' %>
+<!-- ヘッダー  -->
+<% if end_user_signed_in? %>
+<%= render "shared/header_user_after_login" %>
+<% else %>
+<%= render "shared/header_user_before_login" %>
+<% end %>
+<!-- ヘッダーここまで -->
 
 <div class="col-xs-1">
 </div>
@@ -140,4 +146,11 @@
     </div>
 
 
-<%= render 'shared/footer_user' %>
+<!-- フッター -->
+<% if end_user_signed_in? %>
+<%= render "shared/footer_user_after_login" %>
+<% else %>
+<%= render "shared/footer_user_before_login" %>
+<% end %>
+<!-- フッダー -->
+
