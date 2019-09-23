@@ -1,3 +1,9 @@
+<% if administrator_signed_in? %>
+<%= render "shared/header_admin_after_login" %>
+<% else %>
+<%= render "shared/header_admin_before_login" %>
+<% end %>
+
 <div class="container">
   <div class="row">
     <div class="col-xs-5">
@@ -15,17 +21,17 @@
         <%= "#{@product.genre.genre_name}/#{@product.label_name}" %>
       </div><br>
       <div>
-        <%= "#{number_to_currency(@product.price)} (税込価格)" %>
+        <%= "#{number_to_currency(@product.price)} (税別価格)" %>
       </div><br>
       <div>
         <%= "在庫数#{@product.stock(@product.id)}" %>
       </div>
-        <%= @product.product_status %>
+        <%= @product.product_status_i18n %>
       </div>
       <div>
         <%= link_to "在庫追加", new_arrival_history_path, :class => "btn btn-primary" %>
         <%= link_to "編集", edit_product_path, :class => "btn btn-success" %>
-        <%= link_to "削除(リンク先がなく繋げていない）", "#", :class => "btn btn-danger" %>
+        <%= link_to "削除", "/products/#{@product.id}/delete", method: :delete, "data-confirm" => "本当に商品を削除しますか？", :class => "btn btn-danger" %>
       </div>
     </div>
   </div>
@@ -53,4 +59,4 @@
     </div>
   </div>
 
-</div>
+<%= render "shared/footer_admin" %>

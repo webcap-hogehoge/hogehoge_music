@@ -5,26 +5,23 @@ class ProductsController < ApplicationController
     if params[:q] != nil
       @products = @q.result(distinct: true)
     else
-      @products = Product.all
+      @products = Product.active.page(params[:page]).per(35)
     end
   end
 
   def admin_index
-    @products = Product.all
+    @products = Product.active.all
   end
 
   def show
     @q = Product.ransack(params[:q])
-  	@products = Product.all
+  	@products = Product.active.all
   	@product = Product.find(params[:id])
     @cart_item = CartItem.new
   end
 
   def admin_show
     @product = Product.find(params[:id])
-  end
-
-  def admin_index
   end
 
   def new
@@ -35,6 +32,23 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.new(product_params)
+    @product.save
+    redirect_to admin_root_path
+  end
+
+  def edit
+    @product = Product.find(params[:id])
+  end
+
+  def update
+    @product = Product.find(params[:id])
+    @product.update(product_params)
+    redirect_to admin_root_path
+  end
+
+  def destroy
+    @product = Product.find(params[:id])
+    @product.is_deleted = 1
     @product.save
     redirect_to admin_root_path
   end
