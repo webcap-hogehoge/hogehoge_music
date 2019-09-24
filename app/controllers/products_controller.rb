@@ -13,7 +13,7 @@ before_action :authenticate_administrator!
   end
 
   def admin_index
-    @products = Product.active.all
+    @products = Product.active.page(params[:page]).per(50)
   end
 
   def show

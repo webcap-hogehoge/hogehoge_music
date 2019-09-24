@@ -10,7 +10,7 @@ before_action :authenticate_administrator!
     @product = Product.find(params[:arrival_history][:product_id])
   	@arrival_history = @product.arrival_histories.build(arrival_history_params)
   	@arrival_history.save
-  	redirect_to admin_root_path
+  	redirect_to arrival_histories_path
   end
 
   def index
