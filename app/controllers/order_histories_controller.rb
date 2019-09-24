@@ -1,6 +1,5 @@
 class OrderHistoriesController < ApplicationController
 before_action :authenticate_end_user!
-before_action :authenticate_administrator!
   def new
     @q = Product.ransack(params[:q])
     @products = @q.result(distinct: true)
@@ -124,7 +123,7 @@ before_action :authenticate_administrator!
     @q = Product.ransack(params[:q])
     @products = @q.result(distinct: true)
     @end_user = current_end_user
-    @order_histories = @end_user.order_histories
+    @order_histories = @end_user.order_histories.order(id: "ASC")
   end
 
   def show

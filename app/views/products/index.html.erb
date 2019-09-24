@@ -5,6 +5,11 @@
 <%= render "shared/header_user_before_login" %>
 <% end %>
 <!-- ヘッダーここまで -->
+<!-- 退会後のメッセージ表示-->
+<% if flash[:notice] %>
+  <p><%= flash[:notice] %></p>
+<% end %>
+
 	<% @products.each do |product| %>
 	<%= link_to product_path(product.id), :style => "color: black;" do %>
 	<div style="width: 250px; border: 1px solid black; margin: 5px; display: inline-block; text-align: center;">
@@ -27,7 +32,7 @@
 			<p><%= product.artist_name %></p>
         </div>
         <div style="height: 30px;">
-			<p><%= number_to_currency(product.price * 1.08) %>(税込み)</p>
+			<p><%= number_to_currency(product.price * 1.08) %>(税込)</p>
 		</div>
 		</div>
     </div>

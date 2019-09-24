@@ -1,6 +1,5 @@
 class CartItemsController < ApplicationController
 before_action :authenticate_end_user!
-before_action :authenticate_administrator!
   def index
   	@products = Product.all
     @cart_items = current_end_user.cart_items.all

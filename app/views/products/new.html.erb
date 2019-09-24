@@ -1,8 +1,5 @@
-<% if administrator_signed_in? %>
+
 <%= render "shared/header_admin_after_login" %>
-<% else %>
-<%= render "shared/header_admin_before_login" %>
-<% end %>
 
 <div class="container">
     <%= form_for(@product) do |f| %>
