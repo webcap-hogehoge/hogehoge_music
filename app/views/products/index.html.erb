@@ -6,13 +6,17 @@
 <% end %>
 <!-- ヘッダーここまで -->
 
+<!-- 退会後のメッセージ表示-->
+<% if flash[:notice] %>
+  <p><%= flash[:notice] %></p>
+  <% end %>
+
 <% @products.each do |product| %>
-<% if product.product_status == "on_sale" %>
 <%= link_to product_path(product.id), :style => "color: black;" do %>
 <div style="width: 250px; border: 1px solid black; margin: 5px; display: inline-block; text-align: center;">
 
 	<div style="height: 200px; line-height: 200px;">
-		<% if product.stock(product.id) >= 1 %>
+		<% if product.stock(product.id) == 0 %>
 		<%= image_tag "soldout.png", size: "190x190" %>
 		<% else %>
 		<%= image_tag product.image_id.url %>
@@ -20,25 +24,26 @@
 	</div>
 
 	<div style=" border: 1px solid black; padding: 20px 0px 10px 0px; height: 145px;">
+
 		<div style="height: 55px; font-size: 20px;">
 			<p><%= product.cd_name %></p>
 		</div>
 		<div style="height: 30px;">
 			<p><%= product.artist_name %></p>
-		</div>
-		<div style="height: 30px;">
-			<p><%= number_to_currency(product.price * 1.08) %>(税込み)</p>
+        </div>
+        <div style="height: 30px;">
+			<p><%= number_to_currency(product.price * 1.08) %>(税込)</p>
 		</div>
 	</div>
-</div>
-<% end %>
+	</div>
 <% end %>
 <% end %>
 
+<div style="text-align: center; font-size: 25px;">
 <%= paginate(@products) %>
+</div>
 
-<!-- フッター -->
-<%= render "shared/footer_user" %>
+
 
 
 

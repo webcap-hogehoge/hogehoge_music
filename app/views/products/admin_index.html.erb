@@ -1,10 +1,5 @@
 <!-- ヘッダー  -->
-<% if administrator_signed_in? %>
 <%= render "shared/header_admin_after_login" %>
-<% else %>
-<%= render "shared/header_admin_before_login" %>
-<% end %>
-<!-- ヘッダー ここまで -->
 
 
 <% @products.each do |product| %>
@@ -52,7 +47,9 @@
 <% end %>
 <% end %>
 
+<div style="text-align: center; font-size: 25px;">
 <%= paginate(@products) %>
+</div>
 
 <!-- フッター  -->
 <%= render "shared/footer_admin" %>

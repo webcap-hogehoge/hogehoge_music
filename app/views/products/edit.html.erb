@@ -1,3 +1,5 @@
+
+
   <% if administrator_signed_in? %>
   <%= render "shared/header_admin_after_login" %>
   <% else %>
@@ -19,6 +21,8 @@
         <div class="field">
         	  <label>画像</label>
             <%= f.file_field :image_id %>
+
+<%= render "shared/header_admin_after_login" %>
         </div>
 
         <div class="field">

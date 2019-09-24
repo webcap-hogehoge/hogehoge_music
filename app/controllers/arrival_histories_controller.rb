@@ -1,5 +1,4 @@
 class ArrivalHistoriesController < ApplicationController
-before_action :authenticate_end_user!
 before_action :authenticate_administrator!
   def new
   	@product = Product.find(params[:id])
@@ -14,7 +13,7 @@ before_action :authenticate_administrator!
   end
 
   def index
-    @arrival_histories = ArrivalHistory.all
+    @arrival_histories = ArrivalHistory.all.order(id: "DESC")
   end
 
    private

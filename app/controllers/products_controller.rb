@@ -1,14 +1,15 @@
 class ProductsController < ApplicationController
 before_action :authenticate_end_user!, except: [:index]
-before_action :authenticate_administrator!
+before_action :authenticate_administrator!, only: [:admin_index, :admin_show, :create, :new, :edit, :update, :destroy]
 
   def index
   	# @products = Product.all    <!-- ransackによりallが表示されるためコメントアウトしてます -->
     @q = Product.ransack(params[:q])
+    # @q = @q.page(params[:page])
     if params[:q] != nil
       @products = @q.result(distinct: true)
     else
-      @products = Product.active.page(params[:page]).per(35)
+      @products = Product.active.where(product_status: "on_sale").page(params[:page]).per(35)
     end
   end
 
@@ -46,8 +47,7 @@ before_action :authenticate_administrator!
 
   def update
     @product = Product.find(params[:id])
-    @product.update(product_params)
-    redirect_to admin_root_path
+    i@product.update(product_params)
   end
 
   def destroy

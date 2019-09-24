@@ -1,8 +1,5 @@
-<% if administrator_signed_in? %>
+
 <%= render "shared/header_admin_after_login" %>
-<% else %>
-<%= render "shared/header_admin_before_login" %>
-<% end %>
 
 <% if @product.errors.any? %>
 <h3><%= @product.errors.count %>errors prohibited this obj from being saved:</h3>
