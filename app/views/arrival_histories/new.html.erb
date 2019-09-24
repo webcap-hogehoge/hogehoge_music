@@ -1,8 +1,4 @@
-<% if end_user_signed_in? %>
 <%= render "shared/header_admin_after_login" %>
-<% else %>
-<%= render "shared/header_admin_before_login" %>
-<% end %>
 
 <p>商品名</p>
 <p><%= @product.cd_name %></p>
