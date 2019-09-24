@@ -1,9 +1,4 @@
-<% if end_user_signed_in? %>
 <%= render "shared/header_user_after_login" %>
-<% else %>
-<%= render "shared/header_user_before_login" %>
-<% end %>
-
 <div style="margin: 50px 100px">
     <h2>新しく住所を追加</h2>
     <div style="padding-left: 50px">
@@ -48,8 +43,4 @@
     </div>
 </div>
 
-<% if end_user_signed_in? %>
 <%= render "shared/footer_user_after_login" %>
-<% else %>
-<%= render "shared/footer_user_before_login" %>
-<% end %>
