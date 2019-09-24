@@ -7,14 +7,19 @@ before_action :authenticate_administrator!, only: [:admin_index, :admin_show, :c
     @q = Product.ransack(params[:q])
     # @q = @q.page(params[:page])
     if params[:q] != nil
-      @products = @q.result(distinct: true)
+      @products = @q.result(distinct: true).page(params[:page]).per(35)
     else
       @products = Product.active.page(params[:page]).per(35)
     end
   end
 
   def admin_index
-    @products = Product.active.all
+    @q = Product.ransack(params[:q])
+    if params[:q] != nil
+      @products = @q.result(distinct: true).page(params[:page]).per(35)
+    else
+      @products = Product.active.page(params[:page]).per(35)
+    end
   end
 
   def show
