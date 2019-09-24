@@ -1,3 +1,10 @@
+<% if end_user_signed_in? %>
+<%= render "shared/header_user_after_login" %>
+<% else %>
+<%= render "shared/header_user_before_login" %>
+<% end %>
+
+
 <div style="margin: 50px 100px">
     <h2>送付先情報編集</h2>
         <div style="padding-left: 50px">
@@ -38,3 +45,9 @@
             <% end %>
         </div>
 </div>
+
+<% if end_user_signed_in? %>
+<%= render "shared/footer_user_after_login" %>
+<% else %>
+<%= render "shared/footer_user_before_login" %>
+<% end %>

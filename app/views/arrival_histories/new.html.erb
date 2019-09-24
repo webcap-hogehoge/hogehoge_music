@@ -1,7 +1,7 @@
 <% if end_user_signed_in? %>
-<%= render "shared/header_user_after_login" %>
+<%= render "shared/header_admin_after_login" %>
 <% else %>
-<%= render "shared/header_user_before_login" %>
+<%= render "shared/header_admin_before_login" %>
 <% end %>
 
 <p>商品名</p>
@@ -20,4 +20,4 @@
 <%= f.submit '完了', class: 'btn btn-primary btn-block' %>
 <% end %>
 
-<%= render "shared/footer_user" %>
+<%= render "shared/footer_admin" %>

@@ -24,6 +24,7 @@ before_action :authenticate_end_user!
     @user =  current_end_user
     @user.is_deleted = 1
     @user.save
+    flash[:notice] = "会員情報を削除しました。"
     redirect_to root_path
   end
 
