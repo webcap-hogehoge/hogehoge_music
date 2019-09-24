@@ -1,4 +1,4 @@
-<%= render "shared/header_user_after_login" %>
+<%= render "shared/header_admin_after_login" %>
 <div>
   <% @users.each do |user| %>
     <%= link_to end_user_path(user.id), :style => "color: black;" do %>
@@ -14,4 +14,4 @@
     <%= paginate(@users) %>
   </div>
 </div>
-<%= render "shared/footer_user_after_login" %>
+<%= render "shared/footer_admin" %>
