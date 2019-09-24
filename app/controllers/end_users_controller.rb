@@ -1,5 +1,6 @@
 class EndUsersController < ApplicationController
-before_action :authenticate_end_user!
+before_action :authenticate_end_user!, only: [:show, :mypage, :edit, :destroy, :comfirm, :unsubscribe]
+before_action :authenticate_administrator!, only: [:index, :admin_show, :admin_end_user_destroy, :edit, :update]
   def show
     @user = EndUser.find(current_end_user.id)
     @addresses_is_main = @user.addresses.find_by(is_main: 1)
@@ -24,8 +25,9 @@ before_action :authenticate_end_user!
     @user =  current_end_user
     @user.is_deleted = 1
     @user.save
-    flash[:notice] = "会員情報を削除しました。"
-    redirect_to root_path
+　　　redirect_to destroy_end_user_session_path, method: :delete
+    flash[:notice] = "会員情報を削除しました。
+
   end
 
   def review

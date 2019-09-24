@@ -1,10 +1,11 @@
 class ProductsController < ApplicationController
 before_action :authenticate_end_user!, except: [:index]
-before_action :authenticate_administrator!
+before_action :authenticate_administrator!, only: [:admin_index, :admin_show, :create, :new, :edit, :update, :destroy]
 
   def index
   	# @products = Product.all    <!-- ransackによりallが表示されるためコメントアウトしてます -->
     @q = Product.ransack(params[:q])
+    # @q = @q.page(params[:page])
     if params[:q] != nil
       @products = @q.result(distinct: true)
     else

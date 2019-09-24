@@ -23,7 +23,7 @@
         <p class="cart-item-number">数量　<%= cart_item.product_number %></p>
       </div>
       <div class="cart-item-price-box">
-        <p class="cart-item-headline">価格　¥<%= cart_item.product.price * cart_item.product_number * 1.08.to_i %>(税込)</p>
+        <p class="cart-item-headline">価格　<%= number_to_currency(cart_item.product.price * cart_item.product_number * 1.08) %>(税込)</p>
       </div>
     </div>
   </div>
@@ -81,7 +81,7 @@
 <!--  新たな住所を登録するゾーン -->
 <div class="row">
   <% if params.presence %>
-    <p>未入力の項目があります</p>
+    <%= puts "未入力の項目があります" %>
   <% end %>
   <label><%= form.radio_button :selected_order_histories_address_id, 'address新規登録' %></label>
   　<p class="address_input">別のお届け先を入力</p>
@@ -150,10 +150,10 @@
     <% @cart_items.each do |cart_item| %>
     <%  @subtotal += (cart_item.product.price * cart_item.product_number) %>
     <% end %>
-    <p>小計　¥<%= number_to_currency(@subtotal) %></p>
-    <p>税   ¥<%= number_to_currency((@subtotal * 0.08).to_i) %></p>
-    <p>配送料   ¥<%= 500 %></p>
-    <p>合計 ¥<%= number_to_currency((@subtotal * 1.08 + 500).to_i)  %></p>
+    <p>小計　<%= number_to_currency(@subtotal) %></p>
+    <p>税   <%= number_to_currency(@subtotal * 0.08) %></p>
+    <p>配送料   <%= "500円" %> </p>
+    <p>合計 <%= number_to_currency(@subtotal * 1.08 + 500)  %></p>
 
     <%= form.submit "注文最終画面へ" %>
     <% end %>

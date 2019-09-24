@@ -6,7 +6,6 @@
 <% end %>
 <!-- ヘッダーここまで -->
 
-<p>購入履歴詳細画面</p>
 
 
 <div class="container">
@@ -62,14 +61,14 @@
         <% end %>
       </div>
 
-      <div class="col-xs-3">
+      <div class="col-xs-2">
       </div>
 
-      <div class="col-xs-3  order_detail_box">
+      <div class="col-xs-4  order_detail_box">
         <p>送付先</p>
         <p><%= @order_history.last_name_kanji %><%= @order_history.first_name_kanji %></p>
-        <p>電話番号<%= @order_history.telephone_number %></p>
-        <p>住所<%= @order_history.address %></p>
+        <p>電話番号　<%= @order_history.telephone_number %></p>
+        <p>住所　<%= @order_history.address %></p>
       </div>
     </div>
   </div>
@@ -80,6 +79,3 @@
 <% else %>
 <%= render "shared/footer_user_before_login" %>
 <% end %>
-<!-- フッダー -->
-<% end %>
-<!-- フッダー -->
