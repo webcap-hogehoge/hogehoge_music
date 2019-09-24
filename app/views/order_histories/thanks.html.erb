@@ -1,10 +1,5 @@
 <!-- ヘッダー  -->
-<% if end_user_signed_in? %>
 <%= render "shared/header_user_after_login" %>
-<% else %>
-<%= render "shared/header_user_before_login" %>
-<% end %>
-<!-- ヘッダーここまで -->
 
 <div class="thankyou">
   <p class="thanks-message">ご注文ありがとうございます！</p>
@@ -14,9 +9,4 @@
 <%= link_to "マイページへ", "/users/1" %>
 
 <!-- フッター -->
-<% if end_user_signed_in? %>
 <%= render "shared/footer_user_after_login" %>
-<% else %>
-<%= render "shared/footer_user_before_login" %>
-<% end %>
-<!-- フッダー -->
