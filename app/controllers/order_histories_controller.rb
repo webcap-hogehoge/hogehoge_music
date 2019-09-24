@@ -1,6 +1,5 @@
 class OrderHistoriesController < ApplicationController
 before_action :authenticate_end_user!
-before_action :authenticate_administrator!
   def new
     @q = Product.ransack(params[:q])
     @products = @q.result(distinct: true)
