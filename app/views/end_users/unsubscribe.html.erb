@@ -19,7 +19,7 @@
 		<p class="bg-danger">以後、同じメールアドレスで再登録した場合でも、<br>以前利用していた情報は復元されません。</p>
 	</div>
 	<div class="btn-group col-md-6 col-md-offset-3 ">
-		<%= link_to '退会する', "/users/#{current_end_user.id}/destroy", class: "btn btn-danger", method: :post, "data-confirm" => "本当に退会しますか？" %>
+		<%= link_to '退会する', destroy_end_user_session_path(is_deleted: 1), class: "btn btn-danger", method: :delete, "data-confirm" => "本当に退会しますか？" %>
 	</div>
 </div>
 

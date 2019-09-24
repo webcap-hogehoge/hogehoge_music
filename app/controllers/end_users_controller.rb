@@ -25,9 +25,9 @@ before_action :authenticate_administrator!, only: [:index, :admin_show, :admin_e
     @user =  current_end_user
     @user.is_deleted = 1
     @user.save
-　　　redirect_to destroy_end_user_session_path, method: :delete
+    #binding.pry
+    #session[:delete_params] = 0
     flash[:notice] = "会員情報を削除しました。"
-
   end
 
   def review
