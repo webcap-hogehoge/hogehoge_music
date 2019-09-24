@@ -29,7 +29,9 @@
 				<%= f.number_field :product_number %>
 				<%= f.hidden_field :product_id %>
 				<div class="btn-area">
+					<% if user_signed_in? %>
 					<%= f.submit 'カートへ入れる', class:"btn btn-warning" %>
+					<% end %>
 				</div>
 				<% end %>
 			</div><br>
