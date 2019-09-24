@@ -5,6 +5,9 @@
 <%= render "shared/header_user_before_login" %>
 <% end %>
 <!-- ヘッダーここまで -->
+<% if flash[:notice] %>
+    <%= flash[:notice] %>
+<% end %>
 
 <h1>ショッピングカート</h1>
     <div class="col-xs-9">
