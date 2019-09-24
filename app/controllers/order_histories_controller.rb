@@ -104,7 +104,7 @@ before_action :authenticate_end_user!
     @q = Product.ransack(params[:q])
     @products = @q.result(distinct: true)
     @end_user = current_end_user
-    @order_histories = @end_user.order_histories
+    @order_histories = @end_user.order_histories.order(id: "ASC")
   end
 
   def show
