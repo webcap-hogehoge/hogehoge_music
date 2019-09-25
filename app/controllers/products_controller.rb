@@ -18,6 +18,11 @@ before_action :authenticate_administrator!, only: [:admin_index, :admin_show, :c
   end
 
   def show
+    if params[:q] != nil
+      @products = @q.result(distinct: true)
+    else
+      @products = Product.active.page(params[:page]).per(35)
+    end
     @q = Product.ransack(params[:q])
   	@products = Product.active.all
   	@product = Product.find(params[:id])
@@ -64,11 +69,4 @@ before_action :authenticate_administrator!, only: [:admin_index, :admin_show, :c
       :genre_id, :product_status, :label_name, :artist_name,
       disks_attributes: [:id, :disk_number, :_destroy, songs_attributes: [:id, :song_name, :_destroy]])
   end
-
-  def login_check
-  unless user_signed_in?
-    flash[:alert] = "ログインしてください"
-    redirect_to new_end_user_registration_path
-  end
-end
 end
