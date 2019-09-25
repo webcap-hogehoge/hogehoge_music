@@ -1,10 +1,10 @@
 <header class="page-header">
-	<div class="container-fluid border-bottom">
+	<div class="container-fluid">
 			<div class="row col-xs-3">
 				<%= link_to image_tag('logo.png', :size => '250x100'), root_path %>
 			</div>
 			<div class="row col-xs-4">
-			    <div class="searchbox">
+			    <div class="searchbox" style="margin-top: 20px;">
 			    	<%= search_form_for @q, url: root_path do |f| %>
 			    	<%= f.text_field :cd_name_cont,placeholder: '検索する商品名を入力...' %>
                     <%= f.submit %>
