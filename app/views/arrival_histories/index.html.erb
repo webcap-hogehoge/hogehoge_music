@@ -13,7 +13,7 @@
                         <%= arrival_history.product.cd_name %>
                     </li>
                     <li class="created_at">
-                        <%= arrival_history.created_at %>
+                        <%= arrival_history.created_at.strftime("%Y年%-m月%-d日 %-H時%-M分") %>
                     </li>
                 </div>
                 <div class="col-xs-3 info3">
