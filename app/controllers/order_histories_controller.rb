@@ -34,28 +34,47 @@ before_action :authenticate_end_user!
     else
       @order_history = @end_user.order_histories.build(order_histories_params)
       # @order_history.subtotalはorder_historyテーブルのsubtotalカラムを示すことになるので@order_history.subtotal=0と定義するのはよくないのでsubtotal=0とする
-      subtotal = 0
-      @cart_items.each do |cart_item|
-          unit_price = cart_item.product.price
-          subtotal += unit_price * cart_item.product_number
-      end
-      @order_history.tax = subtotal * 0.08
-      @order_history.delivery_fee = 500
-      @order_history.subtotal = subtotal
-      @order_history.total_price = @order_history.subtotal + @order_history.tax + @order_history.delivery_fee
 
-      if  @order_history.save
-          @cart_items.each do |cart_item|
-          @order_detail = OrderDetail.new
-          @order_detail.order_history_id = @order_history.id
-          @order_detail.product_id = cart_item.product_id
-          @order_detail.product_number = cart_item.product_number
-          @order_detail.unit_price = cart_item.product.price
-          @order_detail.save
-          # 実装前にコメントアウト外すこと！！！！！！！
-          #cart_item.destroy
+      #在庫数が０以下にならないためにするためのコード
+      message = []
+      @cart_items.each do |cart_item|
+        product = Product.find(cart_item.product.id)
+        stock = product.stock(product.id) - cart_item.product_number
+        # byebug
+        if stock < 0
+          message << "#{product.cd_name}の在庫が#{product.stock(product.id)}個しかありません。"
         end
-         redirect_to order_histories_thanks_path
+      end
+      if !message.empty?
+        join_message = message.join
+        flash[:notice] = "申し訳ございません。#{join_message}購入個数を変更してください。"
+        redirect_to cart_items_path
+      else
+
+        subtotal = 0
+
+        @cart_items.each do |cart_item|
+            unit_price = cart_item.product.price
+            subtotal += unit_price * cart_item.product_number
+        end
+        @order_history.tax = subtotal * 0.08
+        @order_history.delivery_fee = 500
+        @order_history.subtotal = subtotal
+        @order_history.total_price = @order_history.subtotal + @order_history.tax + @order_history.delivery_fee
+
+        if  @order_history.save
+            @cart_items.each do |cart_item|
+              @order_detail = OrderDetail.new
+              @order_detail.order_history_id = @order_history.id
+              @order_detail.product_id = cart_item.product_id
+              @order_detail.product_number = cart_item.product_number
+              @order_detail.unit_price = cart_item.product.price
+              @order_detail.save
+              # 実装前にコメントアウト外すこと！！！！！！！
+              #cart_item.destroy
+            end
+            redirect_to order_histories_thanks_path
+        end
       end
     end
   end
