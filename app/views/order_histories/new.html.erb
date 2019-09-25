@@ -4,7 +4,7 @@
 <div class="col-xs-1">
 </div>
 
-<div class="col-xs-9">
+<div class="col-xs-8">
   <h1 class="title">ご注文内容の確認</h1>
 
   <% @cart_items.each do |cart_item| %>
@@ -49,7 +49,7 @@
     <!--  そこで、order_histories_addressという、（カラムにはない）暫定のカラムみたいなもの（プロパティという）を作り出して、そこの結果によってコントローラで条件分岐させてる -->
     <!-- viewでは特に実は何もしてなくて、ただ:order_histories_addressにどのアドレスかの情報or 新規作成を表すnewという文字列を入れてるだけ -->
     <!-- 一つ目の住所はデフォルトでラジオボタン を選択したいので別で表示する -->
-    <div class="col-xs-3 address_detail">
+    <div class="col-xs-4 address_detail">
      <label><%= form.radio_button :selected_order_histories_address_id, @end_user.addresses.first.id , checked: true  %></label>
      <p><%= @end_user.addresses.first.address %></p>
      <p><%= @end_user.addresses.first.last_name %> <%= @end_user.addresses.first.first_name %></p>
@@ -60,7 +60,7 @@
    <% n = @end_user.addresses.count %>
 
    <% @end_user.addresses[1..n].each do |address| %>
-   <div class="col-xs-3 address_detail">
+   <div class="col-xs-4 address_detail">
     <!-- 2つめ以降の住所のゾーン -->
     <label><%= form.radio_button :selected_order_histories_address_id, address.id   %></label>
     <p><%= address.address %></p>
@@ -138,21 +138,22 @@
 </div>
 </div>
 
-<div class="col-xs-2">
-  <div class="box1">
-    <p>商品の小計</p>
-    <% @subtotal = 0 %>
-    <% @cart_items.each do |cart_item| %>
-    <%  @subtotal += (cart_item.product.price * cart_item.product_number) %>
-    <% end %>
-    <p>小計　<%= number_to_currency(@subtotal) %></p>
-    <p>税   <%= number_to_currency(@subtotal * 0.08) %></p>
-    <p>配送料   <%= "500円" %> </p>
-    <p>合計 <%= number_to_currency(@subtotal * 1.08 + 500)  %></p>
+<div class="col-xs-2  accounting-display">
+  <p>商品の小計</p>
+  <% @subtotal = 0 %>
+  <% @cart_items.each do |cart_item| %>
+  <%  @subtotal += (cart_item.product.price * cart_item.product_number) %>
+  <% end %>
+  <p>小計　<%= number_to_currency(@subtotal) %></p>
+  <p>税   <%= number_to_currency(@subtotal * 0.08) %></p>
+  <p>配送料   <%= "500円" %> </p>
+  <p>合計 <%= number_to_currency(@subtotal * 1.08 + 500)  %></p>
 
-    <%= form.submit "注文最終画面へ" %>
-    <% end %>
-  </div>
+  <%= form.submit "注文最終画面へ", class: "btn btn-info"  %>
+  <% end %>
+</div>
+
+<div class="col-xs-1">
 </div>
 
 
