@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
   def authenticate_enduser2!
     return unless end_user_signed_in? && @current_end_user.is_deleted == 1
     sign_out
-    flash[:alert] = "already been deleted."
+    flash[:alert] = "この会員はすでに退会しています。"
     redirect_to new_end_user_session_path
   end
 
