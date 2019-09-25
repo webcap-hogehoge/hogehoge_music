@@ -1,49 +1,55 @@
 <!-- ヘッダー  -->
 <%= render "shared/header_admin_after_login" %>
+<% if flash[:notice] %>
+<%= flash[:notice] %>
+<% end %>
 
-
-		<% @products.each do |product| %>
-		<%= link_to admin_product_path(product.id), :style => "color: black;" do %>
-		<div style="border: 1px solid black; padding: 5px;">
-		<div class="row">
-			<div class="col-xs-4">
-				<div style="padding-left: 10px;">
+<% @products.each do |product| %>
+<%= link_to admin_product_path(product.id), :style => "color: black;" do %>
+<div style="border: 1px solid black; padding: 5px;">
+	<div class="row">
+		<div class="col-xs-4">
+			<div style="padding-left: 10px;">
 				<div>ID<%= product.id %></div>
-			<% if product.product_status == "not_on_sale" %>
-			    <%= image_tag "soldout.png", size: "190x190" %>
-			<% elsif product.stock(product.id) == 0%>
-                <%= image_tag "soldout.png", size: "190x190" %>
-            <% else %>
-                  <%= image_tag product.image_id.url %>
-            <% end %>
-		       </div>
-		     </div>
-
-            <div class="col-xs-4">
-            	<div style="padding-top: 30px;">
-            <%= product.cd_name %><br>
-            <%= product.artist_name %><br>
-            <%= "在庫数#{product.stock(product.id)}" %><br>
-			<%= "#{number_to_currency(product.price)} (税別価格)" %><br>
-			<% if product.product_status == "on_sale" %>
-			    <span>発売中</span>
-			<% else %>
-			    <span>販売停止中</span>
-			    <% end %>
-			    </div>
+				<% if product.stock(product.id) == 0 %>
+				<%= image_tag "soldout.png", size: "160x160" %>
+				<% else %>
+				<%= image_tag product.image_id.url, size: "160x160" %>
+				<% end %>
 			</div>
+		</div>
 
-            <div class="col-xs-4">
-            	<div style="padding-top: 65px;">
-			<%=link_to "在庫追加", new_arrival_history_path(product.id), :class => "btn btn-primary" %>
-			<%=link_to "編集", edit_product_path(product.id), :class => "btn btn-success" %>
-			<%= link_to "削除", "/products/#{product.id}/delete", method: :delete, "data-confirm" => "本当に商品を削除しますか？", :class => "btn btn-danger" %>
-			    </div>
-		    </div>
+		<div class="col-xs-4">
+			<div style="padding-top: 30px;">
+				<div style="font-size: 20px">
+					<%= product.cd_name %>
+				</div>
+				<%= product.artist_name %><br>
+				<%= "在庫数#{product.stock(product.id)}" %><br>
+				<%= "#{number_to_currency(product.price)} (税別価格)" %><br>
+				<% if product.product_status == "on_sale" %>
+				<span>発売中</span>
+				<% else %>
+				<span>販売停止中</span>
+				<% end %>
+			</div>
+		</div>
+
+		<div class="col-xs-4">
+			<div style="padding-top: 65px;">
+				<%=link_to "在庫追加", new_arrival_history_path(product.id), :class => "btn btn-primary" %>
+				<%=link_to "編集", edit_product_path(product.id), :class => "btn btn-success" %>
+				<%= link_to "削除", "/products/#{product.id}/delete", method: :delete, "data-confirm" => "本当に商品を削除しますか？", :class => "btn btn-danger" %>
+			</div>
 		</div>
 	</div>
-	<% end %>
-	<% end %>
+</div>
+<% end %>
+<% end %>
+
+<div style="text-align: center; font-size: 25px;">
+	<%= paginate(@products) %>
+</div>
 
 <!-- フッター  -->
 <%= render "shared/footer_admin" %>

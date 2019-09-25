@@ -3,7 +3,9 @@
 		<div class="row">
 			<div class="col-xs-4"></div>
 			<div class="col-xs-4">
-				<%= link_to image_tag('logo.png', :size => '250x100'), root_path %>
+				<div style="height: 100; width: 250px; margin: 0 auto;">
+					<%= link_to image_tag('logo.png', :size => '250x100'), root_path %>
+				</div>
 			</div>
 			<div class="col-xs-4">
 				<div class="dropdown pull-right">
@@ -12,9 +14,9 @@
 					</button>
 					<!-- ドロップメニューの設定 -->
 					<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <li><%= link_to "お問い合せ", "#" %></li> <!--未実装の為リンクなし -->
-                      <li><%= link_to "退会", unsubscribe_path %></li>
-                    </ul>
+            <li><%= link_to "お問い合せ", "#" %></li> <!--未実装の為リンクなし -->
+            <li><%= link_to "退会", unsubscribe_path %></li>
+          </ul>
 				</div><!-- /.dropdown -->
 			</div>
 		</div>

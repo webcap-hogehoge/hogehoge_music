@@ -4,20 +4,31 @@ before_action :authenticate_administrator!, only: [:admin_index, :admin_show, :c
 
   def index
   	# @products = Product.all    <!-- ransackによりallが表示されるためコメントアウトしてます -->
-    @q = Product.ransack(params[:q])
+    @q = Product.page(params[:page]).per(35).ransack(params[:q])
     # @q = @q.page(params[:page])
+    if params[:q] != nil
+      @products = @q.result(distinct: true)
+    else
+      @products = Product.active.where(product_status: "on_sale").page(params[:page]).per(35).order(created_at: "DESC")
+    end
+  end
+
+  def admin_index
+     @q = Product.page(params[:page]).per(50).ransack(params[:q])
+    # @q = @q.page(params[:page])
+    if params[:q] != nil
+      @products = @q.result(distinct: true)
+    else
+      @products = Product.active.page(params[:page]).per(50).order(created_at: "DESC")
+    end
+  end
+
+  def show
     if params[:q] != nil
       @products = @q.result(distinct: true)
     else
       @products = Product.active.page(params[:page]).per(35)
     end
-  end
-
-  def admin_index
-    @products = Product.active.all
-  end
-
-  def show
     @q = Product.ransack(params[:q])
   	@products = Product.active.all
   	@product = Product.find(params[:id])
@@ -37,8 +48,12 @@ before_action :authenticate_administrator!, only: [:admin_index, :admin_show, :c
 
   def create
     @product = Product.new(product_params)
-    @product.save
-    redirect_to admin_root_path
+    if @product.save
+       redirect_to admin_root_path
+       flash[:notice] = "商品登録完了しました"
+    else
+       render("new")
+    end
   end
 
   def edit
@@ -47,8 +62,12 @@ before_action :authenticate_administrator!, only: [:admin_index, :admin_show, :c
 
   def update
     @product = Product.find(params[:id])
-    @product.update(product_params)
-    redirect_to admin_root_path
+    if @product.update(product_params)
+      flash[:notice] = "商品編集完了しました"
+      redirect_to admin_root_path
+    else
+      render("edit")
+    end
   end
 
   def destroy
