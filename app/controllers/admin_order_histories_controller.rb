@@ -17,3 +17,5 @@ before_action :authenticate_administrator!
 
 end
 
+#@words = Word.page(params[:page]).per(PER)
+

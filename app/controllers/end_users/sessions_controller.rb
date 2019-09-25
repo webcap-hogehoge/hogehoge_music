@@ -15,16 +15,18 @@ class EndUsers::SessionsController < Devise::SessionsController
 
   # DELETE /resource/sign_out
   def destroy
-    if params[:is_deleted] == "1"
-      @user =  current_end_user
-      @user.is_deleted = 1
-      @user.save
+  if params[:is_deleted] == "1"
+    @user =  current_end_user
+    @user.is_deleted = 1
+    @user.save
     #end
     #フラッシュメッセージ表示
-   signed_out = (Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name))
-   set_flash_message! :notice, :destroyed if signed_out
-   yield if block_given?
-   respond_to_on_destroy
+    signed_out = (Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name))
+    set_flash_message! :notice, :destroyed if signed_out
+    yield if block_given?
+    respond_to_on_destroy
+  elsif params[:is_deleted] != "1"
+    super
   end
 end
 

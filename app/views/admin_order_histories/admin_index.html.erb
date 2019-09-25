@@ -45,7 +45,7 @@
                        <th scope="row">購入内容</th>
                           <td>
                             <% order.order_details.each do |d|%>
-                              <p>商品名 : <%= d.product.cd_name %><span>  単価: ¥ <%= d.unit_price %></span></p>
+                              <p>商品名 : <%= d.product.cd_name %><span>  単価:  <%= number_to_currency(d.unit_price) %></span></p>
                               <p>枚数:<%= d.product_number %>  枚</p>
                             <% end %>
                           </td>
@@ -53,10 +53,10 @@
                     <tr>
                        <th scope="row">購入金額</th>
                        <td>
-                        <p>合計 ¥<%= order.subtotal %></p>
-                        <p>消費税 ¥<%= order.tax %></p>
-                        <p>配送料 ¥<%= order.delivery_fee %></p>
-                        <p>購入総計 ¥<%= order.total_price %></p>
+                        <p>合計 <%= number_to_currency(order.subtotal) %></p>
+                        <p>消費税 <%= number_to_currency(order.tax) %></p>
+                        <p>配送料 <%= number_to_currency(order.delivery_fee) %></p>
+                        <p>購入総計 <%= number_to_currency(order.total_price) %></p>
                       </td>
                     </tr>
                     <tr>
@@ -72,7 +72,7 @@
                   </tbody>
               <% end %>
           <% end %>
-           </table>
+        </table>
       </div>
 　  </div>
 <% @order_histories.each  do |order,i| %>
@@ -94,7 +94,7 @@
                    <th scope="row">購入内容</th>
                       <td>
                         <% order.order_details.each do |d|%>
-                          <p>商品名 : <%= d.product.cd_name %><span>  単価: ¥ <%= d.unit_price %></span></p>
+                          <p>商品名 : <%= d.product.cd_name %><span>  単価: <%= number_to_currency(d.unit_price) %></span></p>
                           <p>枚数:<%= d.product_number %>  枚</p>
                         <% end %>
                       </td>
@@ -102,10 +102,10 @@
                 <tr>
                   <th scope="row">購入金額</th>
                     <td>
-                      <p>合計 ¥<%= order.subtotal %></p>
-                      <p>消費税 ¥<%= order.tax %></p>
-                      <p>配送料 ¥<%= order.delivery_fee %></p>
-                      <p>購入総計 ¥<%= order.total_price %></p>
+                      <p>合計 <%= number_to_currency(order.subtotal) %></p>
+                      <p>消費税 <%= number_to_currency(order.tax) %></p>
+                      <p>配送料 <%= number_to_currency(order.delivery_fee) %></p>
+                      <p>購入総計 <%= number_to_currency(order.total_price) %></p>
                     </td>
                 </tr>
                 <tr>
@@ -143,7 +143,7 @@
                    <th scope="row">購入内容</th>
                      <td>
                         <% order.order_details.each do |d|%>
-                          <p>商品名 : <%= d.product.cd_name %><span>  単価: ¥ <%= d.unit_price %></span></p>
+                          <p>商品名 : <%= d.product.cd_name %><span>  単価: <%= number_to_currency(d.unit_price) %></span></p>
                           <p>枚数:<%= d.product_number %>  枚</p>
                         <% end %>
                       </td>
@@ -151,10 +151,10 @@
                 <tr>
                    <th scope="row">購入金額</th>
                       <td>
-                        <p>合計 ¥<%= order.subtotal %></p>
-                        <p>消費税 ¥<%= order.tax %></p>
-                        <p>配送料 ¥<%= order.delivery_fee %></p>
-                        <p>購入総計 ¥<%= order.total_price %></p>
+                        <p>合計 <%= number_to_currency(order.subtotal) %></p>
+                        <p>消費税 <%= number_to_currency(order.tax) %></p>
+                        <p>配送料 <%= number_to_currency(order.delivery_fee) %></p>
+                        <p>購入総計 <%= number_to_currency(order.total_price) %></p>
                       </td>
                 <tr>
                    <th scope="row">送付先</th>
@@ -191,7 +191,7 @@
                    <th scope="row">購入内容</th>
                      <td>
                         <% order.order_details.each do |d|%>
-                          <p>商品名 : <%= d.product.cd_name %><span>  単価: ¥ <%= d.unit_price %></span></p>
+                          <p>商品名 : <%= d.product.cd_name %><span>  単価: <%= number_to_currency(d.unit_price) %></span></p>
                           <p>枚数:<%= d.product_number %>  枚</p>
                         <% end %>
                       </td>
@@ -199,10 +199,10 @@
                 <tr>
                    <th scope="row">購入金額</th>
                     <td>
-                      <p>合計 ¥<%= order.subtotal %></p>
-                      <p>消費税 ¥<%= order.tax %></p>
-                      <p>配送料 ¥<%= order.delivery_fee %></p>
-                      <p>購入総計 ¥<%= order.total_price %></p>
+                      <p>合計 <%= number_to_currency(order.subtotal) %></p>
+                      <p>消費税 <%= number_to_currency(order.tax) %></p>
+                      <p>配送料 <%= number_to_currency(order.delivery_fee) %></p>
+                      <p>購入総計 <%= number_to_currency(order.total_price) %></p>
                   </td>
                 </tr>
                 <tr>
