@@ -1,6 +1,8 @@
 <!-- ヘッダー  -->
 <%= render "shared/header_admin_after_login" %>
-
+<% if flash[:notice] %>
+<%= flash[:notice] %>
+<% end %>
 
 <% @products.each do |product| %>
 <%= link_to admin_product_path(product.id), :style => "color: black;" do %>
@@ -9,12 +11,10 @@
 		<div class="col-xs-4">
 			<div style="padding-left: 10px;">
 				<div>ID<%= product.id %></div>
-				<% if product.product_status == "not_on_sale" %>
-				<%= image_tag "soldout.png", size: "190x190" %>
-				<% elsif product.stock(product.id) == 0%>
-				<%= image_tag "soldout.png", size: "190x190" %>
+				<% if product.stock(product.id) == 0 %>
+				<%= image_tag "soldout.png", size: "160x160" %>
 				<% else %>
-				<%= image_tag product.image_id.url %>
+				<%= image_tag product.image_id.url, size: "160x160" %>
 				<% end %>
 			</div>
 		</div>
@@ -48,7 +48,7 @@
 <% end %>
 
 <div style="text-align: center; font-size: 25px;">
-<%= paginate(@products) %>
+	<%= paginate(@products) %>
 </div>
 
 <!-- フッター  -->

@@ -1,5 +1,9 @@
 <%= render "shared/header_admin_after_login" %>
 
+<% if flash[:notice] %>
+  <%= flash[:notice] %>
+<% end %>
+
 <h2>入荷履歴一覧</h2>
     <div class="col-xs-12">
         <% @arrival_histories.each do |arrival_history| %>

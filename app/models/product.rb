@@ -8,6 +8,8 @@ validates :is_deleted, presence: true
 validates :artist_name, presence: true
 validates :label_name, presence: true
 validates :genre_id, presence: true
+validates :disks, associated: true
+
 
 # artist_id,label_id のバリデーションはseedデータに追加できたら記載する
 has_many :arrival_histories, dependent: :destroy
@@ -18,7 +20,7 @@ has_many :products, dependent: :destroy
 has_many :reviews, dependent: :destroy
 has_many :order_details, dependent: :destroy
 
-accepts_nested_attributes_for :disks, allow_destroy: true, reject_if: :all_blank
+accepts_nested_attributes_for :disks, allow_destroy: true
 # belongs_to :artist
 # belongs_to :label
 belongs_to :genre
