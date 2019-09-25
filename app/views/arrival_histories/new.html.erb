@@ -1,5 +1,14 @@
 <%= render "shared/header_admin_after_login" %>
 
+<% if @arrival_history.errors.any? %>
+  <h3><%= @arrival_history.errors.count %>errors prohibited this obj from being saved:</h3>
+  <ul>
+    <% @arrival_history.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+  <% end %>
+
 <p>商品名</p>
 <p><%= @product.cd_name %></p>
 

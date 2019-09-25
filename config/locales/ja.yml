@@ -1,5 +1,25 @@
 ja:
-  enums:
+  activerecord:
+    models:
+      product: 商品
+      genre: ジャンル
+      disks: ディスク
+      song: 曲
+      price: 価格
+    attributes:
+      genre:
+        genre_name: ジャンル
+      product:
+        cd_name: 名前
+        image_id: 画像
+        artist_name: アーティスト名
+        label_name: レーベル名
+        genre_id: ジャンル名
+      disks:
+        disk_number: ディスク数
+      song:
+        song_name: 曲名
+    enums:
     product:
       product_status:
         on_sale: "販売中"

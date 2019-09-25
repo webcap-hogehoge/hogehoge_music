@@ -1,4 +1,4 @@
 class Song < ApplicationRecord
-  validates :song_name, presence: true
+  validates :song_name, length: {minimum: 1}
   belongs_to :disk
 end

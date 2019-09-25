@@ -9,9 +9,21 @@
 
 <div class="container">
 		<div class="row">
+			<% unless end_user_signed_in? %>
+        	<div class="kakomi">
+	        	<p>購入する場合は<%= link_to "ログイン", new_end_user_registration_path, :style=>"color:red;" %>をして下さい！！</p>
+        	</div>
+        	<% end %>
 			<div class="col-xs-5">
-				<%= image_tag @product.image_id.url, size:'300x300' %>
+				<% if @product.product_status == "on_sale" %>
+					<%= image_tag "soldout.png", size: "200x200" %>
+				<% elsif @product.stock(@product.id) == 0%>
+		            <%= image_tag "soldout.png", size: "200x200" %>
+		        <% else %>
+		        	<%= image_tag @product.image_id.url, size: "150x150" %>
+		        <% end %>
 			</div>
+
 			<div class="col-xs-7">
 				<div>
 					<%= @product.cd_name %>
@@ -20,19 +32,22 @@
 					<%= @product.label_name %>
 				</div><br>
 				<div>
-					￥<%= @product.price %>（税込価格）
-				</div>
-			</div>
-
-			<div>
-				<%= form_for @cart_item, url: cart_items_path do |f| %>
-				<%= f.number_field :product_number %>
-				<%= f.hidden_field :product_id %>
-				<div class="btn-area">
-					<%= f.submit 'カートへ入れる', class:"btn btn-warning" %>
-				</div>
+					￥<% sum = @product.price * 1.08 %>
+					<%= number_to_currency(sum.floor) %>（税込）
+				</div><br>
+				<% if end_user_signed_in? %>
+					<div>
+						<div>
+							<%= form_for @cart_item, url: cart_items_path do |f| %>
+								<%= f.number_field :product_number, min: 1, value: 1 %>
+								<%= f.hidden_field :product_id %> 個
+						</div><br>
+							<%= f.submit 'カートへ入れる', class:"btn btn-warning" %>
+							<% end %>
+					</div>
 				<% end %>
-			</div><br>
+			</div>
+		</div>
 
 		<% count = 0 %>
 
