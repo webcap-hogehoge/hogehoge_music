@@ -12,47 +12,46 @@
 <% end %>
 
 <div class="container-fluid">
-<% @products.each do |product| %>
-<%= link_to product_path(product.id), :style => "color: black; text-decoration: none;" do %>
-<div style="width: 250px; border: 1px solid black; margin: 5px; display: inline-block; text-align: center;">
+	<div style="display: table-cell; text-align: center">
+		<% @products.each do |product| %>
+		<%= link_to product_path(product.id), :style => "color: black; text-decoration: none;" do %>
+			<div style="width: 250px; border: 1px solid black; margin: 5px; display: inline-block; text-align: center;">
 
+				<% if product.stock(product.id) == 0 %>
+				<div style="height: 200px; line-height: 200px;">
+					<div class="sold-out" style="position: relative;">
+						<%= image_tag product.image_id.url, size: "190x190" %>
+						<div>
+							<%= image_tag "soldout.png", size: "190x190", :style => "opacity: 0.9; position: absolute; top: 5px; left: 30px;" %>
+						</div>
+					</div>
+				</div>
+				<% else %>
+				<div style="height: 200px; line-height: 200px;">
+					<%= image_tag product.image_id.url, size: "190x190" %>
+				</div>
+				<% end %>
 
-	<% if product.stock(product.id) == 0 %>
-	<div style="height: 200px; line-height: 200px;">
-		<div class="sold-out" style="position: relative;">
-			<%= image_tag product.image_id.url, size: "190x190" %>
-			<div>
-				<%= image_tag "soldout.png", size: "190x190", :style => "opacity: 0.9; position: absolute; top: 5px; left: 30px;" %>
+				<div style=" border: 1px solid black; padding: 20px 0px 10px 0px; height: 145px;">
+					<div style="height: 55px; font-size: 20px;">
+						<p><%= product.cd_name %></p>
+					</div>
+					<div style="height: 30px;">
+						<p><%= product.artist_name %></p>
+					</div>
+					<div style="height: 30px;">
+						<p><%= number_to_currency(product.price * 1.08) %>(税込)</p>
+					</div>
+				</div>
 			</div>
-		</div>
+		<% end %>
+		<% end %>
 	</div>
-	<% else %>
-	<div style="height: 200px; line-height: 200px;">
-		<%= image_tag product.image_id.url, size: "190x190" %>
+
+
+	<div style="text-align: center; font-size: 25px;">
+		<%= paginate(@products) %>
 	</div>
-	<% end %>
-
-
-	<div style=" border: 1px solid black; padding: 20px 0px 10px 0px; height: 145px;">
-
-		<div style="height: 55px; font-size: 20px;">
-			<p><%= product.cd_name %></p>
-		</div>
-		<div style="height: 30px;">
-			<p><%= product.artist_name %></p>
-		</div>
-		<div style="height: 30px;">
-			<p><%= number_to_currency(product.price * 1.08) %>(税込)</p>
-		</div>
-	</div>
-</div>
-<% end %>
-<% end %>
-
-
-<div style="text-align: center; font-size: 25px;">
-	<%= paginate(@products) %>
-</div>
 </div>
 
 <!-- フッター -->
