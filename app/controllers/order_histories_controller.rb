@@ -38,6 +38,7 @@ before_action :correct_user, only: [:new, :confirm, :thanks]
     else
       #在庫数が０以下にならないためにするためのコード
       message = []
+
         @cart_items.each do |cart_item|
           product = Product.find(cart_item.product.id)
           stock = product.stock(product.id) - cart_item.product_number
@@ -94,6 +95,7 @@ before_action :correct_user, only: [:new, :confirm, :thanks]
           @@buy_status = 1
           redirect_to order_histories_thanks_path
         end
+
     end
   end
 
@@ -161,10 +163,24 @@ before_action :correct_user, only: [:new, :confirm, :thanks]
     @order_history = OrderHistory.find(params[:id])
   end
 
+  def edit
+    @order_history = OrderHistory.find(params[:id])
+  end
+
+  def update
+    order_history = OrderHistory.find(params[:id])
+    order_history.update!(order_history_status_params)
+    redirect_to admin_order_histories_path
+  end
+
   private
 
   def order_histories_params
     params.require(:order_history).permit(:last_name_kanji, :first_name_kanji, :postal_code_1, :postal_code_2, :address, :telephone_number, :pay_method)
+  end
+
+  def order_history_status_params
+    params.require(:order_history).permit(:order_status)
   end
 
 

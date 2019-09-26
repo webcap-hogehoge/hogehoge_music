@@ -1,6 +1,6 @@
 <%= render "shared/header_admin_after_login" %>
 <div style="margin: 30px auto; width: 1100px; padding-left: 100px">
-  <div style="border-bottom: 1px solid black">
+  <div>
     <div class="mypage_content">
         <div style="font-size: 35px"><%= "#{@user.last_name_kanji} #{@user.first_name_kanji}" %></div>
     </div>
@@ -55,13 +55,17 @@
         <div><%= @addresses_is_main.telephone_number %></div>
       </div>
     </div>
+    <%= link_to "このユーザを退会させる", "/admin/end_users/#{@user.id}/destroy", class: "btn btn-danger", style: "margin-bottom: 20px;", method: :post, "data-confirm" => "本当に退会させますか？" %>
   </div>
-  <%= link_to "削除", "/admin/end_users/#{@user.id}/destroy", class: "btn btn-danger", method: :post, "data-confirm" => "本当に削除しますか？" %>
-
+  <% if @order_histories != [] %>
+    <div style="border-bottom: 1px solid black"></div>
+  <% end %>
   <div>
-    <h3 style="margin-bottom: 50px">購入履歴</h3>
+    <% if @order_histories != [] %>
+      <h3 style="margin-bottom: 50px">購入履歴</h3>
+    <% end %>
     <% @order_histories.each do |order_history| %>
-      <div style="padding-bottom: 20px; margin-bottom: 50px; border-bottom: 1px dotted black">
+      <div class="table_border_bottom" style="padding-bottom: 20px; margin-bottom: 50px;">
         <table class="table table-borderless">
           <tbody>
             <tr>
@@ -73,8 +77,8 @@
               <tr>
                 <td></td>
                 <td><%= "#{order_detail.product.cd_name}/#{order_detail.product.artist_name}" %></td>
-                <td><%= "#{order_detail.product_number}枚" %></td>
-                <td><%= number_to_currency(order_detail.unit_price) %></td>
+                <td><%= "#{number_to_currency(order_detail.unit_price)} × #{order_detail.product_number}" %></td>
+                <td><%= number_to_currency(order_detail.unit_price * order_detail.product_number) %></td>
               </tr>
             <% end %>
             <tr>
@@ -85,17 +89,17 @@
             <tr>
               <td colspan="2"></td>
               <td>税</td>
-              <td><%= order_history.tax %></td>
+              <td><%= number_to_currency(order_history.tax) %></td>
             </tr>
             <tr>
               <td colspan="2"></td>
               <td>送料</td>
-              <td><%= order_history.delivery_fee %></td>
+              <td><%= number_to_currency(order_history.delivery_fee) %></td>
             </tr>
             <tr>
               <td colspan="2"></td>
               <td>総計</td>
-              <td><%= order_history.total_price %></td>
+              <td><%= number_to_currency(order_history.total_price) %></td>
             </tr>
             <tr>
               <td rowspan="3">送付先</td>
