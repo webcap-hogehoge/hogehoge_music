@@ -7,49 +7,51 @@
 <% end %>
 <!-- ヘッダーここまで -->
 
-<div class="container">
-		<div class="row">
-			<% unless end_user_signed_in? %>
-        	<div class="kakomi">
-	        	<p>購入する場合は<%= link_to "ログイン", new_end_user_registration_path, :style=>"color:red;" %>をして下さい！！</p>
-        	</div>
-        	<% end %>
-			<div class="col-xs-5">
-				<% if @product.product_status == "on_sale" %>
-					<%= image_tag "soldout.png", size: "200x200" %>
-				<% elsif @product.stock(@product.id) == 0%>
-		            <%= image_tag "soldout.png", size: "200x200" %>
-		        <% else %>
-		        	<%= image_tag @product.image_id.url, size: "150x150" %>
-		        <% end %>
-			</div>
+<body>
+	<div class="wrapper">
+		<div class="container">
+			<div class="row">
+				<% unless end_user_signed_in? %>
+		    	<div class="kakomi">
+		        	<p>購入する場合は<%= link_to "ログイン", new_end_user_registration_path, :style=>"color:red;" %>をして下さい！！</p>
+		    	</div>
+		    	<% end %>
+				<div class="col-xs-5">
+					<% if @product.product_status == "on_sale" %>
+						<%= image_tag "soldout.png", size: "200x200" %>
+					<% elsif @product.stock(@product.id) == 0%>
+			            <%= image_tag "soldout.png", size: "200x200" %>
+			        <% else %>
+			        	<%= image_tag @product.image_id.url, size: "150x150" %>
+			        <% end %>
+				</div>
 
-			<div class="col-xs-7">
-				<div>
-					<%= @product.cd_name %>
-				</div><br>
-				<div>
-					<%= @product.label_name %>
-				</div><br>
-				<div>
-					￥<% sum = @product.price * 1.08 %>
-					<%= number_to_currency(sum.floor) %>（税込）
-				</div><br>
-				<% if end_user_signed_in? %>
+				<div class="col-xs-7">
 					<div>
+						<%= @product.cd_name %>
+					</div><br>
+					<div>
+						<%= @product.label_name %>
+					</div><br>
+					<div>
+						￥<% sum = @product.price * 1.08 %>
+						<%= number_to_currency(sum.floor) %>（税込）
+					</div><br>
+					<% if end_user_signed_in? %>
 						<div>
-							<%= form_for @cart_item, url: cart_items_path do |f| %>
-								<%= f.number_field :product_number, min: 1, value: 1 %>
-								<%= f.hidden_field :product_id %> 個
-						</div><br>
-							<%= f.submit 'カートへ入れる', class:"btn btn-warning" %>
-							<% end %>
-					</div>
-				<% end %>
+							<div>
+								<%= form_for @cart_item, url: cart_items_path do |f| %>
+									<%= f.number_field :product_number, min: 1, value: 1 %>
+									<%= f.hidden_field :product_id %> 個
+							</div><br>
+								<%= f.submit 'カートへ入れる', class:"btn btn-warning" %>
+								<% end %>
+						</div>
+					<% end %>
+				</div>
 			</div>
-		</div>
 
-		<% count = 0 %>
+			<% count = 0 %>
 
 			<div class="row">
 				<div class="col-xs-12">
@@ -70,12 +72,15 @@
 					<% end %>
 				</div>
 			</div>
-
-
-<!-- フッター -->
-<% if end_user_signed_in? %>
-<%= render "shared/footer_user_after_login" %>
-<% else %>
-<%= render "shared/footer_user_before_login" %>
-<% end %>
-<!-- フッダー -->
+		</div>
+		<!-- フッター -->
+		<footer>
+			<% if end_user_signed_in? %>
+			<%= render "shared/footer_user_after_login" %>
+			<% else %>
+			<%= render "shared/footer_user_before_login" %>
+			<% end %>
+			<!-- フッダー -->
+		</footer>
+	</div>
+</body>

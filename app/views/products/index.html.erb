@@ -10,6 +10,8 @@
   <p><%= flash[:notice] %></p>
 <% end %>
 
+<body>
+    <div class="wrapper">
 	<% @products.each do |product| %>
 	<%= link_to product_path(product.id), :style => "color: black;" do %>
 	<div style="width: 250px; border: 1px solid black; margin: 5px; display: inline-block; text-align: center;">
@@ -20,7 +22,7 @@
 		<% elsif product.stock(product.id) == 0%>
             <%= image_tag "soldout.png", size: "190x190" %>
         <% else %>
-             <%= image_tag product.image_id.url %>
+             <p class="effect-mono"><%= image_tag product.image_id.url %></p>
         <% end %>
          </div>
 
@@ -38,16 +40,18 @@
     </div>
     	<% end %>
 	<% end %>
-
+	<div class="page">
 	  <%= paginate(@products) %>
+	</div>
+    	<!-- フッダー -->
+        <footer>
+            <% if end_user_signed_in? %>
+            <%= render "shared/footer_user_after_login" %>
+            <% else %>
+            <%= render "shared/footer_user_before_login" %>
+            <% end %>
+        </footer>
+        <!-- フッダー -->
 
-<!-- フッター -->
-<% if end_user_signed_in? %>
-<%= render "shared/footer_user_after_login" %>
-<% else %>
-<%= render "shared/footer_user_before_login" %>
-<% end %>
-<!-- フッダー -->
-
-
-
+    </div>
+</body>
