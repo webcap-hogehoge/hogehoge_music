@@ -1,6 +1,7 @@
 <!-- ヘッダー  -->
 <%= render "shared/header_user_after_login" %>
 
+<div class="container footer-adjusting">
 <div class="col-xs-1">
 </div>
 
@@ -57,14 +58,13 @@
       <%= @order_history.pay_method_i18n %>
       <!-- enumでデータを持って来る場合の表記。@order_history.pay_methodでnewページで入力したpay_methodを持って来る -->
       <%= form.hidden_field :pay_method, {value: @order_history.pay_method} %>
-      <!-- @address_infoがidなのかaddress新規登録なのかを見分けてaddressをend_userに紐づけて新規登録するか判断するために、hidden_fieldで拾ってくる -->
-      <%= form.hidden_field :selected_order_histories_address_id, value: @address_info %>
     </div>
-
+          <!-- @address_infoがidなのかaddress新規登録なのかを見分けてaddressをend_userに紐づけて新規登録するか判断するために、hidden_fieldで拾ってくる -->
+      <%= form.hidden_field :selected_order_histories_address_id, value: @address_info %>
 </div>
 
 
-  <div class="col-xs-2 accounting-display">
+  <div class="col-xs-3 accounting-display">
     <p>商品の小計</p>
     <% @subtotal = 0 %>
     <% @cart_items.each do |cart_item| %>
@@ -86,10 +86,10 @@
     <%= form.hidden_field :pay_method %>
     <%= form.hidden_field :selected_order_histories_address_id, value: @address_info %>
     <div class="actions">
-      <%= form.submit '配送先を編集する', name: 'back', class: "btn btn-info" %>
+      <%= form.submit '配送先変更', name: 'back', class: "btn btn-info" %>
     </div>
   <% end %>
-  <%= link_to 'ご注文内容を編集する' , cart_items_path, class: "btn btn-info" %>
+  <%= link_to 'ご注文内容変更' , cart_items_path, class: "btn btn-info cart-exchange-button" %>
   </div>
 
   <div class="col-xs-1">

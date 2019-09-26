@@ -19,7 +19,7 @@ ja:
         disk_number: ディスク数
       song:
         song_name: 曲名
-    enums:
+  enums:
     product:
       product_status:
         on_sale: "販売中"
