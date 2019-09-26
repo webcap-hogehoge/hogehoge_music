@@ -154,7 +154,7 @@ before_action :correct_user, only: [:new, :confirm, :thanks]
     @q = Product.ransack(params[:q])
     @products = @q.result(distinct: true)
     @end_user = current_end_user
-    @order_histories = @end_user.order_histories.order('id DESC')
+    @order_histories = @end_user.order_histories.page(params[:page]).per(15).order('id DESC')
   end
 
   def show
