@@ -18,7 +18,7 @@
 
 .address_detail {
     padding: 2em 2em;
-    margin: 2em 5em;
+    margin: 2em 2em;
     font-weight: normal;
     border: solid 1px #000000;
 }
@@ -73,14 +73,23 @@
 }
 
 .pay_method {
-  padding: 20px 40px 100px 40px;
+  padding: 20px 40px 120px 40px;
 }
+
+.footer-adjusting {
+  padding-bottom: 100px;
+ }
 
 /* order_histories/confirm */
  .accounting-display {
   border: solid 1px #000000;
+  padding: 10px 10px;
  }
 
+.cart-exchange-button {
+  padding: 10px 0 0 0 ;
+  line-height: 20px;
+}
 
 
 /* order_histories/thanks */
