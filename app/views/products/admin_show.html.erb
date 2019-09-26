@@ -2,10 +2,19 @@
 <%= render "shared/header_admin_after_login" %>
 
 <div class="container">
+  <%= "ID: #{@product.id}" %><br>
   <div class="row">
     <div class="col-xs-5">
-      <%= "ID: #{@product.id}" %><br>
-      <%= image_tag @product.image_id.url, size:'300x300' %>
+      <% if @product.stock(@product.id) == 0 %>
+        <div class="sold-out" style="position: relative;">
+          <%= image_tag @product.image_id.url, size: "300x300" %>
+          <div>
+            <%= image_tag "soldout.png", size: "300x300", :style => "opacity: 0.9; position: absolute; top: 0; left: 0;" %>
+          </div>
+        </div>
+      <% else %>
+        <%= image_tag @product.image_id.url, size:'300x300' %>
+      <% end %>
     </div>
     <div class="col-xs-7">
       <div>
@@ -22,7 +31,8 @@
       </div><br>
       <div>
         <%= "在庫数#{@product.stock(@product.id)}" %>
-      </div>
+      </div><br>
+      <div style="margin-bottom: 30px;">
         <%= @product.product_status_i18n %>
       </div>
       <div>

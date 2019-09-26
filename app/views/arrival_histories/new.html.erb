@@ -1,19 +1,30 @@
 <%= render "shared/header_admin_after_login" %>
 
-<p>商品名</p>
-<p><%= @product.cd_name %></p>
+<% if @arrival_history.errors.any? %>
+<h3><%= @arrival_history.errors.count %>errors prohibited this obj from being saved:</h3>
+<ul>
+  <% @arrival_history.errors.full_messages.each do |message| %>
+  <li><%= message %></li>
+  <% end %>
+</ul>
+<% end %>
 
-<P>商品ID</P>
-<p><%= @product.id %></p>
+<div style="padding-left: 30px">
+  <p>商品名</p>
+  <p><%= @product.cd_name %></p>
 
-<%= form_for(@arrival_history) do |f| %>
-<div>
-  <%= f.hidden_field :product_id, :value => params[:id] %>
-  <%= f.label :arrival_number, '追加個数' %>
-  <%= f.number_field :arrival_number %>個
+  <P>商品ID</P>
+  <p><%= @product.id %></p>
+
+  <%= form_for(@arrival_history) do |f| %>
+  <div>
+    <%= f.hidden_field :product_id, :value => params[:id] %>
+    <%= f.label :arrival_number, '追加個数' %>
+    <%= f.number_field :arrival_number %>個
+  </div>
+
+    <%= f.submit '完了', class: 'btn btn-primary btn-lg' %>
 </div>
-
-<%= f.submit '完了', class: 'btn btn-primary btn-block' %>
 <% end %>
 
 <%= render "shared/footer_admin" %>

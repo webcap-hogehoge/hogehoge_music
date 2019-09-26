@@ -5,6 +5,9 @@
 <%= render "shared/header_user_before_login" %>
 <% end %>
 <!-- ヘッダーここまで -->
+<% if flash[:notice] %>
+    <%= flash[:notice] %>
+<% end %>
 
 <body>
     <div class="wrapper">

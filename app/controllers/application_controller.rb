@@ -1,5 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
+  #before_action :current_end_user2
+  before_action :authenticate_enduser2!
+
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_search
 
@@ -15,6 +18,11 @@ class ApplicationController < ActionController::Base
   def after_sign_out_path_for(resource)
     case resource
     when :end_user
+      if $delete_params == 0 
+        flash[:notice] = "会員情報を削除しました。"
+        #binding.pry
+        #remove_instance_variable($delete_params)
+      end
       root_path
     when :administrator
       new_administrator_session_path
@@ -23,7 +31,20 @@ class ApplicationController < ActionController::Base
 
   def set_search
     @q = Product.ransack(params[:q])
-    @q_products = @q.result.page(params[:page])
+    @q_products = @q.result.page(params[:page]).per(35)
+  end
+
+  private
+  # def current_end_user2
+  #     @current_end_user ||= current_end_user.try(:end_user)
+  #     binding.pry
+  # end
+
+  def authenticate_enduser2!
+    return unless end_user_signed_in? && @current_end_user.is_deleted == 1
+    sign_out
+    flash[:alert] = "この会員はすでに退会しています。"
+    redirect_to new_end_user_session_path
   end
 
   protected
@@ -35,4 +56,5 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit :account_update, keys: added_attrs
     devise_parameter_sanitizer.permit(:sign_in, keys: added_attrs)
   end
+
 end

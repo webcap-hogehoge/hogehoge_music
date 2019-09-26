@@ -1,14 +1,14 @@
 <!-- ヘッダー  -->
 <%= render "shared/header_user_after_login" %>
 
-<div class="container">
-	<div class="row col-md-6 col-md-offset-3">
+<div class="container" id="wrapper" style="margin-top:90px;">
+	<div class="row col-xs-6 col-xs-offset-3">
 		<section>
 			<h1 class="text-center">退会手続き</h1>
 			<p class="text-danger">退会前に必ずお読みください</p>
 		</section>
 	</div>
-	<div class="row col-md-6 col-md-offset-3 border">
+	<div class="row col-xs-6 col-xs-offset-3 border" style="margin-top:30px;">
 		<p>退会されますと、以下のサービスが利用できなくなります。</p>
 		<ul>
 			<li>プロフィール情報</li>
@@ -18,9 +18,17 @@
 		</ul>
 		<p class="bg-danger">以後、同じメールアドレスで再登録した場合でも、<br>以前利用していた情報は復元されません。</p>
 	</div>
-	<div class="btn-group col-md-6 col-md-offset-3 ">
-		<%= link_to '退会する', "/users/#{current_end_user.id}/destroy", class: "btn btn-danger", method: :post, "data-confirm" => "本当に退会しますか？" %>
+	<div class="row">
+		<div class= "col-xs-3">
+		</div>
+	<div class="col-xs-6 col-xs-offset-3">
+	<div class="btn-group col-xs-4 col-xs-offset-4" style="margin-top:50px; margin-bottom: 20px;">
+		<%= link_to '退会する', destroy_end_user_session_path(is_deleted: 1), class: "btn btn-danger", method: :delete, "data-confirm" => "本当に退会しますか？" %>
 	</div>
+    </div>
+	<div class="col-xs-3">
+	</div>
+    </div>
 </div>
 
 <!-- フッター -->

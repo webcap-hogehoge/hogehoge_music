@@ -1,4 +1,9 @@
 <%= render "shared/header_admin_after_login" %>
+<div style="margin-bottom: 30px;">
+  <% if flash[:notice] %>
+    <%= flash[:notice] %>
+  <% end %>
+</div>
 <div>
   <% @users.each do |user| %>
     <%= link_to end_user_path(user.id), :style => "color: black;" do %>

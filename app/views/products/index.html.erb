@@ -5,53 +5,61 @@
 <%= render "shared/header_user_before_login" %>
 <% end %>
 <!-- ヘッダーここまで -->
+
 <!-- 退会後のメッセージ表示-->
 <% if flash[:notice] %>
-  <p><%= flash[:notice] %></p>
+<p><%= flash[:notice] %></p>
 <% end %>
 
-<body>
-    <div class="wrapper">
-	<% @products.each do |product| %>
-	<%= link_to product_path(product.id), :style => "color: black;" do %>
-	<div style="width: 250px; border: 1px solid black; margin: 5px; display: inline-block; text-align: center;">
+<div class="container-fluid">
+<% @products.each do |product| %>
+<%= link_to product_path(product.id), :style => "color: black; text-decoration: none;" do %>
+<div style="width: 250px; border: 1px solid black; margin: 5px; display: inline-block; text-align: center;">
 
-		<div style="height: 200px; line-height: 200px;">
-		<% if product.product_status == "on_sale" %>
-			<%= image_tag "soldout.png", size: "190x190" %>
-		<% elsif product.stock(product.id) == 0%>
-            <%= image_tag "soldout.png", size: "190x190" %>
-        <% else %>
-             <p class="effect-mono"><%= image_tag product.image_id.url %></p>
-        <% end %>
-         </div>
 
-		<div style=" border: 1px solid black; padding: 20px 0px 10px 0px; height: 145px;">
+	<% if product.stock(product.id) == 0 %>
+	<div style="height: 200px; line-height: 200px;">
+		<div class="sold-out" style="position: relative;">
+			<%= image_tag product.image_id.url, size: "190x190" %>
+			<div>
+				<%= image_tag "soldout.png", size: "190x190", :style => "opacity: 0.9; position: absolute; top: 5px; left: 30px;" %>
+			</div>
+		</div>
+	</div>
+	<% else %>
+	<div style="height: 200px; line-height: 200px;">
+		<%= image_tag product.image_id.url, size: "190x190" %>
+	</div>
+	<% end %>
+
+
+	<div style=" border: 1px solid black; padding: 20px 0px 10px 0px; height: 145px;">
+
 		<div style="height: 55px; font-size: 20px;">
-            <p><%= product.cd_name %></p>
-        </div>
-        <div style="height: 30px;">
+			<p><%= product.cd_name %></p>
+		</div>
+		<div style="height: 30px;">
 			<p><%= product.artist_name %></p>
-        </div>
-        <div style="height: 30px;">
+		</div>
+		<div style="height: 30px;">
 			<p><%= number_to_currency(product.price * 1.08) %>(税込)</p>
 		</div>
-		</div>
-    </div>
-    	<% end %>
-	<% end %>
-	<div class="page">
-	  <%= paginate(@products) %>
 	</div>
-    	<!-- フッダー -->
-        <footer>
-            <% if end_user_signed_in? %>
-            <%= render "shared/footer_user_after_login" %>
-            <% else %>
-            <%= render "shared/footer_user_before_login" %>
-            <% end %>
-        </footer>
-        <!-- フッダー -->
+</div>
+<% end %>
+<% end %>
 
-    </div>
-</body>
+
+<div style="text-align: center; font-size: 25px;">
+	<%= paginate(@products) %>
+</div>
+</div>
+
+<!-- フッター -->
+<% if end_user_signed_in? %>
+<%= render "shared/footer_user_after_login" %>
+<% else %>
+<%= render "shared/footer_user_before_login" %>
+<% end %>
+<!-- フッダー -->
+
