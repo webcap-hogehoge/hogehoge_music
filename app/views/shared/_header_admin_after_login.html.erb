@@ -1,12 +1,12 @@
 
-<header class="container-fluid" style="height:100px;">
+<header class="container-fluid" style="height:150px;padding-top:10px;">
 	<div class="row" >
 		<div class="col-xs-3">
 			<%= link_to image_tag('logo.png', :size => '250x100'), admin_root_path %>
 		</div>
 		<div class="col-xs-4" style="height:100px;">
-            <div class="col-xs-4">
-            	<div class="searchbox" style="padding-top: 30px;width:100%;">
+            <div class="col-xs-8">
+            	<div class="searchbox" style="padding-top:30px; width:100%;">
 			    	<%= search_form_for @q, url: admin_root_path do |f| %>
 			    	<%= f.text_field :cd_name_cont,placeholder: '検索する商品名を入力...' %>
                     <%= f.submit :class =>'search-btn' %>
