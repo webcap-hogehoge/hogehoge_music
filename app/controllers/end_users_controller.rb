@@ -22,12 +22,11 @@ before_action :authenticate_administrator!, only: [:index, :admin_show, :admin_e
   end
 
   def destroy
-    @user =  current_end_user
-    @user.is_deleted = 1
-    @user.save
-　　　redirect_to destroy_end_user_session_path, method: :delete
-    flash[:notice] = "会員情報を削除しました。"
-
+    #@user =  current_end_user
+    #@user.is_deleted = 1
+    #@user.save
+    #session[:delete_params] = 0
+    #flash[:notice] = "会員情報を削除しました。"
   end
 
   def review

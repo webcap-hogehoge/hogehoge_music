@@ -18,6 +18,11 @@ class ApplicationController < ActionController::Base
   def after_sign_out_path_for(resource)
     case resource
     when :end_user
+      if $delete_params == 0 
+        flash[:notice] = "会員情報を削除しました。"
+        #binding.pry
+        #remove_instance_variable($delete_params)
+      end
       root_path
     when :administrator
       new_administrator_session_path
