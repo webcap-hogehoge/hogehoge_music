@@ -20,7 +20,7 @@
   <div>
     <%= f.hidden_field :product_id, :value => params[:id] %>
     <%= f.label :arrival_number, '追加個数' %>
-    <%= f.number_field :arrival_number %>個
+    <%= f.number_field :arrival_number ,:value =>"" %>個
   </div>
 
     <%= f.submit '完了', class: 'btn btn-primary btn-lg' %>
