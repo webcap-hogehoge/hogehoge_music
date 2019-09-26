@@ -77,11 +77,11 @@
         <% end %>
       </table>
     </div>
-　</div>
+</div>
   <div class="tab-pane fade" id="accepting">
     <div class="container test">
       <table class="table table-borderless">
-        <% @order_histories.each  do |order,i| %>
+        <% @order_histories.each do |order,i| %>
           <% if order.order_status == "accepting" %>
             <% if i.to_i % 2 == 0 %>
               <tbody class="test">
@@ -98,7 +98,7 @@
                       <td>
                         <% order.order_details.each do |d|%>
                           <p>商品名 : <%= d.product.cd_name %><span>  単価: <%= number_to_currency(d.unit_price) %></span></p>
-                          <p>枚数:<%= d.product_number %>  枚</p>
+                          <p>枚数:<%= d.product_number %> 枚</p>
                         <% end %>
                       </td>
                 </tr>
@@ -133,7 +133,7 @@
   <div class="tab-pane fade" id="preparing">
     <div class="container test">
       <table class="table table-borderless">
-        <% @order_histories.each  do |order, i| %>
+        <% @order_histories.each do |order, i| %>
           <% if order.order_status == "preparing" %>
             <% if i.to_i % 2 == 0 %>
               <tbody class="test">
@@ -179,12 +179,12 @@
         <% end %>
       </table>
     </div>
-　</div>
+</div>
 
   <div class="tab-pane fade" id="finished">
     <div class="container test">
       <table class="table table-borderless">
-        <% @order_histories.each  do |order,i| %>
+        <% @order_histories.each do |order,i| %>
           <% if order.order_status == "finished" %>
             <% if i.to_i % 2 == 0 %>
               <tbody class="test">
@@ -231,7 +231,7 @@
         <% end %>
       </table>
     </div>
-　</div>
+</div>
 </div>
 
 <!-- フッター -->
