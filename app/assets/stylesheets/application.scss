@@ -100,3 +100,17 @@
     display: flex;
     flex-wrap: wrap;
 }
+
+/*ヘッダー*/
+.search-btn {
+  background:#5fad35;
+  width:60px;
+  height:35px;
+  line-height:36px;
+  border:none;
+  border-radius: 6px 6px 6px 6px;
+  color:#FFF;
+}
+.search-btn:hover {
+  background:#228B22;
+}
