@@ -45,7 +45,6 @@ before_action :authenticate_end_user!
       @cart_items.each do |cart_item|
         product = Product.find(cart_item.product.id)
         stock = product.stock(product.id) - cart_item.product_number
-        # byebug
         if stock < 0
           message << "#{product.cd_name}の在庫が#{product.stock(product.id)}個しかありません。"
         end
@@ -67,34 +66,34 @@ before_action :authenticate_end_user!
         @order_history.subtotal = subtotal
         @order_history.total_price = @order_history.subtotal + @order_history.tax + @order_history.delivery_fee
 
-      # 登録済みでない住所に送付の場合はaddressに登録する
-      @address_info = params[:order_history][:selected_order_histories_address_id]
+        # 登録済みでない住所に送付の場合はaddressに登録する
+        @address_info = params[:order_history][:selected_order_histories_address_id]
 
-      #binding.pry
-      if @address_info == 'address新規登録'
-        @address = Address.new
-        @address.end_user_id = current_end_user.id
-        @address.last_name = @order_history.last_name_kanji
-        @address.first_name = @order_history.first_name_kanji
-        @address.postal_code_1 = @order_history.postal_code_1
-        @address.postal_code_2 = @order_history.postal_code_2
-        @address.address = @order_history.address
-        @address.telephone_number = @order_history.telephone_number
-        @address.is_main = 0
-        @address.save
-      end
+        #binding.pry
+        if @address_info == 'address新規登録'
+          @address = Address.new
+          @address.end_user_id = current_end_user.id
+          @address.last_name = @order_history.last_name_kanji
+          @address.first_name = @order_history.first_name_kanji
+          @address.postal_code_1 = @order_history.postal_code_1
+          @address.postal_code_2 = @order_history.postal_code_2
+          @address.address = @order_history.address
+          @address.telephone_number = @order_history.telephone_number
+          @address.is_main = 0
+          @address.save
+        end
 
-      @order_history.save
-      @cart_items.each do |cart_item|
-        @order_detail = OrderDetail.new
-        @order_detail.order_history_id = @order_history.id
-        @order_detail.product_id = cart_item.product_id
-        @order_detail.product_number = cart_item.product_number
-        @order_detail.unit_price = cart_item.product.price
-        @order_detail.save
-        cart_item.destroy
-      end
-      redirect_to order_histories_thanks_path
+        @order_history.save
+        @cart_items.each do |cart_item|
+          @order_detail = OrderDetail.new
+          @order_detail.order_history_id = @order_history.id
+          @order_detail.product_id = cart_item.product_id
+          @order_detail.product_number = cart_item.product_number
+          @order_detail.unit_price = cart_item.product.price
+          @order_detail.save
+          cart_item.destroy
+        end
+        redirect_to order_histories_thanks_path
       end
     end
   end
@@ -165,10 +164,24 @@ before_action :authenticate_end_user!
     @order_history = OrderHistory.find(params[:id])
   end
 
+  def edit
+    @order_history = OrderHistory.find(params[:id])
+  end
+
+  def update
+    order_history = OrderHistory.find(params[:id])
+    order_history.update!(order_history_status_params)
+    redirect_to admin_order_histories_path
+  end
+
   private
 
   def order_histories_params
     params.require(:order_history).permit(:last_name_kanji, :first_name_kanji, :postal_code_1, :postal_code_2, :address, :telephone_number, :pay_method)
+  end
+
+  def order_history_status_params
+    params.require(:order_history).permit(:order_status)
   end
 
 

@@ -45,13 +45,18 @@ before_action :authenticate_administrator!, only: [:index, :admin_show, :admin_e
 
   # 管理者側
   def index
-    @users = EndUser.page(params[:page]).per(10)
+    @users = EndUser.active.page(params[:page]).per(30).order(created_at: :desc)
   end
 
   def admin_show
-    @user = EndUser.find(params[:id])
-    @addresses_is_main = @user.addresses.find_by(is_main: 1)
-    @order_histories = @user.order_histories.all.order(created_at: :desc)
+    if EndUser.find(params[:id]).is_deleted == 1
+      flash[:notice] = "このユーザはすでに退会しています。"
+      redirect_to end_users_path
+    else
+      @user = EndUser.active.find(params[:id])
+      @addresses_is_main = @user.addresses.find_by(is_main: 1)
+      @order_histories = @user.order_histories.all.order(created_at: :desc)
+    end
   end
 
   def admin_end_user_destroy

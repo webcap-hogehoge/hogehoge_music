@@ -1,0 +1,17 @@
+<%= render "shared/header_admin_after_login" %>
+
+<div class="container" style="margin: 80px 80px 0;">
+  <div class="row">
+    <div style="width: 400px; margin: 0 auto;">
+      <%= form_for(@order_history) do |f| %>
+        <div class="field" style="margin-bottom: 50px; ">
+            <label style="margin-bottom: 20px;">ステータスを選択してください</label><br>
+            <%= f.select :order_status, [["受付中", "accepting"], ["出荷準備中", "preparing"], ["出荷済み", "finished"]], :prompt => "選択してください" %>
+        </div>
+        <%= f.submit '更新', class: 'btn btn-primary btn-block' %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<%= render "shared/footer_admin" %>

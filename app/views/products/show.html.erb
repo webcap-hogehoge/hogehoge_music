@@ -19,9 +19,9 @@
 					<%= image_tag "soldout.png", size: "200x200" %>
 				<% elsif @product.stock(@product.id) == 0%>
 		            <%= image_tag "soldout.png", size: "200x200" %>
-		        <% else %>
+		    <% else %>
 		        	<%= image_tag @product.image_id.url, size: "150x150" %>
-		        <% end %>
+		    <% end %>
 			</div>
 
 			<div class="col-xs-7">
