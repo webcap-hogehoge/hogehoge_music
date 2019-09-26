@@ -1,161 +1,168 @@
 <!-- ヘッダー  -->
 <%= render "shared/header_user_after_login" %>
-
-<div class="col-xs-1">
-</div>
-
-<div class="col-xs-8">
-  <h1 class="title">ご注文内容の確認</h1>
-
-  <% @cart_items.each do |cart_item| %>
-  <div class="row cart-contents">
-    <div class="col-xs-5">
-      <%= image_tag cart_item.product.image_id.to_s, size: "200x200"  %>
-    </div>
-    <div class="col-xs-7">
-      <p class="cart-item-headline"><%= cart_item.product.cd_name %></p>
-      <div class="cart-item-number-box">
-        <p class="cart-item-number">数量　<%= cart_item.product_number %></p>
+<div class="container">
+  <div class="col-xs-12">
+    <div class="row">
+      <div class="col-xs-1">
       </div>
-      <div class="cart-item-price-box">
-        <p class="cart-item-headline">価格　<%= number_to_currency(cart_item.product.price * cart_item.product_number * 1.08) %>(税込)</p>
+
+      <div class="col-xs-9">
+        <!-- form_for(Modelに依存)とform_tag（modelに依存しない）の合体バージョン -->
+        <!-- rails5から新導入 -->
+        <!-- form_withはデフォでAjax送信（つまりremote: true）なので、ページ遷移しない -->
+        <!-- なので、それを普通のHTTP送信にするためにlocal: true -->
+        <%= form_with model: @order_history, url: order_histories_confirm_path, local: true do |form| %>
+          <% if @order_history.errors.any? %>
+          <div id="error_explanation" class="alert alert-danger">
+            <ul>
+              <% @order_history.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+          <% end %>
+        <div class="row">
+          <h1 class="title">配送先と支払い方法の選択</h1>
+          <h1 class="new_title">配送先</h1>
+          <!-- 既存の住所を使うゾーン -->
+          <!--  上か下のラジオボタンどちらを押したかによって、条件分岐 -->
+          <!--  どっちのボタンを押したかを、何らかの箱に入れなくちゃいけない -->
+          <!--  そこで、order_histories_addressという、（カラムにはない）暫定のカラムみたいなもの（プロパティという）を作り出して、そこの結果によってコントローラで条件分岐させてる -->
+          <!-- viewでは特に実は何もしてなくて、ただ:order_histories_addressにどのアドレスかの情報or 新規作成を表すnewという文字列を入れてるだけ -->
+          <!-- 一つ目の住所はデフォルトでラジオボタン を選択したいので別で表示する -->
+          <div class="col-xs-5 address_detail">
+            <label>
+              <%= form.radio_button :selected_order_histories_address_id, @end_user.addresses.first.id , checked: true  %>
+            </label>
+            <p><%= @end_user.addresses.first.address %></p>
+            <p><%= @end_user.addresses.first.last_name %> <%= @end_user.addresses.first.first_name %></p>
+            <p><%= @end_user.addresses.first.telephone_number %></p>
+            <p><%= @end_user.addresses.first.postal_code_1 %>-<%= @end_user.addresses.first.postal_code_2 %></p>
+          </div>
+
+          <% n = @end_user.addresses.count %>
+
+          <% @end_user.addresses[1..n].each do |address| %>
+            <div class="col-xs-5 address_detail">
+            <!-- 2つめ以降の住所のゾーン -->
+              <label><%= form.radio_button :selected_order_histories_address_id, address.id   %></label>
+              <p><%= address.address %></p>
+              <p><%= address.last_name %> <%= address.first_name %></p>
+              <p><%= address.telephone_number %></p>
+              <p><%= address.postal_code_1 %>-<%= address.postal_code_2 %></p>
+            </div>
+          <% end %>
+        </div>
+        <!-- ここまで -->
+
+        <!--  新たな住所を登録するゾーン -->
+        <div class="row">
+          <% if params.presence %>
+            <%= puts "未入力の項目があります" %>
+          <% end %>
+          <label><%= form.radio_button :selected_order_histories_address_id, 'address新規登録' %></label>
+          　<p class="address_input">別のお届け先を入力</p>
+          <div class="col-lg-7 new-address">
+            <p style="display: inline-block; margin-right: 25px">名前</p>
+            <div style="display: inline-block; margin-right: 25px">
+              <%= form.label :last_name_kanji, "(姓)" %><br/>
+              <%= form.text_field :last_name_kanji, class:"form-control", :size => "20*20"  %>
+            </div>
+            <div style="display: inline-block">
+              <%= form.label :first_name_kanji, "(名)" %><br/>
+              <%= form.text_field :first_name_kanji, class:"form-control" %>
+            </div>
+            <div>
+              <p style="display: inline-block; margin-right: 25px">電話番号</p>
+              <div style="display: inline-block; margin-right: 25px">
+                <%= form.text_field :telephone_number, class:"form-control", :size => "40*40" %>
+              </div>
+            </div>
+            <div>
+              <p style="display: inline-block; margin-right: 25px">郵便番号</p>
+              <div style="display: inline-block">
+                <%= form.text_field :postal_code_1, class:"form-control", :size => "10*10" %>
+              </div>
+              -
+              <div style="display: inline-block">
+                <%= form.text_field :postal_code_2, class:"form-control", :size => "10*10" %>
+              </div>
+            </div>
+            <div>
+              <p style="display: inline-block; margin-right: 25px">住所</p>
+              <div style="display: inline-block">
+                <%= form.text_field :address, class:"form-control", :size=>"70x70" %>
+              </div>
+              <!-- ここまで -->
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <h1 class="new_title">お支払い方法を選択</h1>
+          <div class="pay_method">
+            <p>
+              <label>
+                <%= form.radio_button :pay_method, :bank, checked: true  %>銀行振込
+              </label>
+            </p>
+            <p>
+              <label>
+                <%= form.radio_button :pay_method, :card %>クレジットカード
+              </label>
+            </p>
+            <p>
+              <label>
+                <%= form.radio_button :pay_method, :cash %>代金引換
+              </label>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row footer-adjusting">
+      <div class="col-xs-1">
+      </div>
+      <div class="col-xs-8">
+        <h1 class="title">ご注文内容の確認</h1>
+        <% @cart_items.each do |cart_item| %>
+          <div class="row cart-contents">
+            <div class="col-xs-5">
+              <%= image_tag cart_item.product.image_id.to_s, size: "200x200"  %>
+            </div>
+            <div class="col-xs-7">
+              <p class="cart-item-headline"><%= cart_item.product.cd_name %></p>
+              <div class="cart-item-number-box">
+                <p class="cart-item-number">数量　<%= cart_item.product_number %></p>
+              </div>
+              <div class="cart-item-price-box">
+                <p class="cart-item-headline">価格　<%= number_to_currency(cart_item.product.price * cart_item.product_number * 1.08) %>(税込)</p>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="col-xs-2  accounting-display">
+        <p>商品の小計</p>
+        <% @subtotal = 0 %>
+        <% @cart_items.each do |cart_item| %>
+          <%  @subtotal += (cart_item.product.price * cart_item.product_number) %>
+        <% end %>
+        <p>小計　<%= number_to_currency(@subtotal) %></p>
+        <p>税   <%= number_to_currency(@subtotal * 0.08) %></p>
+        <p>配送料   <%= "500円" %></p>
+        <p>合計 <%= number_to_currency(@subtotal * 1.08 + 500)  %></p>
+
+        <%= form.submit "注文最終画面へ", class: "btn btn-info"  %>
+        <% end %>
       </div>
     </div>
   </div>
-  <% end %>
-
-
-  <!-- form_for(Modelに依存)とform_tag（modelに依存しない）の合体バージョン -->
-  <!-- rails5から新導入 -->
-  <!-- form_withはデフォでAjax送信（つまりremote: true）なので、ページ遷移しない -->
-  <!-- なので、それを普通のHTTP送信にするためにlocal: true -->
-  <%= form_with model: @order_history, url: order_histories_confirm_path, local: true do |form| %>
-
-  <% if @order_history.errors.any? %>
-  <div id="error_explanation" class="alert alert-danger">
-    <ul>
-      <% @order_history.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-  <% end %>
-
-  <div class="row">
-    <h1 class="new_title">配送先</h1>
-    <!-- 既存の住所を使うゾーン -->
-    <!--  上か下のラジオボタンどちらを押したかによって、条件分岐 -->
-    <!--  どっちのボタンを押したかを、何らかの箱に入れなくちゃいけない -->
-    <!--  そこで、order_histories_addressという、（カラムにはない）暫定のカラムみたいなもの（プロパティという）を作り出して、そこの結果によってコントローラで条件分岐させてる -->
-    <!-- viewでは特に実は何もしてなくて、ただ:order_histories_addressにどのアドレスかの情報or 新規作成を表すnewという文字列を入れてるだけ -->
-    <!-- 一つ目の住所はデフォルトでラジオボタン を選択したいので別で表示する -->
-    <div class="col-xs-4 address_detail">
-     <label><%= form.radio_button :selected_order_histories_address_id, @end_user.addresses.first.id , checked: true  %></label>
-     <p><%= @end_user.addresses.first.address %></p>
-     <p><%= @end_user.addresses.first.last_name %> <%= @end_user.addresses.first.first_name %></p>
-     <p><%= @end_user.addresses.first.telephone_number %></p>
-     <p><%= @end_user.addresses.first.postal_code_1 %>-<%= @end_user.addresses.first.postal_code_2 %></p>
-   </div>
-
-   <% n = @end_user.addresses.count %>
-
-   <% @end_user.addresses[1..n].each do |address| %>
-   <div class="col-xs-4 address_detail">
-    <!-- 2つめ以降の住所のゾーン -->
-    <label><%= form.radio_button :selected_order_histories_address_id, address.id   %></label>
-    <p><%= address.address %></p>
-    <p><%= address.last_name %> <%= address.first_name %></p>
-    <p><%= address.telephone_number %></p>
-    <p><%= address.postal_code_1 %>-<%= address.postal_code_2 %></p>
-  </div>
-  <% end %>
-</div>
-<!-- ここまで -->
-
-
-<!--  新たな住所を登録するゾーン -->
-<div class="row">
-  <% if params.presence %>
-    <%= puts "未入力の項目があります" %>
-  <% end %>
-  <label><%= form.radio_button :selected_order_histories_address_id, 'address新規登録' %></label>
-  　<p class="address_input">別のお届け先を入力</p>
-  <div class="col-lg-7 new-address">
-    <p style="display: inline-block; margin-right: 25px">名前</p>
-    <div style="display: inline-block; margin-right: 25px">
-      <%= form.label :last_name_kanji, "(姓)" %><br/>
-      <%= form.text_field :last_name_kanji, class:"form-control", :size => "20*20"  %>
-    </div>
-    <div style="display: inline-block">
-      <%= form.label :first_name_kanji, "(名)" %><br/>
-      <%= form.text_field :first_name_kanji, class:"form-control" %>
-    </div>
-    <div>
-      <p style="display: inline-block; margin-right: 25px">電話番号</p>
-      <div style="display: inline-block; margin-right: 25px">
-        <%= form.text_field :telephone_number, class:"form-control", :size => "40*40" %>
-      </div>
-    </div>
-    <div>
-      <p style="display: inline-block; margin-right: 25px">郵便番号</p>
-      <div style="display: inline-block">
-        <%= form.text_field :postal_code_1, class:"form-control", :size => "10*10" %>
-      </div>
-      -
-      <div style="display: inline-block">
-        <%= form.text_field :postal_code_2, class:"form-control", :size => "10*10" %>
-      </div>
-    </div>
-    <div>
-      <p style="display: inline-block; margin-right: 25px">住所</p>
-      <div style="display: inline-block">
-        <%= form.text_field :address, class:"form-control", :size=>"70x70" %>
-      </div>
-      <!-- ここまで -->
-    </div>
-  </div>
-</div>
-
-<div class="row">
-  <h1 class="new_title">お支払い方法を選択</h1>
-  <div class="pay_method">
-    <p>
-      <label>
-        <%= form.radio_button :pay_method, :bank, checked: true  %>銀行振込
-      </label>
-    </p>
-    <p>
-      <label>
-        <%= form.radio_button :pay_method, :card %>クレジットカード
-      </label>
-    </p>
-    <p>
-      <label>
-        <%= form.radio_button :pay_method, :cash %>代金引換
-      </label>
-    </p>
-  </div>
-</div>
-</div>
-
-<div class="col-xs-2  accounting-display">
-  <p>商品の小計</p>
-  <% @subtotal = 0 %>
-  <% @cart_items.each do |cart_item| %>
-  <%  @subtotal += (cart_item.product.price * cart_item.product_number) %>
-  <% end %>
-  <p>小計　<%= number_to_currency(@subtotal) %></p>
-  <p>税   <%= number_to_currency(@subtotal * 0.08) %></p>
-  <p>配送料   <%= "500円" %> </p>
-  <p>合計 <%= number_to_currency(@subtotal * 1.08 + 500)  %></p>
-
-  <%= form.submit "注文最終画面へ", class: "btn btn-info"  %>
-  <% end %>
-</div>
-
-<div class="col-xs-1">
 </div>
 
 
-<!-- フッター -->
-<%= render "shared/footer_user_after_login" %>
+
+      <!-- フッター -->
+      <%= render "shared/footer_user_after_login" %>
