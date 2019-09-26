@@ -24,12 +24,12 @@ before_action :authenticate_administrator!, only: [:admin_index, :admin_show, :c
   end
 
   def show
-    if params[:q] != nil
-      @products = @q.result(distinct: true)
-    else
-      @products = Product.active.page(params[:page]).per(35)
-    end
     @q = Product.ransack(params[:q])
+      if params[:q] != nil
+        @products = @q.result(distinct: true)
+      else
+        @products = Product.active.page(params[:page]).per(35)
+      end
   	@products = Product.active.all
   	@product = Product.find(params[:id])
     @cart_item = CartItem.new

@@ -27,32 +27,32 @@
         <% end %>
 			</div>
 
-			<div class="col-xs-7">
-				<div>
-					<%= @product.cd_name %>
-				</div><br>
-				<div>
-					<%= @product.label_name %>
-				</div><br>
-				<div>
-					￥<% sum = @product.price * 1.08 %>
-					<%= number_to_currency(sum.floor) %>（税込）
-				</div><br>
-				<% if end_user_signed_in? %>
+				<div class="col-xs-7">
 					<div>
+						<%= @product.cd_name %>
+					</div><br>
+					<div>
+						<%= @product.label_name %>
+					</div><br>
+					<div>
+						￥<% sum = @product.price * 1.08 %>
+						<%= number_to_currency(sum.floor) %>（税込）
+					</div><br>
+					<% if end_user_signed_in? %>
 						<div>
-							<%= form_for @cart_item, url: cart_items_path do |f| %>
-								<%= f.number_field :product_number, min: 1, value: 1 %>
-								<%= f.hidden_field :product_id %> 個
-						</div><br>
-							<%= f.submit 'カートへ入れる', class:"btn btn-warning" %>
-							<% end %>
-					</div>
-				<% end %>
+							<div>
+								<%= form_for @cart_item, url: cart_items_path do |f| %>
+									<%= f.number_field :product_number, min: 1, value: 1 %>
+									<%= f.hidden_field :product_id %> 個
+							</div><br>
+								<%= f.submit 'カートへ入れる', class:"btn btn-warning" %>
+								<% end %>
+						</div>
+					<% end %>
+				</div>
 			</div>
-		</div>
 
-		<% count = 0 %>
+			<% count = 0 %>
 
 			<div class="row">
 				<div class="col-xs-12" style="padding-top: 100px">
@@ -73,12 +73,15 @@
 					<% end %>
 				</div>
 			</div>
-
-
-<!-- フッター -->
-<% if end_user_signed_in? %>
-<%= render "shared/footer_user_after_login" %>
-<% else %>
-<%= render "shared/footer_user_before_login" %>
-<% end %>
-<!-- フッダー -->
+		</div>
+		<!-- フッター -->
+		<footer>
+			<% if end_user_signed_in? %>
+			<%= render "shared/footer_user_after_login" %>
+			<% else %>
+			<%= render "shared/footer_user_before_login" %>
+			<% end %>
+			<!-- フッダー -->
+		</footer>
+	</div>
+</body>
