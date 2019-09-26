@@ -12,7 +12,12 @@
 			<div style="padding-left: 10px;">
 				<div>ID<%= product.id %></div>
 				<% if product.stock(product.id) == 0 %>
-				<%= image_tag "soldout.png", size: "160x160" %>
+				<div class="sold-out" style="position: relative;">
+					<%= image_tag product.image_id.url, size: "160x160" %>
+					<div>
+						<%= image_tag "soldout.png", size: "160x160", :style => "opacity: 0.9; position: absolute; top: 0; left: 0;" %>
+					</div>
+				</div>
 				<% else %>
 				<%= image_tag product.image_id.url, size: "160x160" %>
 				<% end %>

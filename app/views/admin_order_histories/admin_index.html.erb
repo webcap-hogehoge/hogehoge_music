@@ -29,59 +29,62 @@
 <div class="tab-content">
 	<div class="tab-pane fade in active" id="all">
 	  <div class="container">
-           <table class="table table-borderless">
-            <% @order_histories.each_with_index do |order, i| %>
-              <% if i.to_i % 2 == 0 %>
-                  <tbody class="test">
-                    <tr>
-                       <th scope="row">購入者名</th>
-                       <td><%= order.end_user.last_name_kanji %><%= order.end_user.first_name_kanji %></td>
-                    </tr>
-                    <tr>
-                       <th scope="row">購入日時</th>
-                       <td><%= l order.created_at %></td>
-                    </tr>
-                    <tr>
-                       <th scope="row">購入内容</th>
-                          <td>
-                            <% order.order_details.each do |d|%>
-                              <p>商品名 : <%= d.product.cd_name %><span>  単価:  <%= number_to_currency(d.unit_price) %></span></p>
-                              <p>枚数:<%= d.product_number %>  枚</p>
-                            <% end %>
-                          </td>
-                    </tr>
-                    <tr>
-                       <th scope="row">購入金額</th>
-                       <td>
-                        <p>合計 <%= number_to_currency(order.subtotal) %></p>
-                        <p>消費税 <%= number_to_currency(order.tax) %></p>
-                        <p>配送料 <%= number_to_currency(order.delivery_fee) %></p>
-                        <p>購入総計 <%= number_to_currency(order.total_price) %></p>
-                      </td>
-                    </tr>
-                    <tr>
-                       <th scope="row">送付先</th>
-                       <td>
-                         <p><%= order.last_name_kanji %><%= order.first_name_kanji %>  〒<%= order.postal_code_1%>-<%= order.postal_code_2%><%= order.address %></p>
-                        </td>
-                    </tr>
-                    <tr>
-                       <th rowspan="2">ステータス</th>
-                       <td rowspan="2"><%= order.order_status_i18n %></td>
-                    </tr>
-                  </tbody>
-              <% end %>
+      <table class="table table-borderless">
+        <% @order_histories.each_with_index do |order, i| %>
+          <% if i.to_i % 2 == 0 %>
+            <tbody class="test">
+              <tr>
+                 <th scope="row">購入者名</th>
+                 <td><%= order.end_user.last_name_kanji %><%= order.end_user.first_name_kanji %></td>
+              </tr>
+              <tr>
+                 <th scope="row">購入日時</th>
+                 <td><%= l order.created_at %></td>
+              </tr>
+              <tr>
+                 <th scope="row">購入内容</th>
+                <td>
+                  <% order.order_details.each do |d|%>
+                    <p>商品名 : <%= d.product.cd_name %><span>  単価: <%= number_to_currency(d.unit_price) %></span></p>
+                    <p>枚数:<%= d.product_number %>  枚</p>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">購入金額</th>
+                <td>
+                  <p>合計 <%= number_to_currency(order.subtotal) %></p>
+                  <p>消費税 <%= number_to_currency(order.tax) %></p>
+                  <p>配送料 <%= number_to_currency(order.delivery_fee) %></p>
+                  <p>購入総計 <%= number_to_currency(order.total_price) %></p>
+                </td>
+              </tr>
+              <tr>
+                 <th scope="row">送付先</th>
+                 <td>
+                   <p><%= order.last_name_kanji %><%= order.first_name_kanji %>  〒<%= order.postal_code_1%>-<%= order.postal_code_2%><%= order.address %></p>
+                  </td>
+              </tr>
+              <tr>
+                <th rowspan="2">ステータス</th>
+                <td rowspan="2">
+                  <%= order.order_status_i18n %>
+                  <%= link_to "ステーテスを変更", edit_order_history_path(order.id), :class => "btn btn-primary", :style=> "margin-left: 15px;" %>
+                </td>
+              </tr>
+            </tbody>
           <% end %>
-        </table>
-      </div>
-　  </div>
-<% @order_histories.each  do |order,i| %>
-<% if order.order_status == "accepting" %>
+        <% end %>
+      </table>
+    </div>
+　</div>
   <div class="tab-pane fade" id="accepting">
     <div class="container test">
-          <table class="table table-borderless">
+      <table class="table table-borderless">
+        <% @order_histories.each  do |order,i| %>
+          <% if order.order_status == "accepting" %>
             <% if i.to_i % 2 == 0 %>
-            <tbody>
+              <tbody class="test">
                 <tr>
                    <th scope="row">購入者名</th>
                    <td><%= order.end_user.last_name_kanji %><%= order.end_user.first_name_kanji %></td>
@@ -114,23 +117,26 @@
                 </tr>
                 <tr>
                    <th rowspan="2">ステータス</th>
-                   <td rowspan="2"><%= order.order_status_i18n%></td>
+                   <td rowspan="2">
+                    <%= order.order_status_i18n %>
+                    <%= link_to "ステーテスを変更", edit_order_history_path(order.id), :class => "btn btn-primary", :style=> "margin-left: 15px;" %>
+                   </td>
                 </tr>
-            </tbody>
+              </tbody>
             <% end %>
-          </table>
+          <% end %>
+        <% end %>
+      </table>
     </div>
-　</div>
-<% end %>
-<% end %>
+  </div>
 
-<% @order_histories.each  do |order, i| %>
-<% if order.order_status == "preparing" %>
   <div class="tab-pane fade" id="preparing">
-      <div class="container test">
-           <table class="table table-borderless">
+    <div class="container test">
+      <table class="table table-borderless">
+        <% @order_histories.each  do |order, i| %>
+          <% if order.order_status == "preparing" %>
             <% if i.to_i % 2 == 0 %>
-              <tbody>
+              <tbody class="test">
                 <tr>
                    <th scope="row">購入者名</th>
                    <td><%= order.end_user.last_name_kanji %><%= order.end_user.first_name_kanji %></td>
@@ -162,23 +168,26 @@
                 </tr>
                 <tr>
                    <th rowspan="2">ステータス</th>
-                   <td rowspan="2"><%= order.order_status_i18n%></td>
+                   <td rowspan="2">
+                    <%= order.order_status_i18n %>
+                    <%= link_to "ステーテスを変更", edit_order_history_path(order.id), :class => "btn btn-primary", :style=> "margin-left: 15px;" %>
+                   </td>
                 </tr>
               </tbody>
-              <% end %>
-           </table>
+            <% end %>
+          <% end %>
+        <% end %>
+      </table>
     </div>
 　</div>
-<% end %>
-<% end %>
 
-<% @order_histories.each  do |order,i| %>
-<% if order.order_status == "finished" %>
   <div class="tab-pane fade" id="finished">
     <div class="container test">
-           <table class="table table-borderless">
+      <table class="table table-borderless">
+        <% @order_histories.each  do |order,i| %>
+          <% if order.order_status == "finished" %>
             <% if i.to_i % 2 == 0 %>
-              <tbody>
+              <tbody class="test">
                 <tr>
                    <th scope="row">購入者名</th>
                    <td><%= order.end_user.last_name_kanji %><%= order.end_user.first_name_kanji %></td>
@@ -211,16 +220,19 @@
                 </tr>
                 <tr>
                    <th rowspan="2">ステータス</th>
-                   <td rowspan="2"><%= order.order_status_i18n %></td>
+                   <td rowspan="2">
+                     <%= order.order_status_i18n %>
+                      <%= link_to "ステーテスを変更", edit_order_history_path(order.id), :class => "btn btn-primary", :style=> "margin-left: 15px;" %>
+                   </td>
                 </tr>
                </tbody>
-               <% end %>
-           </table>
+            <% end %>
+          <% end %>
+        <% end %>
+      </table>
     </div>
 　</div>
 </div>
-<% end %>
- <% end %>
 
 <!-- フッター -->
 <%= render 'shared/footer_admin' %>
