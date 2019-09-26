@@ -7,8 +7,8 @@ validates :cd_name, presence: true
 validates :is_deleted, presence: true
 validates :artist_name, presence: true
 validates :label_name, presence: true
-validates :genre_id, presence: true
-validates :disks, associated: true
+#validates :genre_id, presence: true
+#validates :disks, associated: true
 
 
 # artist_id,label_id のバリデーションはseedデータに追加できたら記載する
