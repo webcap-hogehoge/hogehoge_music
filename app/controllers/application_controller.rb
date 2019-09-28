@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   #before_action :current_end_user2
-  before_action :authenticate_enduser2!
+  # before_action :authenticate_enduser2!
 
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_search
@@ -40,12 +40,12 @@ class ApplicationController < ActionController::Base
   #     binding.pry
   # end
 
-  def authenticate_enduser2!
-    return unless end_user_signed_in? && @current_end_user.is_deleted == 1
-    sign_out
-    flash[:alert] = "この会員はすでに退会しています。"
-    redirect_to new_end_user_session_path
-  end
+  # def authenticate_enduser2!
+  #   return unless end_user_signed_in? && @current_end_user.is_deleted == 1
+  #   sign_out
+  #   flash[:alert] = "この会員はすでに退会しています。"
+  #   redirect_to new_end_user_session_path
+  # end
 
   protected
 

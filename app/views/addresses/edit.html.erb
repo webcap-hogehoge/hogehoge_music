@@ -1,44 +1,45 @@
 <%= render "shared/header_user_after_login" %>
 
 <div style="margin: 50px 100px">
-    <h2>送付先情報編集</h2>
-        <div style="padding-left: 50px">
-            <%= form_for @address, url: address_path(@address) do |f| %>
+  <h2>送付先情報編集</h2>
+  <div style="padding-left: 50px">
+    <%= form_for @address, url: address_path(@address) do |f| %>
 
-                <div class="field kanji_name">
-                <p style="display: inline-block; margin-right: 50px">名前</p>
-                <div style="display: inline-block">
-                  <%= f.label :last_name, "(姓)" %><br />
-                  <%= f.text_field :last_name, autofocus:true %>
-                </div>
-                <div style="display: inline-block">
-                  <%= f.label :first_name, "(名)" %><br />
-                  <%= f.text_field :first_name %>
-                </div>
-                </div>
+    <div class="field kanji_name">
+      <p style="display: inline-block; margin-right: 50px">名前</p>
+      <div style="display: inline-block">
+          <%= f.label :last_name, "(姓)" %><br />
+          <%= f.text_field :last_name, autofocus:true %>
+      </div>
+      <div style="display: inline-block">
+          <%= f.label :first_name, "(名)" %><br />
+          <%= f.text_field :first_name %>
+      </div>
+    </div>
 
-                <div class="field telephone_number">
-                <p style="display: inline-block; margin-right: 22.5px">電話番号</p>
-                <%= f.text_field :telephone_number %>
-                </div>
+    <div class="field telephone_number">
+      <p style="display: inline-block; margin-right: 22.5px">電話番号</p>
+      <%= f.text_field :telephone_number %>
+    </div>
 
-                <div class="field postal_code_1">
-                <p style="display: inline-block; margin-right: 22.5px">郵便番号</p>
-                <%= f.text_field :postal_code_1 %>
-                <div style="display: inline-block;">
-                <%= f.text_field :postal_code_2 %>
-                </div>
+    <div class="field postal_code_1">
+      <p style="display: inline-block; margin-right: 22.5px">郵便番号</p>
+      <%= f.text_field :postal_code_1 %>
+      <div style="display: inline-block;">
+        <%= f.text_field :postal_code_2 %>
+      </div>
 
-                <div class="field address">
-                <p style="display: inline-block; margin-right: 50px">住所</p>
-                <%= f.text_field :address %>
-                </div><br>
+      <div class="field address">
+        <p style="display: inline-block; margin-right: 50px">住所</p>
+        <%= f.text_field :address %>
+      </div><br>
 
-                <div class="actions">
-                <%= f.submit '完了', method: :post, class: 'btn btn-primary col-xs-3' %>
-                </div>
-            <% end %>
-        </div>
+      <div class="actions">
+        <%= f.submit '完了', method: :post, class: 'btn btn-primary col-xs-3' %>
+      </div>
+    </div>
+    <% end %>
+  </div>
 </div>
 
 <%= render "shared/footer_user_after_login" %>

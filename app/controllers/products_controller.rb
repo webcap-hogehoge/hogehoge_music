@@ -19,7 +19,7 @@ before_action :authenticate_administrator!, only: [:admin_index, :admin_show, :c
     if params[:q] != nil
       @products = @q.result(distinct: true)
     else
-      @products = Product.active.where(product_status: "on_sale").page(params[:page]).per(50).order(created_at: "DESC")
+      @products = Product.active.all.page(params[:page]).per(50).order(created_at: "DESC")
     end
   end
 
