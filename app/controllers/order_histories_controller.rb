@@ -1,5 +1,6 @@
 class OrderHistoriesController < ApplicationController
-before_action :authenticate_end_user!
+before_action :authenticate_end_user!, only: [:new, :back, :create, :confirm, :correct_user, :thanks, :index, :show]
+before_action :authenticate_administrator!, only: [:edit, :update]
 before_action :correct_user, only: [:new, :confirm, :thanks]
 
 #  クラス変数を定義、order_historyクラス内で使用できる。アクションをまたいで使用したい時に使う。まずは0を代入（０は購入されていない）
