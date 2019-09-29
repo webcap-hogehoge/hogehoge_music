@@ -16,7 +16,6 @@ has_many :arrival_histories, dependent: :destroy
 has_many :cart_items, dependent: :destroy
 has_many :disks, dependent: :destroy
 has_many :likes, dependent: :destroy
-has_many :products, dependent: :destroy
 has_many :reviews, dependent: :destroy
 has_many :order_details, dependent: :destroy
 

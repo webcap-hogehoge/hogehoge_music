@@ -23,6 +23,7 @@ class EndUsers::SessionsController < Devise::SessionsController
     # end
     user = EndUser.find_by(email: params[:end_user][:email])
     if user.is_deleted == 1
+      flash[:alert] = "このユーザはすでに退会しています。"
       redirect_to new_end_user_session_path
     else
       super
