@@ -51,7 +51,7 @@
                <p>小計　<%= number_to_currency(@subtotal) %></p>
                <p><% sum = @subtotal * 0.08 %></p>
                <p>税   <%= number_to_currency(sum.floor) %></p>
-               <p><% sum = @subtotal * 1.08 + 500  %></p>
+               <p><% sum = @subtotal * 1.08 %></p>
                <p>合計　<%= number_to_currency(sum.floor) %></p>
                <%= link_to  '注文画面へ進む', new_order_history_path,  class: " btn btn-primary" %>
            </div>

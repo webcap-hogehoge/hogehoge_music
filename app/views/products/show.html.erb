@@ -35,7 +35,7 @@
 						<%= @product.label_name %>
 					</div><br>
 					<div>
-						￥<% sum = @product.price * 1.08 %>
+						<% sum = @product.price * 1.08 %>
 						<%= number_to_currency(sum.floor) %>（税込）
 					</div><br>
 					<% if end_user_signed_in? %>
