@@ -1,8 +1,8 @@
 <!-- ヘッダー  -->
-<%= render "shared/header_user_after_login" %>
+<%= render "shared/header_admin_after_login" %>
 
 <!-- 管理者側からのユーザー編集ページ -->
-<div>
+<div class="container">
   <%= form_with model: @user, local: true do |f| %>
 
     <div class="field signup_contents_name">
@@ -59,11 +59,11 @@
         <div>
           <p style="display: inline-block; margin-right: 25px">送付先氏名</p>
           <div style="display: inline-block">
-            <%= af.label :last_name %>
+            <%= af.label :last_name, "姓" %>
             <%= af.text_field :last_name %>
           </div>
           <div style="display: inline-block">
-            <%= af.label :first_name %>
+            <%= af.label :first_name, "名" %>
             <%= af.text_field :first_name %>
           </div>
         </div>
@@ -91,12 +91,12 @@
 
 
   <div class="actions">
-    <%= f.submit "更新" %>
+    <%= f.submit "更新", :class => "btn btn-primary", :style => "margin-bottom: 20px;" %>
   </div>
 <% end %>
 
-<%= link_to "Back", :back %>
+<%= link_to "戻る", :back %>
 </div>
 
 <!-- フッター -->
-<%= render "shared/footer_user_after_login" %>
+<%= render "shared/footer_admin" %>
